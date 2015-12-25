@@ -16,37 +16,37 @@
 </div>
 
 <script>
-    $(document).ready(function(){
-    	
+    $(document).ready(function () {
+
         //init skin
-   	    var userName = "$localUser.get().authName";
+        var userName = "$localUser.get().authName";
         var curSkin = $.cookie(userName + "skin");
         curSkin = curSkin ? curSkin : "";
         changeSkin($("[data-class='" + curSkin + "']"), curSkin);
-    	
-       $(".skincolor").click(function(){
-           $("#ace-settings-box").toggleClass("open");
-       });
-       $(".colorpick-btn").click(function(){
-           var _this = $(this);
-           var bodyclass = _this.data('class');
-           changeSkin(_this, bodyclass);
-           $.post("$ctx/extra/newSkinCount",
-        	   {selectedSkin : bodyclass},
-        	   function(result){
-        	   }
-           );
-           
-           $.cookie(userName + "skin", bodyclass);
-       });
-       
-       function changeSkin(_this, bodyclass){
-    	   $('body').attr("class",bodyclass);
-           $(".colorpick-btn").removeClass("selected");
-           _this.addClass("selected");
 
-           var frame = $("#pageTabContent iframe").contents().find("body").attr("class",bodyclass);
-       }
-       
+        $(".skincolor").click(function () {
+            $("#ace-settings-box").toggleClass("open");
+        });
+        $(".colorpick-btn").click(function () {
+            var _this = $(this);
+            var bodyclass = _this.data('class');
+            changeSkin(_this, bodyclass);
+            $.post("$ctx/extra/newSkinCount",
+                    {selectedSkin: bodyclass},
+                    function (result) {
+                    }
+            );
+
+            $.cookie(userName + "skin", bodyclass);
+        });
+
+        function changeSkin(_this, bodyclass) {
+            $('body').attr("class", bodyclass);
+            $(".colorpick-btn").removeClass("selected");
+            _this.addClass("selected");
+
+            var frame = $("#pageTabContent iframe").contents().find("body").attr("class", bodyclass);
+        }
+
     });
 </script>

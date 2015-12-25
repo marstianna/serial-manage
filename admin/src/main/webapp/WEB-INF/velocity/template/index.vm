@@ -1,0 +1,52 @@
+#parse( "./include/variable.vm" )
+##<div class="wrap-in wrap-in-toggle fullscreen">
+##	<ul id="pageTab" class="nav nav-tabs"></ul>
+##	<div id="pageTabContent"></div>
+##</div>
+<script>
+    var ctx = "$ctx";
+
+    $(document).ready(function() {
+        $.unionTab.addTab({
+            title : '促销规则首页',
+            url : '$ctx/rule/index'
+        });
+
+        resetWindow();
+
+        //update log start----
+        var updateContent = "";
+        #set($updateLogs = $zookeeperHelper.get('Promotion.update.logs'))
+        #set($total = $updateLogs.size() - 1)
+        //$total
+        #if($total > 0)
+            #foreach($count in [1..$total])
+                updateContent += "$updateLogs.get($count)%%";
+            #end
+        #end
+        $(".syslogbtn a").click(function(){
+            if(updateContent != ""){
+                logmodule.init(updateContent);
+            }else{
+                BootstrapDialog.alert("暂无升级日志!");
+            }
+        });
+        if(updateContent != ""){
+            var releaseNum = "$updateLogs[0]";
+            var userName = "$localUser.get().authName";
+            var cookie = $.cookie(userName + releaseNum);
+            if(!cookie){
+                logmodule.init(updateContent);
+                $.cookie(userName + releaseNum, userName + releaseNum, {expires:356});
+            }
+        }
+        //update log end----
+
+        //advice
+        $(".advicequestion a").click(function(){
+            var curSkin = $.cookie(userName + "skin");
+            advicemodule.init(curSkin);
+        });
+    });
+
+</script>

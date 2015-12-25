@@ -14,6 +14,9 @@
         http://www.springframework.org/schema/util
       	http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 
+
+    <mvc:default-servlet-handler />
+
        <aop:aspectj-autoproxy proxy-target-class="true" />
 
        <context:component-scan base-package="com.hotpot"  use-default-filters="false">
@@ -31,8 +34,25 @@
        <!-- resource mapping -->
        <mvc:resources mapping="/static/**" location="/WEB-INF/static/" />
 
-       <!-- mvc basic configuration -->
-       <mvc:annotation-driven validator="validator" >
+
+    <bean id="conversionService"
+          class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="registerDefaultFormatters" value="false" />
+        <property name="formatterRegistrars">
+            <set>
+                <bean class="org.springframework.format.datetime.DateFormatterRegistrar">
+                    <property name="formatter" ref="dateFormatter" />
+                </bean>
+            </set>
+        </property>
+    </bean>
+
+    <bean id="dateFormatter" class="org.springframework.format.datetime.DateFormatter">
+        <property name="pattern" value="yyyy-MM-dd" />
+    </bean>
+
+    <!-- mvc basic configuration -->
+       <mvc:annotation-driven conversion-service="conversionService" >
               <mvc:message-converters>
                      <bean id="fastJsonHttpMessageConverter"
                            class="com.hotpot.commons.JMFastJsonHttpMessageConverter">

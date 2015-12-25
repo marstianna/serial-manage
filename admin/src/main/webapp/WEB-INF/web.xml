@@ -13,7 +13,6 @@
     </listener>
 
 
-
     <filter>
         <filter-name>charsetFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
