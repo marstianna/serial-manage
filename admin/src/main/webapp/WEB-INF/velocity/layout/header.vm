@@ -1,0 +1,29 @@
+##header #parse( "./include/variable.vm" )
+<!--start head-->
+<div class="head">
+	<h1>
+        <div class="slideicon" id="slideicon"></div>
+		<a href=""> 聚美促销规则管理系统</a>
+	</h1>
+    <span><a href="$ctx/user/logout" title="退出"><i class="i-exit"></i></a></span>
+    <span class="syslogbtn"><a href="#" title="查看系统日志"><i class="i-log"></i></a></span>
+    <span class="advicequestion"><a href="#" title="意见收集"><i class="i-question"></i></a></span>
+    <span class="skincolor"><a href="#" title="选择皮肤"><i class="i-skin"></i></a></span>
+    <div><i class="i-user"></i><span class="userinfo">用户：$localUser.get().authName</span></div>
+</div>
+
+<script src="$jsPath/bubble.js" type="text/javascript"></script>
+<script>
+
+	$(function(){
+          $($('.head span a')).tipsy({gravity: 'n',});
+	});
+
+    Bubble.init({
+        parentdiv : ".head",
+        text : "皮肤配色切换功能, 试一试！",
+        direction : "bubble-top" ,
+        right: 115,
+        top: 52
+    });
+</script>
