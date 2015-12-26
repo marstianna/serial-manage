@@ -2,6 +2,8 @@ package com.hotpot.dao;
 
 
 import com.hotpot.domain.ValueCard;
+import com.hotpot.domain.VipInfo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -53,4 +55,10 @@ public interface ValueCardMapper {
      * @mbggenerated Fri Dec 25 15:10:08 CST 2015
      */
     int updateByPrimaryKey(ValueCard record);
+
+    ValueCard getValueCardInfoByVip(VipInfo vipInfo);
+
+    void topUp(@Param("cardId")String cardId,@Param("cardUuid")String cardUuid,@Param("money")Integer money);
+
+    void payment(@Param("cardId")String cardId,@Param("cardUuid")String cardUuid,@Param("money")Integer money);
 }

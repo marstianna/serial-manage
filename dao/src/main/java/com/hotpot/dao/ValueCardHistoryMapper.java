@@ -1,8 +1,12 @@
 package com.hotpot.dao;
 
 
+import com.hotpot.domain.ValueCard;
 import com.hotpot.domain.ValueCardHistory;
+import com.hotpot.domain.VipInfo;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface ValueCardHistoryMapper {
@@ -53,4 +57,10 @@ public interface ValueCardHistoryMapper {
      * @mbggenerated Fri Dec 25 15:10:08 CST 2015
      */
     int updateByPrimaryKey(ValueCardHistory record);
+
+    List<ValueCardHistory> getCardHistory(String cardId);
+
+    List<ValueCardHistory> getCardHistory(VipInfo vipInfo);
+
+    ValueCard getValueCardInfo(String cardId,String cardUuid);
 }

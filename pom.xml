@@ -196,6 +196,49 @@
                 <artifactId>cglib</artifactId>
                 <version>3.1</version>
             </dependency>
+
+            <!-- logback and slf4j -->
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+                <version>1.1.2</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>1.1.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-access</artifactId>
+                <version>1.1.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>1.7.5</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>log4j-over-slf4j</artifactId>
+                <version>1.7.5</version>
+            </dependency>
+
+            <!-- drools -->
+            <dependency>
+                <groupId>org.drools</groupId>
+                <artifactId>drools-compiler</artifactId>
+                <version>6.1.0.Final</version>
+            </dependency>
+            <dependency>
+                <groupId>org.drools</groupId>
+                <artifactId>drools-core</artifactId>
+                <version>6.1.0.Final</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -227,6 +270,12 @@
                         <verbose>true</verbose>
                         <overwrite>true</overwrite>
                     </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.kie</groupId>
+                    <artifactId>kie-maven-plugin</artifactId>
+                    <version>6.1.0.Final</version>
+                    <extensions>true</extensions>
                 </plugin>
             </plugins>
         </pluginManagement>
