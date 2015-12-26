@@ -58,7 +58,10 @@ public class ValueCardServiceImpl implements ValueCardService{
 
     @Override
     public ValueCard payment(String cardId, String cardUuid, Integer storeId, Integer account, Integer price){
-        valueCardMapper.payment(cardId, cardUuid, price);
+        Integer count = valueCardMapper.payment(cardId, cardUuid, price);
+        if(count == 0){
+            throw new RuntimeException("余额不足,无法支付");
+        }
         return getCardBalanceByCardUniqueKey(cardId,cardUuid);
     }
 

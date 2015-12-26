@@ -53,4 +53,6 @@ public interface OrderMapper {
      * @mbggenerated Fri Dec 25 15:10:08 CST 2015
      */
     int updateByPrimaryKey(Order record);
+
+    Integer settleOrder(Integer orderId);
 }

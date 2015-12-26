@@ -60,5 +60,5 @@ public interface ValueCardMapper {
 
     void topUp(@Param("cardId")String cardId,@Param("cardUuid")String cardUuid,@Param("money")Integer money);
 
-    void payment(@Param("cardId")String cardId,@Param("cardUuid")String cardUuid,@Param("money")Integer money);
+    Integer payment(@Param("cardId")String cardId,@Param("cardUuid")String cardUuid,@Param("money")Integer money);
 }

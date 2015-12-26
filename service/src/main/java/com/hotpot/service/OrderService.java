@@ -4,6 +4,7 @@ import com.hotpot.domain.Order;
 import com.hotpot.domain.ValueCard;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zoupeng on 15/12/26.
@@ -13,5 +14,7 @@ public interface OrderService {
 
     List<Order> getUnsettleOrderByOrderId(Integer storeId);
 
-    ValueCard pay(Order order);
+    Map<String,List<Integer>> settleOrders(List<Integer> orderIds);
+
+    ValueCard pay(Order order, String cardId, String cardUuid);
 }
