@@ -2,46 +2,17 @@
 <!--start left-->
 <script type="text/javascript">
     var menus = [
-        {id: 1, name: "促销规则", parent: -1, order: 1, path: "", icon: "fa-laptop"},
-        {id: 11, name: "促销规则首页", parent: 1, order: 1, path: "$ctx/rule/index", icon: ""},
+        {id: 1, name: "订单", parent: -1, order: 1, path: "$ctx/order/index"", icon: "fa-laptop"},
 
-        {id: 2, name: "购买政策", parent: -1, order: 1, path: "", icon: "fa-edit"},
-        {id: 21, name: "购买政策首页", parent: 2, order: 1, path: "$ctx/policy/index", icon: ""},
+        {id: 2, name: "会员", parent: -1, order: 2, path: "$ctx/vip/index", icon: ""},
 
-        {id: 3, name: "业务操作", parent: -1, order: 1, path: "", icon: "fa-operate"},
-        {id: 31, name: "业务操作日志", parent: 3, order: 1, path: "$ctx/operLog/index", icon: ""},
+        {id: 3, name: "储值卡", parent: -1, order: 3, path: "$ctx/valuecard/index", icon: ""},
 
-        {id: 4, name: "集群服务监控", parent: -1, order: 1, path: "", icon: "fa-monitor", authRole: 'promotion_admin'},
-        {id: 41, name: "引擎集群", parent: 4, order: 1, path: "$ctx/node/management/engine", icon: ""},
-        {id: 42, name: "接口集群", parent: 4, order: 1, path: "$ctx/node/management/interfaceSrv", icon: ""},
-        {id: 43, name: "服务注册管理", parent: 4, order: 1, path: "$ctx/node/management/srvReg", icon: ""},
+        {id: 4, name: "促销", parent: -1, order: 4, path: "$ctx/promotion/index", icon: ""},
 
-        {id: 6, name: "系统管理", parent: -1, order: 1, path: "", icon: "fa-system", authRole: 'promotion_admin'},
-        {id: 61, name: "任务管理", parent: 6, order: 1, path: "$ctx/schedule/index", icon: ""},
-        {id: 62, name: "系统管理", parent: 6, order: 1, path: "$ctx/sysinfo/index", icon: ""},
+        {id: 5, name: "财务", parent: -1, order: 5, path: "$ctx/finance/index", icon: ""},
 
-        {id: 5, name: "测试页面", parent: -1, order: 1, path: "", icon: "fa-test", authRole: 'promotion_admin'},
-        {id: 51, name: "订单试算", parent: 5, order: 1, path: "$ctx/test/index", icon: ""},
-        {id: 52, name: "政策限购维度", parent: 5, order: 1, path: "$ctx/test/policy", icon: ""},
-        {id: 53, name: "产品接口查询", parent: 5, order: 1, path: "$ctx/interface/product/index", icon: ""},
-        {
-            id: 54,
-            name: "限购列表",
-            parent: 5,
-            order: 1,
-            path: "$ctx/test/moneyLimited",
-            icon: "",
-            authRole: 'promotion_admin'
-        },
-
-        {id: 7, name: "数据导入", parent: -1, order: 1, path: "", icon: "fa-inport", authRole: 'promotion_admin'},
-        {id: 71, name: "数据导入", parent: 7, order: 1, path: "$ctx/datatool/index", icon: ""},
-
-        {id: 8, name: "预警设置", parent: -1, order: 1, path: "", icon: "fa-warning", authRole: 'promotion_admin'},
-        {id: 81, name: "预警设置", parent: 8, order: 1, path: "$ctx/erp/index", icon: ""},
-        {id: 9, name: "调度管理", parent: -1, order: 1, path: "", icon: "fa-dispatch", authRole: 'promotion_admin'},
-        {id: 91, name: "调度管理", parent: 9, order: 1, path: "$ctx/schedule/index", icon: ""}
-
+        {id: 6, name: "管理系统", parent: -1, order: 6, path: "$ctx/manage/index", icon: ""}
     ];
 
 
