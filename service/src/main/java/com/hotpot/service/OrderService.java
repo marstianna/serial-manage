@@ -2,6 +2,7 @@ package com.hotpot.service;
 
 import com.hotpot.domain.Order;
 import com.hotpot.domain.ValueCard;
+import com.hotpot.searcher.OrderSearcher;
 
 import java.util.List;
 import java.util.Map;
@@ -17,4 +18,6 @@ public interface OrderService {
     Map<String,List<Integer>> settleOrders(List<Integer> orderIds);
 
     ValueCard pay(Order order, String cardId, String cardUuid);
+
+    List<Order> getOrdersBySearcher(OrderSearcher searcher);
 }

@@ -4,6 +4,8 @@ package com.hotpot.dao;
 import com.hotpot.domain.Staff;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface StaffMapper {
     /**
@@ -53,4 +55,6 @@ public interface StaffMapper {
      * @mbggenerated Fri Dec 25 15:10:08 CST 2015
      */
     int updateByPrimaryKey(Staff record);
+
+    List<Staff> getStaffByStoreId(Integer storeId);
 }

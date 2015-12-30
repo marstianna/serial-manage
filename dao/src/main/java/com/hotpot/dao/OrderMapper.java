@@ -2,7 +2,10 @@ package com.hotpot.dao;
 
 
 import com.hotpot.domain.Order;
+import com.hotpot.searcher.OrderSearcher;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface OrderMapper {
@@ -55,4 +58,6 @@ public interface OrderMapper {
     int updateByPrimaryKey(Order record);
 
     Integer settleOrder(Integer orderId);
+
+    List<Order> getOrderBySearcher(OrderSearcher searcher);
 }

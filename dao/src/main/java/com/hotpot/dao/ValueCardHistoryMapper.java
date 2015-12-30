@@ -63,4 +63,6 @@ public interface ValueCardHistoryMapper {
     List<ValueCardHistory> getCardHistory(VipInfo vipInfo);
 
     ValueCard getValueCardInfo(String cardId,String cardUuid);
+
+    List<ValueCardHistory> getCardHistoryByStoreId(Integer storeId);
 }

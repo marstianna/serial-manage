@@ -17,63 +17,71 @@ public class OrderSearcher {
         return id;
     }
 
-    public void setId(Integer id) {
+    public OrderSearcher setId(Integer id) {
         this.id = id;
+        return this;
     }
 
     public Integer getVipId() {
         return vipId;
     }
 
-    public void setVipId(Integer vipId) {
+    public OrderSearcher setVipId(Integer vipId) {
         this.vipId = vipId;
+        return this;
     }
 
     public Integer getPayType() {
         return payType;
     }
 
-    public void setPayType(Integer payType) {
+    public OrderSearcher setPayType(Integer payType) {
         this.payType = payType;
+        return this;
     }
 
     public Integer getStoreId() {
         return storeId;
     }
 
-    public void setStoreId(Integer storeId) {
+    public OrderSearcher setStoreId(Integer storeId) {
         this.storeId = storeId;
+        return this;
     }
 
     public Integer getCardId() {
         return cardId;
     }
 
-    public void setCardId(Integer cardId) {
+    public OrderSearcher setCardId(Integer cardId) {
         this.cardId = cardId;
+        return this;
     }
 
     public Integer getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Integer startTime) {
+    public OrderSearcher setStartTime(Integer startTime) {
         this.startTime = startTime;
+        return this;
     }
 
     public Integer getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Integer endTime) {
+    public OrderSearcher setEndTime(Integer endTime) {
         this.endTime = endTime;
+        return this;
     }
 
     public Integer getSettle() {
         return settle;
     }
 
-    public void setSettle(Integer settle) {
+    public OrderSearcher setSettle(Integer settle) {
         this.settle = settle;
+        return this;
     }
 }

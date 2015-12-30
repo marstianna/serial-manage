@@ -1,9 +1,11 @@
 package com.hotpot.service.impl;
 
 import com.google.common.collect.Lists;
+import com.hotpot.commons.Const;
 import com.hotpot.dao.OrderMapper;
 import com.hotpot.domain.Order;
 import com.hotpot.domain.ValueCard;
+import com.hotpot.searcher.OrderSearcher;
 import com.hotpot.service.OrderService;
 import com.hotpot.service.PromotionService;
 import com.hotpot.service.ValueCardService;
@@ -28,12 +30,13 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getOrdersByStoreId(Integer storeId) {
-        return null;
+        return getOrdersBySearcher(new OrderSearcher().setStoreId(storeId));
     }
 
     @Override
     public List<Order> getUnsettleOrderByOrderId(Integer storeId) {
-        return null;
+        return getOrdersBySearcher(new OrderSearcher().setStoreId(storeId)
+                                                    .setSettle(Const.ORDER_UNSETTLE));
     }
 
     @Override
@@ -63,5 +66,10 @@ public class OrderServiceImpl implements OrderService {
     public ValueCard pay(Order order, String cardId, String cardUuid) {
         promotionService.promotion(order);
         return valueCardService.payment(cardId,cardUuid,order.getStoreId(),order.getActualPrice(),order.getPaperPrice());
+    }
+
+    @Override
+    public List<Order> getOrdersBySearcher(OrderSearcher searcher) {
+        return orderMapper.getOrderBySearcher(searcher);
     }
 }

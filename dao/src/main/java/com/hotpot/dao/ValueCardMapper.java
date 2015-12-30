@@ -6,6 +6,8 @@ import com.hotpot.domain.VipInfo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ValueCardMapper {
     /**
@@ -56,9 +58,13 @@ public interface ValueCardMapper {
      */
     int updateByPrimaryKey(ValueCard record);
 
-    ValueCard getValueCardInfoByVip(VipInfo vipInfo);
+    List<ValueCard> getValueCardInfoByVip(VipInfo vipInfo);
 
-    void topUp(@Param("cardId")String cardId,@Param("cardUuid")String cardUuid,@Param("money")Integer money);
+    Integer topUp(@Param("cardId")String cardId,@Param("cardUuid")String cardUuid,@Param("money")Integer money);
 
     Integer payment(@Param("cardId")String cardId,@Param("cardUuid")String cardUuid,@Param("money")Integer money);
+
+    Integer payment(@Param("vipId")Integer vipId,@Param("password")String password,@Param("money")Integer money);
+
+    List<ValueCard> getValueCardByVipMobilePhone(String mobilephone);
 }
