@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hotpot.dao.SettingMapper" >
+    <sql id="Base_Column_List">
+        `key`,`value`
+    </sql>
+
+    <insert id="insertOrUpdate" useGeneratedKeys="true" keyProperty="id" parameterType="com.hotpot.domain.Setting">
+        insert into setting( `key`,`value`) VALUES (#{key},#{value}) on duplicate key update `value` = #{value}
+    </insert>
+
+    <select id="query" resultType="com.hotpot.domain.Setting">
+        SELECT
+        <include refid="Base_Column_List" />
+        from setting where `key` = #{key}
+    </select>
+
+    <select id="blurredQuery" resultType="com.hotpot.domain.Setting">
+        SELECT
+        <include refid="Base_Column_List" />
+        from setting where `key` like CONCAT('%','${key}','%' )
+    </select>
+
+</mapper>
