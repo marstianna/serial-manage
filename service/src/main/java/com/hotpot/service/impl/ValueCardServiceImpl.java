@@ -42,7 +42,7 @@ public class ValueCardServiceImpl implements ValueCardService{
 
     @Override
     public List<ValueCardHistory> getCardHistory(String cardId) {
-        return valueCardHistoryMapper.getCardHistory(cardId);
+        return valueCardHistoryMapper.getCardHistoryByCardId(cardId);
     }
 
     @Override

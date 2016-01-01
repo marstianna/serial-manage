@@ -166,7 +166,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="getCardHistory" resultType="com.hotpot.domain.ValueCardHistory">
+  <select id="getCardHistoryByCardId" resultType="com.hotpot.domain.ValueCardHistory">
     select
     <include refid="Base_Column_List" />
     from value_card_history
@@ -180,7 +180,7 @@
     where card_id in (select cardId from value_card where vip_id = #{vipId})
   </select>
 
-  <select id="getCardHistory" resultType="com.hotpot.domain.ValueCardHistory">
+  <select id="getCardHistoryByStoreId" resultType="com.hotpot.domain.ValueCardHistory">
     select
     <include refid="Base_Column_List" />
     from value_card_history

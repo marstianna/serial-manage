@@ -57,7 +57,7 @@ public interface ValueCardHistoryMapper {
      */
     int updateByPrimaryKey(ValueCardHistory record);
 
-    List<ValueCardHistory> getCardHistory(String cardId);
+    List<ValueCardHistory> getCardHistoryByCardId(String cardId);
 
     List<ValueCardHistory> getCardHistory(VipInfo vipInfo);
 
