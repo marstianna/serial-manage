@@ -58,7 +58,7 @@ public class ValueCardServiceImpl implements ValueCardService{
 
     @Override
     public ValueCard getCardBalanceByCardUniqueKey(String cardId, String cardUuid) {
-        return valueCardHistoryMapper.getValueCardInfo(cardId,cardUuid);
+        return valueCardMapper.getValueCardInfo(cardId,cardUuid);
     }
 
     @Override
@@ -94,7 +94,7 @@ public class ValueCardServiceImpl implements ValueCardService{
         List<ValueCard> valueCards = valueCardMapper.getValueCardByVipMobilePhone(mobilePhone);
         ValueCard paymentCard = null;
         for(ValueCard card : valueCards){
-            Integer count = valueCardMapper.payment(card.getVipId(),card.getPassword(),price);
+            Integer count = valueCardMapper.payment(card.getCardId(),card.getCardUuid(),price);
             if(count != 0){
                 paymentCard = card;
                 recordHistory(card.getCardId(),storeId, Const.VALUE_CARD_OPERATE_MINUS,account,price);

@@ -64,7 +64,7 @@ public interface ValueCardMapper {
 
     Integer payment(@Param("cardId")String cardId,@Param("cardUuid")String cardUuid,@Param("money")Integer money);
 
-    Integer payment(@Param("vipId")Integer vipId,@Param("password")String password,@Param("money")Integer money);
-
     List<ValueCard> getValueCardByVipMobilePhone(String mobilephone);
+
+    ValueCard getValueCardInfo(String cardId,String cardUuid);
 }

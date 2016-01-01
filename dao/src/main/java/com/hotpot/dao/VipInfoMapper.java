@@ -60,5 +60,5 @@ public interface VipInfoMapper {
 
     List<VipInfo> getVipsByStoreId(Integer storeId);
 
-    VipInfo getVipBymobilephone(String mobilephone);
+    VipInfo getVipByMobilephone(String mobilephone);
 }

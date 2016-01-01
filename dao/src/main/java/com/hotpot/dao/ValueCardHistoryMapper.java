@@ -1,7 +1,6 @@
 package com.hotpot.dao;
 
 
-import com.hotpot.domain.ValueCard;
 import com.hotpot.domain.ValueCardHistory;
 import com.hotpot.domain.VipInfo;
 import org.springframework.stereotype.Repository;
@@ -61,8 +60,6 @@ public interface ValueCardHistoryMapper {
     List<ValueCardHistory> getCardHistory(String cardId);
 
     List<ValueCardHistory> getCardHistory(VipInfo vipInfo);
-
-    ValueCard getValueCardInfo(String cardId,String cardUuid);
 
     List<ValueCardHistory> getCardHistoryByStoreId(Integer storeId);
 }
