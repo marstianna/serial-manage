@@ -1,6 +1,7 @@
 package com.hotpot.service.impl;
 
 import com.hotpot.commons.Const;
+import com.hotpot.commons.DateTool;
 import com.hotpot.dao.ValueCardHistoryMapper;
 import com.hotpot.dao.ValueCardMapper;
 import com.hotpot.domain.ValueCard;
@@ -28,15 +29,17 @@ public class ValueCardServiceImpl implements ValueCardService{
     ValueCardHistoryMapper valueCardHistoryMapper;
 
     @Override
-    public String addNewCard(String cardId, Integer balance, Integer vipId,String password){
+    @Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = Exception.class)
+    public String addNewCard(String cardId, Integer storeId, Integer money, Integer account, Integer vipId, String password){
         ValueCard card = new ValueCard();
         card.setCardId(cardId);
         String cardUuid = UUID.nameUUIDFromBytes(cardId.getBytes()).toString();
         card.setCardUuid(cardUuid);
-        card.setBalance(balance);
+        card.setBalance(account);
         card.setVipId(vipId);
         card.setPassword(password);
         valueCardMapper.insertSelective(card);
+        recordHistory(cardId,storeId,Const.VALUE_CARD_OPERATE_ADD,account,money);
         return cardUuid;
     }
 
@@ -78,7 +81,7 @@ public class ValueCardServiceImpl implements ValueCardService{
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = Exception.class)
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public ValueCard payment(String cardId, String cardUuid, Integer storeId, Integer account, Integer price){
         Integer count = valueCardMapper.payment(cardId, cardUuid, account);
         if(count == 0){
@@ -89,14 +92,14 @@ public class ValueCardServiceImpl implements ValueCardService{
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = Exception.class)
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public ValueCard paymentWithPassword(String mobilePhone, String password, Integer storeId, Integer account, Integer price) {
         List<ValueCard> valueCards = valueCardMapper.getValueCardByVipMobilePhone(mobilePhone);
         ValueCard paymentCard = null;
         for(ValueCard card : valueCards){
             Integer count = valueCardMapper.payment(card.getCardId(),card.getCardUuid(),price);
             if(count != 0){
-                paymentCard = card;
+                paymentCard = getCardBalanceByCardUniqueKey(card.getCardId(),card.getCardUuid());
                 recordHistory(card.getCardId(),storeId, Const.VALUE_CARD_OPERATE_MINUS,account,price);
                 break;
             }
@@ -111,12 +114,14 @@ public class ValueCardServiceImpl implements ValueCardService{
 
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     private void recordHistory(String cardId,Integer storeId,Integer operate,Integer account,Integer price){
+//        throw new Exception();
         ValueCardHistory history = new ValueCardHistory();
         history.setCardId(cardId);
         history.setStoreId(storeId);
         history.setOperate(operate);
         history.setAccount(account);
         history.setPrice(price);
-        valueCardHistoryMapper.insert(history);
+        history.setCreateTime(DateTool.unixTime());
+        valueCardHistoryMapper.insertSelective(history);
     }
 }

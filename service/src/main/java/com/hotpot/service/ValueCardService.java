@@ -11,15 +11,18 @@ import java.util.Map;
  * Created by zoupeng on 15/12/26.
  */
 public interface ValueCardService {
+
     /**
      * 新增一张储值卡
      * @param cardId
-     * @param balance
+     * @param storeId
+     * @param money
+     * @param account
      * @param vipId
      * @param password
      * @return  返回一个创建的卡的 uuid,需要记录到储值卡上
      */
-    String addNewCard(String cardId, Integer balance, Integer vipId,String password);
+    String addNewCard(String cardId, Integer storeId, Integer money, Integer account, Integer vipId, String password);
 
     /**
      * 根据卡号获取流水

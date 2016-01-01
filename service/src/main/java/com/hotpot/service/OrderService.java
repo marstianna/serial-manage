@@ -11,6 +11,8 @@ import java.util.Map;
  * Created by zoupeng on 15/12/26.
  */
 public interface OrderService {
+    void createOrder(Order order);
+
     List<Order> getOrdersByStoreId(Integer storeId);
 
     List<Order> getUnsettleOrderByOrderId(Integer storeId);

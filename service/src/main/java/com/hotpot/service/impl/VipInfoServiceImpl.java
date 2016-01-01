@@ -33,6 +33,6 @@ public class VipInfoServiceImpl implements VipInfoService {
 
     @Override
     public VipInfo getVipInfoByMobilephone(String mobilephone) {
-        return getVipInfoByMobilephone(mobilephone);
+        return vipInfoMapper.getVipByMobilephone(mobilephone);
     }
 }

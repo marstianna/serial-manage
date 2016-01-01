@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
        <bean id="masterDataSource" class="com.alibaba.druid.pool.DruidDataSource"
              init-method="init" destroy-method="close">
               <property name="url" value="${jdbc.url}" />
@@ -44,5 +48,11 @@
        <bean name="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
               <property name="sqlSessionTemplateBeanName" value="SqlSessionTemplate"></property>
               <property name="basePackage" value="com.hotpot.dao" />
+       </bean>
+
+       <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
+
+       <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+              <property name="dataSource" ref="masterDataSource" />
        </bean>
 </beans>

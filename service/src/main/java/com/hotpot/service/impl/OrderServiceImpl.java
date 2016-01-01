@@ -11,6 +11,8 @@ import com.hotpot.service.PromotionService;
 import com.hotpot.service.ValueCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +29,12 @@ public class OrderServiceImpl implements OrderService {
     ValueCardService valueCardService;
     @Autowired
     OrderMapper orderMapper;
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
+    public void createOrder(Order order) {
+        orderMapper.insertSelective(order);
+    }
 
     @Override
     public List<Order> getOrdersByStoreId(Integer storeId) {
@@ -63,9 +71,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = Exception.class)
     public ValueCard pay(Order order, String cardId, String cardUuid) {
         promotionService.promotion(order);
-        return valueCardService.payment(cardId,cardUuid,order.getStoreId(),order.getActualPrice(),order.getPaperPrice());
+        createOrder(order);
+//        throw new Exception();
+        return valueCardService.payment(cardId, cardUuid, order.getStoreId(), order.getActualPrice(), order.getPaperPrice());
     }
 
     @Override

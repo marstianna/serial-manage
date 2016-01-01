@@ -23,6 +23,7 @@ public class PromotionServiceImpl implements PromotionService{
     public void promotion(Order order) {
         List<Promotion> promotions = promotionMapper.getAllPromotions(DateTool.unixTime());
         if(CollectionUtils.isEmpty(promotions)){
+            order.setActualPrice(order.getPaperPrice());
             return;
         }
     }

@@ -2,6 +2,7 @@ package com.hotpot.service;
 
 import com.hotpot.commons.DateTool;
 import com.hotpot.domain.Owner;
+import com.hotpot.domain.Store;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,13 @@ public class AdminServiceTest {
 
     @Test
     public void testNewStore() throws Exception {
-
+        Store store = new Store();
+        store.setPhone("023-80140524");
+        store.setOwnerId(1);
+        store.setAddress("********地址");
+        store.setCreateTime(DateTool.unixTime());
+        store.setStoreName("店名");
+        adminService.newStore(store);
     }
 
     @Test

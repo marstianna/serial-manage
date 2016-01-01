@@ -47,7 +47,7 @@ public class ValueCard {
      *
      * @mbggenerated Fri Dec 25 15:10:08 CST 2015
      */
-    private Integer createTime;
+    private Long createTime;
 
     private String password;
 
@@ -179,7 +179,7 @@ public class ValueCard {
      *
      * @mbggenerated Fri Dec 25 15:10:08 CST 2015
      */
-    public Integer getCreateTime() {
+    public Long getCreateTime() {
         return createTime;
     }
 
@@ -191,7 +191,7 @@ public class ValueCard {
      *
      * @mbggenerated Fri Dec 25 15:10:08 CST 2015
      */
-    public void setCreateTime(Integer createTime) {
+    public void setCreateTime(Long createTime) {
         this.createTime = createTime;
     }
 

@@ -11,7 +11,7 @@ public class Promotion {
     private Integer storeId;
     private Integer startTime;
     private Integer endTime;
-    private Integer payment;
+    private Integer payType;
 
     public Integer getId() {
         return id;
@@ -69,11 +69,11 @@ public class Promotion {
         this.endTime = endTime;
     }
 
-    public Integer getPayment() {
-        return payment;
+    public Integer getPayType() {
+        return payType;
     }
 
-    public void setPayment(Integer payment) {
-        this.payment = payment;
+    public void setPayType(Integer payType) {
+        this.payType = payType;
     }
 }

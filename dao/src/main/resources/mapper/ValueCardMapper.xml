@@ -153,9 +153,9 @@
 
   <select id="getValueCardByVipMobilePhone" parameterType="com.hotpot.domain.ValueCard" resultType="com.hotpot.domain.ValueCard">
     select
-    <include refid="Base_Column_List" />
+    vc.id, card_id cardId, card_uuid cardUuid, balance, vip_id vipId, vc.create_time createTime
     from value_card vc ,vip_info vi
-    where vc.vip_id = vi.id and vc.mobilephone = #{mobilephone}
+    where vc.vip_id = vi.id and vi.mobilephone = #{mobilephone}
   </select>
 
   <select id="getValueCardInfoByVip" parameterType="com.hotpot.domain.VipInfo" resultType="com.hotpot.domain.ValueCard">
@@ -166,11 +166,11 @@
   </select>
 
   <update id="topUp">
-    update value_card set balance = balance + #{money} where card_id = #{cardId} and card_uuid = #{card_uuid}
+    update value_card set balance = balance + #{money} where card_id = #{cardId} and card_uuid = #{cardUuid}
   </update>
 
   <update id="payment">
-    update value_card set balance = balance - #{money} where card_id = #{cardId} and card_uuid = #{card_uuid} and
+    update value_card set balance = balance - #{money} where card_id = #{cardId} and card_uuid = #{cardUuid} and
     <![CDATA[ balance >= #{money} ]]>
   </update>
 
