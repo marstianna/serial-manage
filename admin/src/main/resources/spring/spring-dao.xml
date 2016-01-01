@@ -30,10 +30,19 @@
               <property name="dataSource" ref="masterDataSource" />
        </bean>
 
+       <bean name="SqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+              <constructor-arg ref="sessionFactory" />
+       </bean>
+
        <!-- 集成Mybatis -->
        <bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
               <property name="dataSource" ref="masterDataSource" />
               <property name="configLocation" value="classpath:myBatisConfig.xml" />
               <property name="mapperLocations" value="classpath:mapper/*.xml" />
+       </bean>
+
+       <bean name="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+              <property name="sqlSessionTemplateBeanName" value="SqlSessionTemplate"></property>
+              <property name="basePackage" value="com.hotpot.dao" />
        </bean>
 </beans>
