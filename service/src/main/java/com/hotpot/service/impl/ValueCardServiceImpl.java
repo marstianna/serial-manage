@@ -39,7 +39,7 @@ public class ValueCardServiceImpl implements ValueCardService{
         card.setVipId(vipId);
         card.setPassword(password);
         valueCardMapper.insertSelective(card);
-        recordHistory(cardId,storeId,Const.VALUE_CARD_OPERATE_ADD,account,money);
+        recordHistory(cardId,storeId,Const.OPERATE_ADD,account,money);
         return cardUuid;
     }
 
@@ -76,7 +76,7 @@ public class ValueCardServiceImpl implements ValueCardService{
         if(count == 0){
             throw new RuntimeException("充值失败,请稍后再试");
         }
-        recordHistory(cardId,storeId, Const.VALUE_CARD_OPERATE_ADD,account,money);
+        recordHistory(cardId,storeId, Const.OPERATE_ADD,account,money);
         return getCardBalanceByCardUniqueKey(cardId,cardUuid);
     }
 
@@ -87,7 +87,7 @@ public class ValueCardServiceImpl implements ValueCardService{
         if(count == 0){
             throw new RuntimeException("余额不足,无法支付");
         }
-        recordHistory(cardId,storeId, Const.VALUE_CARD_OPERATE_MINUS,account,price);
+        recordHistory(cardId,storeId, Const.OPERATE_MINUS,account,price);
         return getCardBalanceByCardUniqueKey(cardId,cardUuid);
     }
 
@@ -100,7 +100,7 @@ public class ValueCardServiceImpl implements ValueCardService{
             Integer count = valueCardMapper.payment(card.getCardId(),card.getCardUuid(),price);
             if(count != 0){
                 paymentCard = getCardBalanceByCardUniqueKey(card.getCardId(),card.getCardUuid());
-                recordHistory(card.getCardId(),storeId, Const.VALUE_CARD_OPERATE_MINUS,account,price);
+                recordHistory(card.getCardId(),storeId, Const.OPERATE_MINUS,account,price);
                 break;
             }
         }
