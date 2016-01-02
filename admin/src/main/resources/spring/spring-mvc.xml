@@ -14,6 +14,19 @@
         http://www.springframework.org/schema/util
       	http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 
+    <bean class="com.hotpot.commons.RequestMappingHandlerMappingTweaker" />
+
+    <bean id="localMessageSource" class="com.hotpot.commons.GroupedResourceBundleMessageSource">
+        <property name="basenames" ref="messageBasenames" />
+        <property name="defaultEncoding" value="UTF-8" />
+    </bean>
+
+    <!-- Message Base names(property locations) -->
+    <util:list id="messageBasenames" list-class="java.util.ArrayList" value-type="java.lang.String" scope="singleton">
+        <value>classpath:i18n/dict</value>
+        <value>classpath:i18n/common</value>
+        <value>classpath:config</value>
+    </util:list>
 
     <mvc:default-servlet-handler />
 
@@ -23,11 +36,6 @@
               <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
        </context:component-scan>
 
-       <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" >
-              <property name="useDefaultSuffixPattern" value="false" />
-       </bean>
-       <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/>
-
 
        <!-- default mapping -->
        <!--<mvc:default-servlet-handler />-->
@@ -35,24 +43,12 @@
        <mvc:resources mapping="/static/**" location="/WEB-INF/static/" />
 
 
-    <bean id="conversionService"
-          class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
-        <property name="registerDefaultFormatters" value="false" />
-        <property name="formatterRegistrars">
-            <set>
-                <bean class="org.springframework.format.datetime.DateFormatterRegistrar">
-                    <property name="formatter" ref="dateFormatter" />
-                </bean>
-            </set>
-        </property>
-    </bean>
-
     <bean id="dateFormatter" class="org.springframework.format.datetime.DateFormatter">
         <property name="pattern" value="yyyy-MM-dd" />
     </bean>
 
     <!-- mvc basic configuration -->
-       <mvc:annotation-driven conversion-service="conversionService" >
+       <mvc:annotation-driven validator="validator">
               <mvc:message-converters>
                      <bean id="fastJsonHttpMessageConverter"
                            class="com.hotpot.commons.JMFastJsonHttpMessageConverter">
@@ -72,6 +68,10 @@
                      </bean>
               </mvc:message-converters>
        </mvc:annotation-driven>
+
+    <bean id="validator"  class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="validationMessageSource" ref="localMessageSource"/>
+    </bean>
 
        <!--  result resolvers start -->
        <bean id="resourceBundleViewResolver"
@@ -95,7 +95,7 @@
               <property name="contentType" value="text/html;charset=UTF-8" />
               <property name="viewClass"
                         value="org.springframework.web.servlet.view.velocity.VelocityLayoutView" />
-              <property name="toolboxConfigLocation" value="/WEB-INF/velocity-toolbox.xml" />
+              <!--<property name="toolboxConfigLocation" value="/WEB-INF/velocity-toolbox.xml" />-->
               <property name="order" value="1" />
        </bean>
 
@@ -120,6 +120,9 @@
         </property>
     </bean>
 
+    <mvc:interceptors>
+        <bean class="com.hotpot.interceptor.LayoutInterceptor"/>
+    </mvc:interceptors>
 
     <!-- set locale in session level -->
        <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />

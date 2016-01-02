@@ -1,0 +1,2 @@
+#parse( "./include/variable.vm" )
+test order vm
