@@ -1,8 +1,10 @@
 package com.hotpot.service;
 
 import com.alibaba.fastjson.JSON;
+import com.google.common.collect.Lists;
 import com.hotpot.commons.DateTool;
 import com.hotpot.domain.Order;
+import com.hotpot.searcher.OrderSearcher;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +30,14 @@ public class OrderServiceTest {
 
     @Test
     public void testGetUnsettleOrderByOrderId() throws Exception {
-
+        List<Order> unsettles = orderService.getUnsettleOrderByStoreId(1);
+        System.out.println(JSON.toJSONString(unsettles));
     }
 
     @Test
     public void testSettleOrders() throws Exception {
-
+        Object result = orderService.settleOrders(Lists.newArrayList(1,2));
+        System.out.println(JSON.toJSONString(result));
     }
 
     @Test
@@ -57,7 +61,10 @@ public class OrderServiceTest {
 
     @Test
     public void testGetOrdersBySearcher() throws Exception {
-
+        List<Order> orders = orderService.getOrdersBySearcher(new OrderSearcher().setEndTime(1451657874l)
+                                                                                .setStartTime(1451657224l)
+                                                                                .setStoreId(1));
+        System.out.println(orders.size());
     }
 
 }

@@ -15,7 +15,7 @@ public interface OrderService {
 
     List<Order> getOrdersByStoreId(Integer storeId);
 
-    List<Order> getUnsettleOrderByOrderId(Integer storeId);
+    List<Order> getUnsettleOrderByStoreId(Integer storeId);
 
     Map<String,List<Integer>> settleOrders(List<Integer> orderIds);
 

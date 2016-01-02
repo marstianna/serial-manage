@@ -240,10 +240,10 @@
         AND card_id = #{cardId}
       </if>
       <if test="startTime != null">
-        AND <![CDATA[ start_time <= #{startTime} ]]>
+        AND <![CDATA[ create_time >= #{startTime} ]]>
       </if>
       <if test="endTime != null">
-        AND <![CDATA[ end_time >= #{endTime} ]]>
+        AND <![CDATA[ create_time <= #{endTime} ]]>
       </if>
       <if test="settle != null">
         AND settle = #{settle}

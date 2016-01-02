@@ -42,7 +42,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> getUnsettleOrderByOrderId(Integer storeId) {
+    public List<Order> getUnsettleOrderByStoreId(Integer storeId) {
         return getOrdersBySearcher(new OrderSearcher().setStoreId(storeId)
                                                     .setSettle(Const.ORDER_UNSETTLE));
     }
