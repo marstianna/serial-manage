@@ -97,6 +97,7 @@
             $('body').attr("class", bodyclass);
             //}
         }, 0);
+        fixBtns();
         $("#list")
                 .jqGrid(
                         {
