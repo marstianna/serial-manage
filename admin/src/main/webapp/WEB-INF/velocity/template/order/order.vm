@@ -123,7 +123,6 @@
                                     index: 'storeId',
                                     align: "center",
                                     width: "45px",
-                                    formatter: "select",
                                 },
                                 {
                                     name: 'payType',
@@ -154,7 +153,6 @@
                                     index: 'actualPrice',
                                     align: "center",
                                     width: "90px",
-                                    formatter: "select",
                                 },
                                 {
                                     name: 'drinkPrice',
@@ -167,7 +165,6 @@
                                     index: 'foodPrice',
                                     align: "center",
                                     width: "50px",
-                                    formatter: "select",
                                 },
                                 {
                                     name: 'createTime',
