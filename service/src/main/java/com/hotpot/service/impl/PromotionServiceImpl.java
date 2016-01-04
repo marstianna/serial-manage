@@ -1,5 +1,6 @@
 package com.hotpot.service.impl;
 
+import com.hotpot.commons.Const;
 import com.hotpot.commons.DateTool;
 import com.hotpot.dao.PromotionMapper;
 import com.hotpot.domain.Order;
@@ -22,14 +23,32 @@ public class PromotionServiceImpl implements PromotionService{
     @Override
     public void promotion(Order order) {
         List<Promotion> promotions = promotionMapper.getAllPromotions(DateTool.unixTime());
+        order.setActualPrice(order.getPaperPrice());
         if(CollectionUtils.isEmpty(promotions)){
-            order.setActualPrice(order.getPaperPrice());
             return;
+        }
+        for(Promotion promotion : promotions){
+            if(checkIsShoted(order,promotion)) {
+                switch (promotion.getType()) {
+                    case Const.PROMOTION_TYPE_MINUS:
+                        order.setActualPrice(order.getPaperPrice() - promotion.getDiscount());
+                        break;
+                    case Const.PROMOTION_TYPE_DISCOUNT:
+                        order.setActualPrice(order.getPaperPrice() * promotion.getDiscount());
+                        break;
+                }
+            }
         }
     }
 
     @Override
     public void addPromotion(Promotion promotion) {
         promotionMapper.insert(promotion);
+    }
+
+    private boolean checkIsShoted(Order order,Promotion promotion){
+        return order.getPayType().intValue() == promotion.getPayType().intValue()
+                && (order.getStoreId().intValue() == promotion.getStoreId().intValue() || order.getStoreId() == Const.ALL)
+                && order.getPaperPrice().intValue() >= promotion.getEnough().intValue();
     }
 }

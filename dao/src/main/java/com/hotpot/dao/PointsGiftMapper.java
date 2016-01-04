@@ -4,6 +4,8 @@ package com.hotpot.dao;
 import com.hotpot.domain.PointsGift;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface PointsGiftMapper {
     /**
@@ -53,4 +55,6 @@ public interface PointsGiftMapper {
      * @mbggenerated Fri Dec 25 15:10:08 CST 2015
      */
     int updateByPrimaryKey(PointsGift record);
+
+    List<PointsGift> getAllGiftsByStoreId(Integer storeId);
 }

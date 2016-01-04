@@ -1,6 +1,9 @@
 package com.hotpot.service;
 
 import com.hotpot.domain.Points;
+import com.hotpot.domain.PointsGift;
+
+import java.util.List;
 
 /**
  * Created by zoupeng on 15/12/26.
@@ -11,8 +14,13 @@ public interface PointsService {
      * @param vipId
      * @param type  积分类型
      * @param balancePoints
+     * @param storeId
      */
-    void insertOrUpdatePointRecord(Integer vipId,Integer type,Integer balancePoints);
+    void insertOrUpdatePointRecord(Integer vipId, Integer type, Integer balancePoints, Integer storeId);
+
+    void addGift(PointsGift gift);
+
+    List<PointsGift> getAllGiftByStoreId(Integer storeId);
 
     /**
      * 使用积分兑换礼物

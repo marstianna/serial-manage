@@ -1,11 +1,12 @@
 #set( $ctx = $request.getContextPath() )
+
 #set( $jsPath = $request.getContextPath()+"/static/js" )
 #set( $resPath = $request.getContextPath()+"/static" )
 #set( $refPath = $request.getHeader("REFERER") )
 
 #set( $cdnVersion = "v1.0.0")
 #set( $stage = "backend")
-#set( $cdnPath = "http://f0.jmstatic.com/static_union/dist/" + $cdnVersion + "/" + $stage)
+###set( $cdnPath = "http://f0.jmstatic.com/static_union/dist/" + $cdnVersion + "/" + $stage)
 #set( $cdnCtx = $cdnPath )
 #set( $cdnJsPath = $cdnPath + "/js")
 #set( $cdnResPath = $cdnPath)
