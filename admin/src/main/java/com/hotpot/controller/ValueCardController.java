@@ -1,5 +1,6 @@
 package com.hotpot.controller;
 
+import com.hotpot.domain.ValueCard;
 import com.hotpot.service.ValueCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +18,8 @@ public class ValueCardController {
 
     @RequestMapping("topUp")
     @ResponseBody
-    public String topUp(String cardId,String cardUuid,Integer account,Integer price){
+    public String topUp(String cardId,String cardUuid,Integer storeId,Integer account,Integer price){
+        ValueCard card = valueCardService.topUp(cardId,cardUuid,storeId,account,price);
         return null;
     }
 }
