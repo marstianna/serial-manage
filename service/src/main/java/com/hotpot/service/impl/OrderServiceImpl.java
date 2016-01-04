@@ -72,11 +72,19 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = Exception.class)
-    public ValueCard pay(Order order, String cardId, String cardUuid) {
+    public ValueCard payByCard(Order order, String cardId, String cardUuid) {
         promotionService.promotion(order);
         createOrder(order);
 //        throw new Exception();
         return valueCardService.payment(cardId, cardUuid, order.getStoreId(), order.getActualPrice(), order.getPaperPrice());
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = Exception.class)
+    public Order pay(Order order){
+        promotionService.promotion(order);
+        createOrder(order);
+        return order;
     }
 
     @Override

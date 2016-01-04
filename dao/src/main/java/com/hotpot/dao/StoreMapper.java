@@ -4,6 +4,8 @@ package com.hotpot.dao;
 import com.hotpot.domain.Store;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface StoreMapper {
     /**
@@ -53,4 +55,6 @@ public interface StoreMapper {
      * @mbggenerated Fri Dec 25 15:10:08 CST 2015
      */
     int updateByPrimaryKey(Store record);
+
+    List<Store> getAllStores();
 }
