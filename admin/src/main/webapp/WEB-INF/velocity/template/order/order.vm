@@ -37,12 +37,24 @@
                     </tr>
                     <tr>
                         <td class="text-right" width="150">开始时间：</td>
-                        <td width="200">
-                            <input type="text" class="form-control" placeholder="yyyy-MM-dd HH:mm:ss" name="startTime" id="startTime" before="endTime" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'#F{$dp.$D(\'endTime\')}'})" style="width: 160px;" readonly/>
+                        <td width="">
+                            <div class="input-group date form_datetime col-md-5" id="startTime" data-date="1979-09-16T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                                <input class="form-control" size="16" type="text" value="" style="width: 200px"  readonly>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                            </div>
+                            <input type="hidden" id="dtp_input1" value="" /><br/>
+                        ##                            <input type="text" class="form-control" placeholder="yyyy-MM-dd HH:mm:ss" name="startTime" id="startTime" before="endTime" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'#F{$dp.$D(\'endTime\')}'})"  readonly/>
                         </td>
                         <td class="text-right" width="150">结束时间：</td>
                         <td width="200">
-                            <input type="text" class="form-control" placeholder="yyyy-MM-dd HH:mm:ss" id="endTime" name="endTime" after="startTime"  onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'startTime\')}'})" style="width: 160px;" readonly/>
+                            <div class="input-group date form_datetime col-md-5" id="endTime" data-date="1979-09-16T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                                <input class="form-control" size="16" type="text" value="" style="width: 200px" readonly>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                            </div>
+                            <input type="hidden" id="dtp_input1" value="" /><br/>
+                        ##                            <input type="text" class="form-control" placeholder="yyyy-MM-dd HH:mm:ss" id="endTime" name="endTime" after="startTime"  onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'startTime\')}'})"  readonly/>
                         </td>
                         <td class="text-right" width="150">是否已经结账：</td>
                         <td width="200">
@@ -71,7 +83,12 @@
 <script>
     $(function () {
         $("#startTime").datetimepicker({
-            format: "dd MM yyyy - hh:ii"
+            format: "dd MM yyyy - hh:ii",
+            language: 'zh-CN'
+        })
+        $("#endTime").datetimepicker({
+            format: "dd MM yyyy - hh:ii",
+            language: 'zh-CN'
         });
         setTimeout(function () {
             var topWin = window.top.document;
