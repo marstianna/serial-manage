@@ -2,7 +2,7 @@
 <!--start left-->
 <script type="text/javascript">
     var menus = [
-        {id: 1, name: "订单", parent: -1, order: 1, path: "$ctx/order/index"", icon: "fa-laptop"},
+        {id: 1, name: "订单", parent: -1, order: 1, path: "$ctx/order/index", icon: "fa-laptop"},
 
         {id: 2, name: "会员", parent: -1, order: 2, path: "$ctx/vip/index", icon: ""},
 
