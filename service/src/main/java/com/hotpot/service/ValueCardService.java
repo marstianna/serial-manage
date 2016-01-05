@@ -91,4 +91,10 @@ public interface ValueCardService {
      * @return
      */
     ValueCard paymentWithPassword(String mobilePhone,String password,Integer storeId,Integer account,Integer price);
+
+    /**
+     * 获取所有储值卡
+     * @return
+     */
+    List<ValueCard> getAllCards();
 }

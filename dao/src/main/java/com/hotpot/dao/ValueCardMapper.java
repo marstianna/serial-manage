@@ -67,4 +67,6 @@ public interface ValueCardMapper {
     List<ValueCard> getValueCardByVipMobilePhone(String mobilephone);
 
     ValueCard getValueCardInfo(@Param("cardId") String cardId,@Param("cardUuid") String cardUuid);
+
+    List<ValueCard> getAllCards();
 }

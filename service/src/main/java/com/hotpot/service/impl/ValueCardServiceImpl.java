@@ -112,6 +112,11 @@ public class ValueCardServiceImpl implements ValueCardService{
         return valueCardHistoryMapper.getCardHistoryByStoreId(storeId);
     }
 
+    @Override
+    public List<ValueCard> getAllCards() {
+        return valueCardMapper.getAllCards();
+    }
+
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     private void recordHistory(String cardId,Integer storeId,Integer operate,Integer account,Integer price){
 //        throw new Exception();

@@ -66,10 +66,9 @@
         $("#list")
                 .jqGrid(
                         {
-                            url: '$ctx/order/getAllOrders',
+                            url: '$ctx/valuecard/getAllCards',
                             datatype: "local",
-                            colNames: ["id", "会员ID", "storeId", "payType", "cardId", "paperPrice", "actualPrice",
-                                "drinkPrice", "foodPrice", "createTime", "queueUp", "settle"],
+                            colNames: ["id", "储值卡编号", "会员ID", "创建时间", "最后修改时间", "余额", "查看流水"],
                             colModel: [
                                 {
                                     name: 'id',
@@ -78,127 +77,45 @@
                                     width: "45px",
                                     key: true
                                 }, {
-                                    name: 'vipId',
-                                    index: 'operateMainSite',
+                                    name: 'cardId',
+                                    index: 'cardId',
                                     align: "center",
                                     width: "50px",
                                     minWidth: "45px",
 
                                 },
                                 {
-                                    name: 'storeId',
-                                    index: 'site',
+                                    name: 'vipId',
+                                    index: 'vipId',
                                     align: "center",
                                     width: "45px",
-                                    formatter: "select",
-                                    editoptions: {
-                                        value: "all:全部;bj:北京;sh:上海;cd:成都;gz:广州"
-                                    }
-                                },
-                                {
-                                    name: 'payType',
-                                    index: 'policyName',
-                                    align: "center",
-                                    width: "140px",
-                                    minWidth: "90px",
-                                    formatter: cellbreaker
-                                },
-                                {
-                                    name: 'cardId',
-                                    index: 'platform',
-                                    align: "center",
-                                    width: "100px",
-                                    minWidth: "80px",
-                                    formatter: function (cellval, opts,
-                                                         rowObject, action) {
-                                        if (rowObject['platform'].split(',').length == 3) {
-                                            return "全部";
-                                        } else {
-                                            return buildResults(rowObject['platform'], {
-                                                "www": "网站",
-                                                "app": "客户端",
-                                                "wap": "手机"
-                                            });
-                                        }
-                                    }
-                                },
-                                {
-                                    name: 'paperPrice',
-                                    index: 'booth',
-                                    align: "center",
-                                    width: "45px",
-                                    formatter: function (cellval, opts,
-                                                         rowObject, action) {
-                                        if (rowObject['booth'].split(',').length == 5) {
-                                            return "全部";
-                                        } else {
-                                            return buildResults(rowObject['booth'], {
-                                                "deal": "特卖",
-                                                "media": "POP",
-                                                "jumeiglobal": "海外购",
-                                                "mall": "商城",
-                                                "globalmall": "海淘商城"
-                                            });
-                                        }
-                                    }
-                                },
-                                {
-                                    name: 'actualPrice',
-                                    index: 'indexType',
-                                    align: "center",
-                                    width: "90px",
-                                    formatter: "select",
-                                    editoptions: {
-                                        value: "show_category:展示类型;product_id:产品ID;brand_id:品牌ID;hash_id:hash_id;category_id:分类ID"
-                                    }
-
-                                },
-                                {
-                                    name: 'drinkPrice',
-                                    index: 'limitInSingleOrder',
-                                    align: "center",
-                                    width: "70px"
-                                },
-                                {
-                                    name: 'foodPrice',
-                                    index: 'noVoucher',
-                                    align: "center",
-                                    width: "50px",
-                                    formatter: "select",
-                                    editoptions: {
-                                        value: "0:不禁用;1:禁用"
-                                    }
                                 },
                                 {
                                     name: 'createTime',
-                                    index: 'noRedEnvelope',
+                                    index: 'createTime',
                                     align: "center",
-                                    width: "50px",
-                                    formatter: "select",
-                                    editoptions: {
-                                        value: "0:不禁用;1:禁用"
-                                    }
+                                    width: "140px",
+                                    minWidth: "90px",
                                 },
                                 {
-                                    name: 'queueUp',
-                                    index: 'noCod',
+                                    name: 'modifiedTime',
+                                    index: 'modifiedTime',
                                     align: "center",
-                                    width: "60px",
-                                    formatter: "select",
-                                    editoptions: {
-                                        value: "0:不禁用;1:禁用"
-                                    }
+                                    width: "140px",
+                                    minWidth: "90px",
                                 },
                                 {
-                                    name: 'settle',
-                                    index: "freeShipping",
+                                    name: 'checkHistory',
+                                    index: 'checkHistory',
                                     align: "center",
-                                    width: "50px",
-                                    formatter: "select",
-                                    editoptions: {
-                                        value: "0:不支持;1:支持"
+                                    width: "140px",
+                                    minWidth: "90px",
+                                    formatter : function(cellval, opts,
+                                                         rowObject, action) {
+                                        var cardId = rowObject['cardId'];
+                                        //这里需要点击弹框,展示历史流水
                                     }
-                                },
+                                }
                             ],
                             rowNum: 15,
                             rowList: [15, 30, 50],
@@ -230,7 +147,6 @@
                                     overdueRows.parent().addClass('overduestatus');
                                 }
 
-                                initAuth();
                             }
                         });
 
