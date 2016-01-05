@@ -326,6 +326,50 @@
             $("#search_btn").click();
         });
     });
+    //开始时间不能小于当前时间
+    function startTimeIsBigThanTotay(startTime){
+        var startdate = new Date((startTime).replace(/-/g,"/"));
+        var date = new Date();
+        if(startdate < date)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    //结束时间不能小于当前时间
+    function endThanTotay(endTime){
+        var enddate = new Date((endTime).replace(/-/g,"/"));
+        var nowdate = new Date();
+        if(enddate < nowdate)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+
+    //结束时间不能小于开始时间
+    function endThanStart(startTime,endTime){
+        var startdate = new Date((startTime).replace(/-/g,"/"));
+        var enddate = new Date((endTime).replace(/-/g,"/"));
+        if(enddate < startdate)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+
 
     function isRuleEffect(startTime){
         var year = startTime.split(" ")[0].split("-")[0];
