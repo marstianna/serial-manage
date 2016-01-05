@@ -1,6 +1,7 @@
 package com.hotpot.service;
 
 import com.hotpot.domain.Staff;
+import com.hotpot.domain.Store;
 
 import java.util.List;
 
@@ -20,4 +21,11 @@ public interface StoreService {
      * @return
      */
     List<Staff> getStaffByStoreId(Integer storeId);
+
+    /**
+     * 获取所有店铺
+     * @return
+     */
+    List<Store> getAllStores();
+
 }

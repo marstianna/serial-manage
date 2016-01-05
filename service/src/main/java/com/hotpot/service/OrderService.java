@@ -19,7 +19,9 @@ public interface OrderService {
 
     Map<String,List<Integer>> settleOrders(List<Integer> orderIds);
 
-    ValueCard pay(Order order, String cardId, String cardUuid);
+    ValueCard payByCard(Order order, String cardId, String cardUuid);
+
+    Order pay(Order order);
 
     List<Order> getOrdersBySearcher(OrderSearcher searcher);
 }

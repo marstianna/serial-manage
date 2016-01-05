@@ -53,7 +53,7 @@ public class OrderServiceTest {
         order.setCardId("No.000001");
         order.setStoreId(1);
         try {
-            orderService.pay(order, "No.000001", "887a85f2-45e4-3cbe-a2ac-5d1f1dfff588");
+            orderService.payByCard(order, "No.000001", "887a85f2-45e4-3cbe-a2ac-5d1f1dfff588");
         }catch(Exception e){
             e.printStackTrace();
         }

@@ -14,4 +14,14 @@ public class Const {
     public static final int PROMOTION_TYPE_DISCOUNT = 2;
 
     public static final int ALL = 0;
+
+    public static final int PAY_TYPE_CARD = 0;
+    public static final int PAY_TYPE_CASH = 1;
+    public static final int PAY_TYPE_ALIPAY = 2;
+    public static final int PAY_TYPE_WEIXIN = 3;
+    public static final int PAY_TYPE_TUAN = 4;
+
+    public static final int DEFAULT_SMALL_TABLE = 4;
+    public static final int DEFAULT_BIG_TABLE = 8;
+
 }

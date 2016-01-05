@@ -7,7 +7,7 @@ import com.hotpot.entity.QueueUp;
  */
 public interface QueueUpService {
 
-    void queueUp(Integer storeId, String phone, Integer waitingNumber);
+    void queueUp(Integer storeId, String phone, Integer waitingNumber, String weChat);
 
     QueueUp popup(String tableNumber, Integer storeId);
 }

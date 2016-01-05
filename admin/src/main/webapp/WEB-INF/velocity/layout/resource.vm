@@ -18,9 +18,8 @@
 ##<script src="$jsPath/jquery-validation/additional-methods.min.js" type="text/javascript"></script>
 ##<script src="$jsPath/jquery-validation/messages_zh.js" type="text/javascript"></script>
 
-##<!-- <!-- jumei union util -->
 ##<script src="$jsPath/util.js" type="text/javascript"></script>
-##<script src="$jsPath/common/util.js" type="text/javascript"></script>
+<script src="$jsPath/common/util.js" type="text/javascript"></script>
 ##DATE
 <script src="$jsPath/bootstrap-datetimepicker.js" type="text/javascript" charset="utf-8"></script>
 <script src="$jsPath/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript" charset="utf-8"></script>

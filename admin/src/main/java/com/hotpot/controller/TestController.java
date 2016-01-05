@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * Created by zoupeng on 15/12/25.
  */
 @Controller
-@RequestMapping("/order/")
+@RequestMapping("/test/")
 public class TestController {
     @RequestMapping("")
     @ResponseBody

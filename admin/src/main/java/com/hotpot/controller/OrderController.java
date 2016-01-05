@@ -19,13 +19,17 @@ import java.util.Map;
  * Created by zoupeng on 15/12/31.
  */
 @Controller
-@RequestMapping("order/")
+@RequestMapping("/order/")
 public class OrderController {
     @Autowired
     OrderService orderService;
     @Autowired
     ValueCardService valueCardService;
 
+    @RequestMapping("order")
+    public String order(){
+        return "order/order";
+    }
     @RequestMapping("getAllOrders")
     @ResponseBody
     public List<Order> getAllOrders(){
