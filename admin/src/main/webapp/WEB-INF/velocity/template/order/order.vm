@@ -90,17 +90,7 @@
             format: "dd MM yyyy - hh:ii",
             language: 'zh-CN'
         });
-        setTimeout(function () {
-            var topWin = window.top.document;
-            var bodyclass = $(topWin).find("body").attr("class");
-            //if(bodyclass){
-            $('body').attr("class", bodyclass);
-            //}
-        }, 0);
-        fixBtns();
-        $("#list")
-                .jqGrid(
-                        {
+        $("#list").jqGrid({
                             url: '$ctx/order/getAllOrders',
                             datatype: "local",
                             colNames: ["id", "会员ID", "storeId", "payType", "cardId", "paperPrice", "actualPrice",
@@ -268,7 +258,6 @@
                                 initAuth();
                             }
                         });
-
         $("#list").jqGrid('navGrid', '#pager', {
             edit: false,
             add: false,
@@ -326,88 +315,46 @@
         });
     });
 
-    function isRuleEffect(startTime){
-        var year = startTime.split(" ")[0].split("-")[0];
-        var month = startTime.split(" ")[0].split("-")[1];
-        var day = startTime.split(" ")[0].split("-")[2];
-
-        var hour = startTime.split(" ")[1].split(":")[0];
-        var minu = startTime.split(" ")[1].split(":")[1];
-        var sec = startTime.split(" ")[1].split(":")[2];
-
-        return new Date(year, month - 1, day, hour, minu, sec) < new Date();
-    }
-
-    function checkAll(id, obj) {
-        var itemlist = $("#" + id + " :checkbox");
-        if (obj.checked) {
-            for (var i = 0; i < itemlist.length; i++) {
-                itemlist[i].checked = true;
-            }
-        } else {
-            for (var i = 0; i < itemlist.length; i++) {
-                itemlist[i].checked = false;
-            }
+    //开始时间不能小于当前时间
+    function startTimeIsBigThanTotay(startTime){
+        var startdate = new Date((startTime).replace(/-/g,"/"));
+        var date = new Date();
+        if(startdate < date)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
         }
     }
 
-    function mainQueryCheckBox() {
-        $("input[type=hidden][name=booth]").val(getCheckBoxValue('booths'));
-    }
-
-    function modifyDraftPolicy(id) {
-        $.unionTab.addRootTab({url:'$ctx/policy/modifyDraftPolicy?id='+id,title:'编辑政策['+id+']'})
-    }
-
-    function policyInfo(id,draftId) {
-        $.unionTab.addRootTab({url:'$ctx/policy/policyInfo?id='+id,title:'政策详情['+draftId+']'})
-    }
-
-    function batchPublish() {
-        //gets selected item
-        var selectedIds = $("#list").jqGrid("getGridParam", "selarrrow");
-        if (!selectedIds || selectedIds.length == 0) {
-            showError('当前没有选择！');
-            return;
+    //结束时间不能小于当前时间
+    function endThanTotay(endTime){
+        var enddate = new Date((endTime).replace(/-/g,"/"));
+        var nowdate = new Date();
+        if(enddate < nowdate)
+        {
+            return false;
         }
-
-        $.post("$ctx/policy/publish", {
-            rids : selectedIds.join(",")
-        }, function(res) {
-            if (res.success) {
-                $("#list").trigger('reloadGrid');
-                waitPublishNum();
-                showInfo('批量发布成功');
-            } else {
-                showError('数据发生异常:' + result.message);
-            }
-        }, "json");
-    }
-
-    function buildResults(str,optionsArr){
-        var strArr = str.split(',');
-        var result = "";
-        for(var i = 0;i<strArr.length;i++){
-            result+=optionsArr[strArr[i]]+"\n";
+        else
+        {
+            return true;
         }
-        return result.substring(0,result.length-1);
     }
 
-    $(window).bind('resize', function() {
-        $("#list").setGridWidth($(window).width()-10);
-    }).trigger('resize');
 
-    function exportExl() {
-        if(confirm('确定导出EXCEL？')){
-
-            var selectedIds = $("#list").jqGrid("getGridParam", "selarrrow");
-            if(!selectedIds || selectedIds.length ==0)
-            {
-                showError('当前没有选择！');
-                return;
-            }
-            $("#search_form").attr('action', '$ctx/policy/exportInMain?ids='+selectedIds.join(",")).attr(
-                    'method', 'post').submit();
+    //结束时间不能小于开始时间
+    function endThanStart(startTime,endTime){
+        var startdate = new Date((startTime).replace(/-/g,"/"));
+        var enddate = new Date((endTime).replace(/-/g,"/"));
+        if(enddate < startdate)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
         }
     }
 </script>
