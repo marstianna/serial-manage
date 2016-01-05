@@ -24,6 +24,7 @@
 <script src="$jsPath/bootstrap-datetimepicker.js" type="text/javascript" charset="utf-8"></script>
 <script src="$jsPath/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript" charset="utf-8"></script>
 <link href="$ctx/static/css/bootstrap-datetimepicker.css" type="text/css" rel="stylesheet">
+<link href="$ctx/static/css/css.css" type="text/css" rel="stylesheet">
 
 
 
