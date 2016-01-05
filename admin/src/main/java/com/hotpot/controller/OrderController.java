@@ -26,10 +26,11 @@ public class OrderController {
     @Autowired
     ValueCardService valueCardService;
 
-    @RequestMapping("order")
+    @RequestMapping({"index","order"})
     public String order(){
         return "order/order";
     }
+
     @RequestMapping("getAllOrders")
     @ResponseBody
     public List<Order> getAllOrders(){

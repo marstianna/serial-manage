@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 /**
  * Created by zoupeng on 16/1/4.
  */
@@ -16,10 +18,21 @@ public class ValueCardController {
     @Autowired
     ValueCardService valueCardService;
 
+    @RequestMapping({"index"})
+    public String toValueCardIndex(){
+        return "valuecard/valuecard";
+    }
+
     @RequestMapping("topUp")
     @ResponseBody
     public String topUp(String cardId,String cardUuid,Integer storeId,Integer account,Integer price){
         ValueCard card = valueCardService.topUp(cardId,cardUuid,storeId,account,price);
         return null;
+    }
+
+    @RequestMapping("getAllCards")
+    @ResponseBody
+    public List<ValueCard> getAllCards(){
+        return  valueCardService.getAllCards();
     }
 }

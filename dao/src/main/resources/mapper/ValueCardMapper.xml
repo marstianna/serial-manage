@@ -186,4 +186,10 @@
     from value_card
     where card_id = #{cardId} and card_uuid = #{cardUuid}
   </select>
+
+  <select id="getAllCards" resultType="com.hotpot.domain.ValueCard">
+    select
+    <include refid="Base_Column_List" />
+    from value_card
+  </select>
 </mapper>
