@@ -14,7 +14,6 @@ import java.util.List;
  * Mybatis - 分页对象
  * 修改原版增加排序支持.
  *
- * @author liusz
  * @version 3.2.2
  * @param <E> the element type
  */

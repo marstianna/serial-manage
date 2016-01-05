@@ -192,4 +192,31 @@
     <include refid="Base_Column_List" />
     from value_card
   </select>
+  <select id="getCardHistoryBySearcher" parameterType="com.hotpot.searcher.ValueCardSearcher" resultType="com.hotpot.domain.ValueCard">
+    select
+    <include refid="Base_Column_List" />
+    from value_card
+    <where>
+      <if test="cardId != null">
+        AND card_id = #{cardId}
+      </if>
+      <if test="vipId != null">
+        AND vip_id = #{vipId}
+      </if>
+      <if test="startTimeForCreate != null">
+        AND <![CDATA[ create_time >= #{startTimeForCreate} ]]>
+      </if>
+      <if test="endTimeForCreate != null">
+        AND <![CDATA[ create_time <= #{endTimeForCreate} ]]>
+      </if>
+      <if test="startTimeForModified != null">
+        AND <![CDATA[ create_time >= #{startTimeForModified} ]]>
+      </if>
+      <if test="endTimeForModified != null">
+        AND <![CDATA[ create_time <= #{endTimeForModified} ]]>
+      </if>
+    </where>
+    order by create_time desc
+  </select>
+
 </mapper>

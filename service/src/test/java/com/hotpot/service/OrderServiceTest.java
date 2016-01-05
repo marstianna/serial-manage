@@ -1,7 +1,6 @@
 package com.hotpot.service;
 
 import com.alibaba.fastjson.JSON;
-import com.google.common.collect.Lists;
 import com.hotpot.commons.DateTool;
 import com.hotpot.domain.Order;
 import com.hotpot.searcher.OrderSearcher;
@@ -36,8 +35,6 @@ public class OrderServiceTest {
 
     @Test
     public void testSettleOrders() throws Exception {
-        Object result = orderService.settleOrders(Lists.newArrayList(1,2));
-        System.out.println(JSON.toJSONString(result));
     }
 
     @Test

@@ -57,7 +57,5 @@ public interface OrderMapper {
      */
     int updateByPrimaryKey(Order record);
 
-    Integer settleOrder(Integer orderId);
-
     List<Order> getOrderBySearcher(OrderSearcher searcher);
 }

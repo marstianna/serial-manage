@@ -13,9 +13,10 @@
                         <td class="text-right" width="150">支付方式：</td>
                         <td width="200">
                             <select name="site" class="form-control">
-                                <option value="" selected="selected">支付宝</option>
-                                <option value="">支付宝</option>
-                                <option value="">银联</option>
+                                <option value="-1" selected="selected">全部</option>
+                                #foreach($param in ${payTypeList.keySet()})
+                                    <option value="$param">${payTypeList.get($param)}</option>
+                                #end
                             </select>
                         </td>
                     </tr>
@@ -24,10 +25,10 @@
                         <td class="text-right" width="150">店铺ID：</td>
                         <td width="200">
                             <select name="site" class="form-control">
-                                <option value="" selected="selected">一号店</option>
-                                <option value="">二号店</option>
-                                <option value="">三号店</option>
-                                <option value="">四号店</option>
+                                <option value="-1" selected="selected">全部</option>
+                                #foreach($param in ${storeList.keySet()})
+                                    <option value="$param">${storeList.get($param)}</option>
+                                #end
                             </select>
                         </td>
                         <td class="text-right" width="150">储值卡编号：</td>
@@ -102,7 +103,7 @@
                             url: '$ctx/order/getAllOrders',
                             datatype: "local",
                             colNames: ["id", "会员ID", "店铺ID", "支付方式", "储值卡编号", "订单原价", "实际支付金额",
-                                "酒水价格", "菜品金额", "创建时间", "是否排队", "是否已结账"],
+                                "酒水价格", "菜品金额", "创建时间", "是否排队"],
                             colModel: [
                                 {
                                     name: 'id',
@@ -182,17 +183,7 @@
                                     editoptions: {
                                         value: "0:否;1:是"
                                     }
-                                },
-                                {
-                                    name: 'settle',
-                                    index: "freeShipping",
-                                    align: "center",
-                                    width: "50px",
-                                    formatter: "select",
-                                    editoptions: {
-                                        value: "0:否;1:是"
-                                    }
-                                },
+                                }
                             ],
                             rowNum: 15,
                             rowList: [15, 30, 50],
@@ -284,19 +275,6 @@
     });
 
 
-    function checkAll(id, obj) {
-        var itemlist = $("#" + id + " :checkbox");
-        if (obj.checked) {
-            for (var i = 0; i < itemlist.length; i++) {
-                itemlist[i].checked = true;
-            }
-        } else {
-            for (var i = 0; i < itemlist.length; i++) {
-                itemlist[i].checked = false;
-            }
-        }
-    }
-
     function fixBtns(){
         $(window).scroll(function(){
             var btncol = $('.btncol');
@@ -311,15 +289,6 @@
                 btncol.removeClass('fixedbtn');
             }
         });
-    }
-
-    function buildResults(str,optionsArr){
-        var strArr = str.split(',');
-        var result = "";
-        for(var i = 0;i<strArr.length;i++){
-            result+=optionsArr[strArr[i]]+"\n";
-        }
-        return result.substring(0,result.length-1);
     }
 
     $(window).bind('resize', function() {

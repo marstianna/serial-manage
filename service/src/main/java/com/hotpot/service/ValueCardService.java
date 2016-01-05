@@ -3,6 +3,8 @@ package com.hotpot.service;
 import com.hotpot.domain.ValueCard;
 import com.hotpot.domain.ValueCardHistory;
 import com.hotpot.domain.VipInfo;
+import com.hotpot.searcher.ValueCardHistorySearcher;
+import com.hotpot.searcher.ValueCardSearcher;
 
 import java.util.List;
 import java.util.Map;
@@ -95,6 +97,11 @@ public interface ValueCardService {
     /**
      * 获取所有储值卡
      * @return
+     * @param searcher
      */
-    List<ValueCard> getAllCards();
+    List<ValueCard> getAllCards(ValueCardSearcher searcher);
+
+    Map<String,List<Integer>> settleOrdersForCom(List<Integer> orderIds);
+
+    List<ValueCardHistory> getAllCardHistory(ValueCardHistorySearcher searcher);
 }

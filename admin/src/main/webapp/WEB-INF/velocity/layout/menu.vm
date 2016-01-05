@@ -2,11 +2,14 @@
 <!--start left-->
 <script type="text/javascript">
     var menus = [
-        {id: 1, name: "订单", parent: -1, order: 1, path: "$ctx/order/index", icon: "fa-laptop"},
+        {id: 1, name: "订单", parent: -1, order: 1, path:"" , icon: "fa-laptop"},
+        {id: 11, name: "订单列表", parent: 1, order: 1, path: "$ctx/order/index", icon: ""},
 
         {id: 2, name: "会员", parent: -1, order: 2, path: "$ctx/vip/index", icon: ""},
 
-        {id: 3, name: "储值卡", parent: -1, order: 3, path: "$ctx/valuecard/index", icon: ""},
+        {id: 3, name: "储值卡", parent: -1, order: 3, path:"" , icon: "fa-edit"},
+        {id: 31, name: "储值卡列表", parent: 3, order: 1, path: "$ctx/valuecard/index", icon: ""},
+        {id: 32, name: "储值卡账单", parent: 3, order: 2, path: "$ctx/valuecard/historyindex", icon: ""},
 
         {id: 4, name: "促销", parent: -1, order: 4, path: "$ctx/promotion/index", icon: ""},
 

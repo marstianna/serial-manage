@@ -1,6 +1,5 @@
 package com.hotpot.service.impl;
 
-import com.google.common.collect.Lists;
 import com.hotpot.commons.Const;
 import com.hotpot.dao.OrderMapper;
 import com.hotpot.domain.Order;
@@ -14,9 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by zoupeng on 15/12/26.
@@ -45,29 +42,6 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> getUnsettleOrderByStoreId(Integer storeId) {
         return getOrdersBySearcher(new OrderSearcher().setStoreId(storeId)
                                                     .setSettle(Const.ORDER_UNSETTLE));
-    }
-
-    @Override
-    public Map<String,List<Integer>> settleOrders(List<Integer> orderIds){
-        Map<String,List<Integer>> result = new HashMap<>();
-        String success = "success";
-        String fail = "fail";
-        result.put(success, Lists.newArrayList());
-        result.put(fail,Lists.newArrayList());
-        for(Integer orderId: orderIds){
-            try {
-                Integer count = orderMapper.settleOrder(orderId);
-                if (count == 0){
-                    result.get(fail).add(orderId);
-                }else{
-                    result.get(success).add(orderId);
-                }
-            }catch(Exception e){
-                //TODO log
-                result.get(fail).add(orderId);
-            }
-        }
-        return result;
     }
 
     @Override

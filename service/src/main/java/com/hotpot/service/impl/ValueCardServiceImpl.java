@@ -1,5 +1,6 @@
 package com.hotpot.service.impl;
 
+import com.google.common.collect.Lists;
 import com.hotpot.commons.Const;
 import com.hotpot.commons.DateTool;
 import com.hotpot.dao.ValueCardHistoryMapper;
@@ -7,6 +8,8 @@ import com.hotpot.dao.ValueCardMapper;
 import com.hotpot.domain.ValueCard;
 import com.hotpot.domain.ValueCardHistory;
 import com.hotpot.domain.VipInfo;
+import com.hotpot.searcher.ValueCardHistorySearcher;
+import com.hotpot.searcher.ValueCardSearcher;
 import com.hotpot.service.ValueCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -113,8 +116,36 @@ public class ValueCardServiceImpl implements ValueCardService{
     }
 
     @Override
-    public List<ValueCard> getAllCards() {
-        return valueCardMapper.getAllCards();
+    public List<ValueCard> getAllCards(ValueCardSearcher searcher) {
+        return valueCardMapper.getCardHistoryBySearcher(searcher);
+    }
+
+    @Override
+    public Map<String,List<Integer>> settleOrdersForCom(List<Integer> ids){
+        Map<String,List<Integer>> result = new HashMap<>();
+        String success = "success";
+        String fail = "fail";
+        result.put(success, Lists.newArrayList());
+        result.put(fail,Lists.newArrayList());
+        for(Integer id: ids){
+            try {
+                Integer count = valueCardHistoryMapper.settle(id,Const.SETTLE_FROM_COMP,Const.OPERATE_ADD);
+                if (count == 0){
+                    result.get(fail).add(id);
+                }else{
+                    result.get(success).add(id);
+                }
+            }catch(Exception e){
+                //TODO log
+                result.get(fail).add(id);
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public List<ValueCardHistory> getAllCardHistory(ValueCardHistorySearcher searcher) {
+        return valueCardHistoryMapper.getCardHistoryBySearcher(searcher);
     }
 
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)

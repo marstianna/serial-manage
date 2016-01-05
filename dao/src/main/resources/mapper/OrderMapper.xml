@@ -18,7 +18,6 @@
     <result column="food_price" property="foodPrice" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="INTEGER" />
     <result column="queue_up" property="queueUp" jdbcType="TINYINT" />
-    <result column="settle" property="settle" jdbcType="TINYINT" />
   </resultMap>
   <sql id="Base_Column_List" >
     <!--
@@ -27,7 +26,7 @@
       This element was generated on Fri Dec 25 15:10:08 CST 2015.
     -->
     id, vip_id vipId, store_id storeId, pay_type payType, card_id cardId, paper_price paperPrice, actual_price actualPrice, drink_price drinkPrice,
-    food_price foodPrice, create_time createTime, queue_up queueUp, settle
+    food_price foodPrice, create_time createTime, queue_up queueUp
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     <!--
@@ -107,9 +106,6 @@
       <if test="queueUp != null" >
         queue_up,
       </if>
-      <if test="settle != null" >
-        settle,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -144,9 +140,6 @@
       </if>
       <if test="queueUp != null" >
         #{queueUp,jdbcType=TINYINT},
-      </if>
-      <if test="settle != null" >
-        #{settle,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
@@ -188,9 +181,6 @@
       <if test="queueUp != null" >
         queue_up = #{queueUp,jdbcType=TINYINT},
       </if>
-      <if test="settle != null" >
-        settle = #{settle,jdbcType=TINYINT},
-      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -210,13 +200,8 @@
       drink_price = #{drinkPrice,jdbcType=INTEGER},
       food_price = #{foodPrice,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=INTEGER},
-      queue_up = #{queueUp,jdbcType=TINYINT},
-      settle = #{settle,jdbcType=TINYINT}
+      queue_up = #{queueUp,jdbcType=TINYINT}
     where id = #{id,jdbcType=INTEGER}
-  </update>
-
-  <update id="settleOrder" parameterType="java.lang.Integer">
-    update `order` set settle = 1 where id = #{orderId}
   </update>
 
   <select id="getOrderBySearcher" parameterType="com.hotpot.searcher.OrderSearcher" resultType="com.hotpot.domain.Order">
@@ -244,9 +229,6 @@
       </if>
       <if test="endTime != null">
         AND <![CDATA[ create_time <= #{endTime} ]]>
-      </if>
-      <if test="settle != null">
-        AND settle = #{settle}
       </if>
     </where>
   </select>
