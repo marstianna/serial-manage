@@ -2,6 +2,7 @@ package com.hotpot.service;
 
 import com.hotpot.domain.Staff;
 import com.hotpot.domain.Store;
+import com.hotpot.domain.StoreTable;
 
 import java.util.List;
 import java.util.Map;
@@ -35,4 +36,5 @@ public interface StoreService {
      */
     Map<Integer,String> getStoreMap();
 
+    List<StoreTable> getAllTablesByStoreId(Integer storeId);
 }

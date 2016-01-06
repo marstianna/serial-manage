@@ -4,8 +4,10 @@ import com.hotpot.commons.MyMaps;
 import com.hotpot.commons.function.FunctionForListToMap;
 import com.hotpot.dao.StaffMapper;
 import com.hotpot.dao.StoreMapper;
+import com.hotpot.dao.StoreTableMapper;
 import com.hotpot.domain.Staff;
 import com.hotpot.domain.Store;
+import com.hotpot.domain.StoreTable;
 import com.hotpot.service.StoreService;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
@@ -24,6 +26,8 @@ public class StoreServiceImpl implements StoreService{
     StoreMapper storeMapper;
     @Autowired
     StaffMapper staffMapper;
+    @Autowired
+    StoreTableMapper storeTableMapper;
 
     @Override
     public void addStaff(Staff staff) {
@@ -52,5 +56,10 @@ public class StoreServiceImpl implements StoreService{
             }
         });
         return results;
+    }
+
+    @Override
+    public List<StoreTable> getAllTablesByStoreId(Integer storeId) {
+        return null;
     }
 }
