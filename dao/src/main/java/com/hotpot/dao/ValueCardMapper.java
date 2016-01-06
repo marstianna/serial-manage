@@ -3,6 +3,7 @@ package com.hotpot.dao;
 
 import com.hotpot.domain.ValueCard;
 import com.hotpot.domain.VipInfo;
+import com.hotpot.searcher.ValueCardSearcher;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -69,4 +70,6 @@ public interface ValueCardMapper {
     ValueCard getValueCardInfo(@Param("cardId") String cardId,@Param("cardUuid") String cardUuid);
 
     List<ValueCard> getAllCards();
+
+    List<ValueCard> getCardHistoryBySearcher(ValueCardSearcher searcher);
 }

@@ -10,10 +10,10 @@
 		<package name="com.hotpot.domain" />
 	</typeAliases>
 	
-	<!--<plugins>-->
-	    <!--&lt;!&ndash; packageName为PageHelper类所在包名 &ndash;&gt;-->
-	    <!--<plugin interceptor="com.dmall.pricing.commons.utils.pagination.PageHelper">-->
-	        <!--<property name="dialect" value="mysql"/>-->
-	    <!--</plugin>-->
-	<!--</plugins>-->
+	<plugins>
+	    <!-- packageName为PageHelper类所在包名 -->
+	    <plugin interceptor="com.hotpot.commons.pagination.PageHelper">
+	        <property name="dialect" value="mysql"/>
+	    </plugin>
+	</plugins>
 </configuration>

@@ -10,6 +10,9 @@
                         <td width="200"><input type="text" class="form-control"></td>
                         <td class="text-right" width="150">会员ID：</td>
                         <td width="200"><input type="text" class="form-control"></td>
+                        <td class="text-right" width="150">操作类型：</td>
+                        <td width="200"><input type="radio" name="operate" value="0" class="form-control">消费</td>
+                        <td width="200"><input type="radio" name="operate" value="1" class="form-control">充值</td>
                     </tr>
 
                     <tr>
@@ -46,6 +49,7 @@
 </div>
 <div class="table-jqgrid">
     <!--这里放jqgrid-->
+    <button class="btn btn-sm" onclick="settleForCom()">结账</button>
     <table id="list" style="width: 95%;" form="search_form"></table>
     <div id="pager"></div>
 </div>
@@ -66,9 +70,9 @@
         $("#list")
                 .jqGrid(
                         {
-                            url: '$ctx/valuecard/getAllCards',
+                            url: '$ctx/valuecard/getAllCardHistory',
                             datatype: "local",
-                            colNames: ["id", "储值卡编号", "会员ID", "创建时间", "最后修改时间", "余额", "查看流水"],
+                            colNames: ["id", "储值卡编号", "操作类型", "消费店铺", "储值卡金额变更数额", "账单金额", "创建时间","结账情况"],
                             colModel: [
                                 {
                                     name: 'id',
@@ -85,10 +89,35 @@
 
                                 },
                                 {
-                                    name: 'vipId',
-                                    index: 'vipId',
+                                    name: 'operate',
+                                    index: 'operate',
                                     align: "center",
                                     width: "45px",
+                                    formatter: "select",
+                                    editoptions: {
+                                        value: "0:消费;1:充值"
+                                    }
+                                },
+                                {
+                                    name: 'storeId',
+                                    index: 'storeId',
+                                    align: "center",
+                                    width: "140px",
+                                    minWidth: "90px",
+                                },
+                                {
+                                    name: 'account',
+                                    index: 'account',
+                                    align: "center",
+                                    width: "140px",
+                                    minWidth: "90px",
+                                },
+                                {
+                                    name: 'price',
+                                    index: 'price',
+                                    align: "center",
+                                    width: "140px",
+                                    minWidth: "90px",
                                 },
                                 {
                                     name: 'createTime',
@@ -98,31 +127,14 @@
                                     minWidth: "90px",
                                 },
                                 {
-                                    name: 'modifiedTime',
-                                    index: 'modifiedTime',
+                                    name: 'settle',
+                                    index: 'settle',
                                     align: "center",
                                     width: "140px",
                                     minWidth: "90px",
-                                },
-                                {
-                                    name: 'balance',
-                                    index: 'balance',
-                                    align: "center",
-                                    width: "140px",
-                                    minWidth: "90px",
-                                },
-                                {
-                                    name: 'checkHistory',
-                                    index: 'checkHistory',
-                                    align: "center",
-                                    width: "140px",
-                                    minWidth: "90px",
-                                    formatter : function(cellval, opts,
-                                                         rowObject, action) {
-                                        var cardId = rowObject['cardId'];
-                                        return '<a href="javascript:getHistoryByCardId('
-                                        + cardId
-                                        + ')" class="row_btn">查看</a>';
+                                    formatter: "select",
+                                    editoptions: {
+                                        value: "0:未结账;1:店铺已上交;2:公司已下传"
                                     }
                                 }
                             ],
@@ -215,14 +227,34 @@
         });
     });
 
+    function settleForCom() {
+        var selectedIds = $("#list").jqGrid("getGridParam", "selarrrow");
+        if (!selectedIds || selectedIds.length == 0) {
+            showError('当前没有选择！');
+            return;
+        }
+        //TODO:cj,这里需要验证操作类型是否为充值,才允许继续下一步
+        if(confirm('确定对一下订单进行结账:'+selectedIds.join(","))) {
+            var bar = ProgressBar();
+            bar.show();
+            $.post("$ctx/valuecard/settleForCom", {
+                rids: selectedIds.join(",")
+            }, function (res) {
+                bar.hide();
+                if (res.success) {
+                    $("#list").trigger('reloadGrid');
+                    showInfo('批量发布成功');
+                } else {
+                    showError('数据发生异常:' + res.message);
+                }
+            }, "json");
+        }
+    }
+
     $(window).bind('resize', function() {
         $("#list").setGridWidth($(window).width()-10);
     }).trigger('resize');
 
-    function getHistoryByCardId(cardId){
-        var url = '$ctx/valuecard/getCardHistoryByCardId?cardId='+cardId;
-        //TODO:cj,这里需要一个弹出层展现所有的历史记录
-    }
 </script>
 
 </body>

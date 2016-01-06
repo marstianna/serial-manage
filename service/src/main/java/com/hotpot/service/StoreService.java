@@ -4,6 +4,7 @@ import com.hotpot.domain.Staff;
 import com.hotpot.domain.Store;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zoupeng on 15/12/26.
@@ -27,5 +28,11 @@ public interface StoreService {
      * @return
      */
     List<Store> getAllStores();
+
+    /**
+     *
+     * @return
+     */
+    Map<Integer,String> getStoreMap();
 
 }

@@ -24,4 +24,8 @@ public class Const {
     public static final int DEFAULT_SMALL_TABLE = 4;
     public static final int DEFAULT_BIG_TABLE = 8;
 
+    public static final int SETTLE_INIT = 0;
+    public static final int SETTLE_FROM_STORE = 1;
+    public static final int SETTLE_FROM_COMP = 2;
+
 }

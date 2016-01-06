@@ -3,6 +3,8 @@ package com.hotpot.dao;
 
 import com.hotpot.domain.ValueCardHistory;
 import com.hotpot.domain.VipInfo;
+import com.hotpot.searcher.ValueCardHistorySearcher;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -62,4 +64,10 @@ public interface ValueCardHistoryMapper {
     List<ValueCardHistory> getCardHistory(VipInfo vipInfo);
 
     List<ValueCardHistory> getCardHistoryByStoreId(Integer storeId);
+
+    List<ValueCardHistory> getAllCardHistory();
+
+    List<ValueCardHistory> getCardHistoryBySearcher(ValueCardHistorySearcher searcher);
+
+    Integer settle(@Param("id") Integer id,@Param("settle") Integer settle,@Param("operate") Integer opreate);
 }
