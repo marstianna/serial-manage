@@ -43,6 +43,9 @@
         $("#startTime").datetimepicker({
             format: "dd MM yyyy - hh:ii"
         });
+        $("#endTime").datetimepicker({
+            format: "dd MM yyyy - hh:ii"
+        });
         setTimeout(function () {
             var topWin = window.top.document;
             var bodyclass = $(topWin).find("body").attr("class");
