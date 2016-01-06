@@ -1,0 +1,187 @@
+@charset "utf-8";
+/* CSS Document */
+/**
+ * "Yet Another Multicolumn Layout" - (X)HTML/CSS Framework
+ * @Date		2012-04-16 10:28 AM $
+ * @purpose     content styles.
+**/
+
+
+
+/******************************** 
+	leftmenu css styles
+*********************************/
+.leftMenu{
+	float: left;
+	width: 211px;
+	margin-right: 3px;
+}
+
+.titleBox{
+	height: 26px;
+	line-height: 26px;
+	background: url(../images/titlebg_01.gif) no-repeat 0 0;
+} 
+
+.titleBoxIcon{
+	padding-left: 22px;
+	background: url(../images/icon_title.gif) no-repeat 8px center;
+}
+
+/* tree */
+.treeview.filetree{
+	margin: 16px 9px;
+}
+
+.treeview ul{
+	margin-top: 4px;
+}
+
+.treeview .hitarea{
+	background: url(../images/treeview-default.gif) 0 0 no-repeat;
+	height: 16px;
+	width: 16px;
+	margin-left: -16px;
+	float: left;
+	cursor: pointer;
+}
+/* fix for IE6 */
+* html .hitarea{
+	display: inline;
+	float:none;
+}
+
+.treeview li{ 
+	margin: 0;
+	padding: 3px 0pt 3px 16px;
+}
+
+.treeview .hover{
+	color: #e3590d;
+	cursor: pointer;
+}
+
+.treeview li{
+	background: url(../images/treeview-default.gif) 0 -14px no-repeat;
+}
+
+.treeview .expandable-hitarea{
+	background-position: 0 -16px;
+}
+
+.treeview li.last{
+	background-position: 0 -14px;
+}
+
+.treeview .placeholder{
+	background: url(../images/ajax-loader.gif) 0 0 no-repeat;
+	height: 16px;
+	width: 16px;
+	display: block;
+}
+
+.filetree li{
+	padding: 3px 0 2px 16px;
+}
+
+.filetree span.folder, 
+.filetree a.file{
+	padding: 1px 0 1px 19px;
+	display: block;
+}
+
+.filetree span.folder{
+	background: url(../images/folder.gif) 0 0 no-repeat;
+}
+
+.filetree li.expandable span.folder{
+	background: url(../images/folder-closed.gif) 0 0 no-repeat;
+}
+
+.filetree a.file{
+	background: url(../images/file.gif) 0 0 no-repeat;
+}
+
+
+
+/******************************** 
+	content css styles
+*********************************/
+.contentBox{
+	margin-left: 214px;
+}
+
+.contentBox .titleBox{
+	background: url(../images/titlebg_02.gif) no-repeat 0 0;
+}
+
+.content{
+	padding: 18px 45px 0;
+}
+
+.content .errorBox{
+	margin-bottom: 20px;
+	margin-top: 0;
+	width: 98%;
+}
+
+a.detailLink{
+	text-decoration: underline;
+}
+
+.pagination{
+	text-align: right;
+	margin: 14px 0;
+}
+
+.pagination a{
+	padding-left: 5px;
+}
+
+.pagination a.pre, 
+.pagination a.next{
+	width: 5px;
+	height: 8px;
+	background: url(../images/preArrow.gif) no-repeat 0 center;
+	margin-left: 5px;
+	*display: inline-block;
+}
+
+.pagination a.next{
+	background: url(../images/nextArrow.gif) no-repeat 0 center;
+	margin: 0 5px 0 0;
+}
+
+.formTable textarea{
+	height: 100px;
+}
+
+.content table thead tr th{
+	background-color: #a8d7f3;
+	height: 30px;
+	padding: 0;
+}
+
+.content table tfoot tr td{
+	text-align: right;
+	background-color: #e3e9ed;
+}
+
+
+
+.content  table tr th, 
+.content  table tr td{
+	border: #cad7e8 1px solid;
+	padding: 7px 10px;
+	text-align: center;
+	font-size:12px;
+}
+
+.content  table tr th{
+	background-color: #eaf4fb;
+}
+
+.searchBox .input_text{
+	width: 15%;
+	margin-right: 20px;
+}

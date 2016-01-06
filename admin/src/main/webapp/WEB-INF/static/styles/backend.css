@@ -1,0 +1,155 @@
+body {
+	font-size: 12px !important;
+	font-family: '微软雅黑' !important;
+}
+
+.content {
+	padding: 10px 15px 20px 15px;
+}
+/* .ui-jqgrid .ui-jqgrid-htable th div{ */
+/* 	padding-bottom:24px !important; */
+/* } */
+.ui-jqgrid-view {
+	font-family: '微软雅黑';
+	font-size: 12px;
+}
+
+.ui-jqgrid .ui-jqgrid-view, .ui-jqgrid .ui-paging-info, .ui-jqgrid .ui-pg-table,
+	.ui-jqgrid .ui-pg-selbox {
+	font-family: '微软雅黑' !important;
+	font-size: 13px !important;
+}
+
+.fieldrow {
+	padding-bottom: 10px;
+}
+
+.fieldlabel {
+	min-width: 80px;
+}
+
+.ui-multiselect {
+	height: 30px !important;
+	font-family: '微软雅黑' !important;
+	font-size: 12px !important;
+}
+
+.ui-multiselect-checkboxes label, .ui-helper-reset {
+	font-size: 12px;
+	font-family: '微软雅黑';
+}
+
+td.subgrid-cell .ui-icon-carat-1-sw {
+	display: none !important;
+}
+
+#jqgh_list_cb input {
+	margin: auto !important;
+}
+
+#jqgh_list_cb {
+	height: 18px !important;
+}
+
+.ui-jqgrid-titlebar {
+	height: 30px;
+	line-height: 30px;
+}
+
+.ui-jqgrid-labels {
+	height: 35px;
+	line-height: 22px;
+}
+
+.ui-jqgrid-hdiv {
+	border-bottom-width: 0px !important;
+}
+
+.ui-row-ltr {
+	border-left-width: 0px !important;
+	border-right-width: 0px !important;
+}
+
+.jqgrow {
+	line-height: 17px;
+}
+
+table.ui-jqgrid-btable {
+	display: inline-grid !important;
+}
+
+td {
+	overflow: hidden !important;
+	text-overflow: ellipsis !important;
+}
+
+.ui-jqgrid-btable .ui-widget-content.ui-state-highlight,
+	.ui-jqgrid-btable .ui-widget-content.ui-state-hover {
+	background-image: -webkit-linear-gradient(top, #fceec1, #eedc94)
+		!important;
+	color: black;
+	border-color: #ddd;
+}
+
+.ui-state-hover a, .ui-state-hover a:hover, .ui-state-hover a:link,
+	.ui-state-hover a:visited, .ui-state-focus a, .ui-state-focus a:hover,
+	.ui-state-focus a:link, .ui-state-focus a:visited {
+	color: black;
+}
+
+.ui-jqgrid .ui-jqgrid-pager, ui-pager-control {
+	height: auto;
+}
+
+.ui-jqgrid .ui-pg-selbox, .ui-jqgrid .ui-pg-input {
+	height: auto;
+}
+
+.list-inline {
+	font-size: 14px;
+	list-style-image: none;
+	list-style-type: none;
+	display: inline;
+}
+
+.list-inline li {
+	width: auto;
+	display: inline;
+}
+
+.list-inline a, .list-inline a:hover, .list-inline a:link, .list-inline a:visited
+	{
+	text-decoration: none;
+}
+
+.onlinestatus {
+	background: #EDFBF7;
+}
+
+.overduestatus {
+	background: #FFF8D7;
+}
+
+div#time_select {
+	display: inline-block;
+}
+
+.ui-jqgrid .ui-jqgrid-resize-ltr {
+	/*make the jqGrid show col-resize effect(adding on release_006 by hry at 20140408)*/
+	/*display: none;*/
+}
+
+.marginT10 {
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
+td.text-left.inforight {
+	width: 88%;
+}
+.ui-jqgrid-btable .ui-widget-content.ui-state-highlight, .ui-jqgrid-btable .ui-widget-content.ui-state-hover {
+    background-image: none!important;
+    color: black;
+    border-color: #ddd;
+    background-color: #f0f0f0;
+}
