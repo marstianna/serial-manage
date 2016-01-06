@@ -13,6 +13,7 @@
         <module>service</module>
         <module>commons</module>
         <module>admin</module>
+        <module>store</module>
     </modules>
 
 

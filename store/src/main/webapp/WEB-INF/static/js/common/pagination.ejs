@@ -1,0 +1,67 @@
+<ul class="pager" id="<%=data.id%>">
+    <li>
+        <%if(data.currentPage == 1){%>
+        <span>首页</span>
+        <%}else{%>
+        <a href="javascript:common.fn.pagination(1,'<%=data.pagination%>','<%=data.targetContainer%>')" class="btn" title="首页">首页</a>
+        <%}%>
+
+
+        <!--<a href="javascript:thu.common.fn.pagination(1,'<%=data.pagination%>','<%=data.targetContainer%>')" title="首页">首页</a>-->
+    </li>
+    <li>
+        <%if(data.currentPage<2){%>
+             <span>上一页</span>
+        <%}else{%>
+            <a href="javascript:common.fn.pagination(<%=(data.currentPage-1)%>,'<%=data.pagination%>','<%=data.targetContainer%>')" class="btn" title="上一页">上一页</a>
+        <%}%>
+    </li>
+    <li>
+        <%if(data.currentPage>=data.pageCount){%>
+            <span>下一页</span>
+        <%}else{%>
+            <a class="btn" href="javascript:common.fn.pagination(<%if((data.currentPage+1)>data.pageCount){%><%=data.pageCount%><%}else{%><%=(data.currentPage+1)%><%}%>,'<%=data.pagination%>','<%=data.targetContainer%>')" title="下一页">下一页</a>
+        <%}%>
+    </li>
+    <li id="end">
+        <%if(data.currentPage >= data.pageCount){%>
+        <span>末页</span>
+        <%}else{%>
+         <a class="btn" href="javascript:common.fn.pagination(<%=data.pageCount%>,'<%=data.pagination%>','<%=data.targetContainer%>')" title="未页">末页</a>
+        <%}%>
+
+
+    </li>
+    <li style="margin-bottom: 2px">
+        <span style="border: 0;padding: 5px 5px">
+            跳到第 <input type="text" maxlength="4"
+                     onkeyup="this.value=this.value.replace(/\D/g,'');common.fn.jumpToPageAddEnterKeyEvent(this,'<%=data.pagination%>','<%=data.targetContainer%>',<%=data.pageCount?data.pageCount:1%>)"
+                     onafterpaste="this.value=this.value.replace(/\D/g,'')" class="paginationNum"   style="margin-top: 10px;;width:40px"/> 页
+        </span>
+    </li>
+    <li>
+        <span  style="border: 0;padding: 5px 5px">
+        <input class="btn" id="test111" type="button" onclick="common.fn.pagination($('#<%=data.id%> .paginationNum').val(),'<%=data.pagination%>','<%=data.targetContainer%>',<%=data.pageCount?data.pageCount:1%>);" value="确定">
+        </span>
+    </li>
+    <li>
+
+        <% if (data.recordCount>=1){%>
+            <%=data.recordIndexBegin%>-<%=data.recordIndexEnd%>/<%=data.recordCount%>&nbsp;
+        <%}else{%>
+            0-<%=data.recordIndexEnd%>/<%=data.recordCount%>&nbsp;
+        <%}%>
+        <input id="pageRecordCountHidden" type="hidden" value="<%=data.recordCount%>">
+    </li>
+
+    <style>
+
+    </style>
+    <script>
+        $('.pager input').bind('keydown', function(e){
+            common.fn.digitInput(this, e);
+        });
+    </script>
+</ul>
+
+
