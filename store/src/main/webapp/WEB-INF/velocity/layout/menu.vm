@@ -1,0 +1,143 @@
+#parse( "./include/variable.vm" )
+<!--start left-->
+<script type="text/javascript">
+    var menus = [
+        {id: 1, name: "订单", parent: -1, order: 1, path:"" , icon: "fa-laptop"},
+        {id: 11, name: "订单列表", parent: 1, order: 1, path: "$ctx/order/index", icon: ""},
+
+        {id: 2, name: "会员", parent: -1, order: 2, path: "$ctx/vip/index", icon: ""},
+
+        {id: 3, name: "储值卡", parent: -1, order: 3, path:"" , icon: "fa-edit"},
+        {id: 31, name: "储值卡列表", parent: 3, order: 1, path: "$ctx/valuecard/index", icon: ""},
+        {id: 32, name: "储值卡账单", parent: 3, order: 2, path: "$ctx/valuecard/historyindex", icon: ""},
+
+        {id: 4, name: "促销", parent: -1, order: 4, path: "$ctx/promotion/index", icon: ""},
+
+        {id: 5, name: "财务", parent: -1, order: 5, path: "$ctx/finance/index", icon: ""},
+
+        {id: 6, name: "管理系统", parent: -1, order: 6, path: "$ctx/manage/index", icon: ""}
+    ];
+
+
+    $(document).keydown(function (e) {
+        if (e.which == 116 || e.keyCode == 82 && e.ctrlKey) { //116 = F5
+            //alert(1);
+            //window.location.reload();
+            var frame = $("#pageTabContent iframe:visible").get(0);
+            if (frame.contentWindow) {
+                frame.contentWindow.location.reload()
+            } else if (frame[1]) {
+                frame[1].contentWindow.location.reload()
+            }
+            e.preventDefault();
+            return false;
+        }
+    });
+
+
+    function menuClickCallback(name, path) {
+        if (path == null || path == '') {
+            return;
+        }
+        $.unionTab.addTab({
+            title: name,
+            url: path
+        });
+    }
+
+
+    $(document).ready(function () {
+        $("#menu_sidebar").promotion_menu(menus, menuClickCallback);
+
+        $("#menu_sidebar>li:first").children("a").addClass('hovera');
+
+        $('#slideicon').click(function () {
+            $('#menu_sidebar').toggleClass('collapse');
+            $('.wrap-in').toggleClass('fullscreen');
+        });
+        $('#slideicon').click();
+    });
+
+
+    $.fn.promotion_menu = function (menus) {
+        var findChildren = function (menus, parent_id) {
+            return $.grep(menus, function (ele) {
+                return ele.parent == parent_id;
+            });
+        }
+        var findMenu = function (menus, id) {
+            return $.grep(menus, function (ele) {
+                return ele.parent == id;
+            })[0];
+        }
+        var constructSubMenu = function (children) {
+            var container = '';
+            if (children.length > 0) {
+                container = $('<ul id="collapse' + children[0].parent + '" class=" collapse rightcollapse">');
+                for (e in children) {
+                    var child = children[e];
+                    var authRole = '';
+                    if (children.authRole != null && children.authRole != '')
+                        authRole = ' authRole=' + children.authRole + ' ';
+
+                    var menu_sub = '<li><a href="#" path="' + child.path + '" ' + authRole + '>' + child.name + '</a> </li>';
+                    container.append(menu_sub);
+                }
+            }
+            return container;
+        }
+        var constructMenu = function (menu, menus) {
+            var authRole = '';
+            if (menu.authRole != null && menu.authRole != '')
+                authRole = ' authRole =' + menu.authRole + ' ';
+            var header = $('<li > <a href="#collapse' + menu.id + '" data-toggle="collapse" data-parent="#menu_sidebar" ' + authRole + '>' + '<i class="navicon ' + menu.icon + '"></i><div class="menutext">' + menu.name + '</div><span></span></a></li>');
+            var children = findChildren(menus, menu.id);
+            var hasChildren = children && children.length > 0;
+            if (hasChildren) {
+                constructSubMenu(children).appendTo(header);
+            }
+//			if (menu.expand) {
+//				$(header).addClass("active");
+//			}
+            return header;
+        }
+
+        var roots = $.grep(menus, function (ele) {
+            return !ele.parent || ele.parent == -1;
+        });
+
+        $.each(roots, function (ele) {
+            $("#menu_sidebar").append(constructMenu(roots[ele], menus));
+        });
+
+        $("#menu_sidebar a").click(function () {
+            menuClickCallback($(this).text(), $(this).attr('path'));
+        });
+        $("#menu_sidebar>li").hover(function () {
+            var _this = $(this);
+            _this.addClass("hoverli");
+            _this.find(".rightcollapse").addClass("showsub");
+            _this.children("a").addClass("hovera");
+        }, function () {
+            var _this = $(this);
+            _this.removeClass("hoverli");
+            _this.find(".rightcollapse").removeClass("showsub");
+            _this.children("a").removeClass("hovera");
+        });
+
+    };
+
+
+</script>
+<style>
+
+    #menu_sidebar a {
+        text-decoration: none;
+    }
+
+</style>
+<!--     <section id="menu_sidebar" class="sidebar"> -->
+<!--     </section> -->
+<ul class="left-nav collapse" id="menu_sidebar">
+</ul>
+<!--end left-->

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+       <bean id="masterDataSource" class="com.alibaba.druid.pool.DruidDataSource"
+             init-method="init" destroy-method="close">
+              <property name="url" value="${jdbc.url}" />
+              <property name="username" value="${jdbc.username}" />
+              <property name="password" value="${jdbc.password}" />
+              <property name="driverClassName" value="${jdbc.driver}" />
+              <property name="filters" value="${jdbc.filters}" />
+              <property name="maxActive" value="${jdbc.maxActive}" />
+              <property name="initialSize" value="${jdbc.initialSize}" />
+              <property name="maxWait" value="${jdbc.maxWait}" />
+              <property name="minIdle" value="${jdbc.minIdle}" />
+
+              <property name="timeBetweenEvictionRunsMillis"><value>60000</value></property>
+              <property name="minEvictableIdleTimeMillis"><value>300000</value></property>
+
+              <property name="validationQuery"><value>SELECT 'x'</value></property>
+              <property name="testWhileIdle"><value>true</value></property>
+              <property name="testOnBorrow"><value>false</value></property>
+              <property name="testOnReturn"><value>false</value></property>
+
+              <property name="poolPreparedStatements"><value>false</value></property>
+              <property name="maxOpenPreparedStatements"><value>-1</value></property>
+       </bean>
+
+       <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+              <property name="dataSource" ref="masterDataSource" />
+       </bean>
+
+       <bean name="SqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+              <constructor-arg ref="sessionFactory" />
+       </bean>
+
+       <!-- 集成Mybatis -->
+       <bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+              <property name="dataSource" ref="masterDataSource" />
+              <property name="configLocation" value="classpath:myBatisConfig.xml" />
+              <property name="mapperLocations" value="classpath:mapper/*.xml" />
+       </bean>
+
+       <bean name="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+              <property name="sqlSessionTemplateBeanName" value="SqlSessionTemplate"></property>
+              <property name="basePackage" value="com.hotpot.dao" />
+       </bean>
+
+       <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
+
+       <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+              <property name="dataSource" ref="masterDataSource" />
+       </bean>
+</beans>

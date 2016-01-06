@@ -1,0 +1,101 @@
+#**
+ * dict_select
+ *
+ * Output a <select> tag with dynamic options those're generated according to message properties
+ *
+ * !!ATTENTION: this macro depended on org.springframework.context.support.GroupedResourceBundleMessageSource.
+ *				make sure there is the instance name "messageSource" in spring context
+ *
+ * Parameter:
+ *     key		group key of messages
+ *	   value	default selected value
+ *	   extra	extra attribute of select tag
+ *#
+#macro( dict_select $key $value $extra)
+<select $extra >
+    #dict_option($key,$value)
+</select>
+#end
+
+
+#**
+ * dict_select2
+ *
+ * Output a <select> tag with dynamic options those're generated according to message properties, with an empty option
+ *
+ * !!ATTENTION: this macro depended on org.springframework.context.support.GroupedResourceBundleMessageSource.
+ *				make sure there is the instance name "messageSource" in spring context
+ *
+ * Parameter:
+ *     key		group key of messages
+ *	   value	default selected value
+ *	   extra	extra attribute of select tag
+ *#
+#macro( dict_select2 $key $value $extra)
+<select $extra >
+    <option value="">全部</option>
+    #dict_option($key,$value)
+</select>
+#end
+
+
+#**
+ * dict_option
+ *
+ * Generation <option>s according to message properties
+ *
+ * !!ATTENTION: this macro depended on org.springframework.context.support.GroupedResourceBundleMessageSource.
+ *				make sure there is the instance name "messageSource" in spring context
+ * Parameter:
+ *     key		group key of messages
+ *	   value	default selected value
+ *#
+#macro( dict_option $key $value)
+    #set( $dict = $springMacroRequestContext.getWebApplicationContext().getBean(
+        "messageSource").getMessagesByGroup($springMacroRequestContext.getLocale(),$key))
+    #foreach( $entry in $dict.entrySet() )
+    <option
+        #if($entry.key == $value) selected  #end value="$entry.key">$entry.value</option>
+    #end
+#end
+
+#**
+ * fieldError
+ *
+ * display field errors
+ *#
+#macro( fieldError $field)
+    #springBind($field)
+    #foreach( $value in $status.errorMessages )
+    <span style="color:red">$value</span>
+    #end
+#end
+
+
+#macro( dyn_select $dict $value $extra)
+<select $extra >
+    #foreach( $entry in $dict.entrySet() )
+        <option
+            #if($entry.key == $value) selected  #end value="$entry.key">$entry.value</option>
+    #end
+</select>
+#end
+
+
+#macro(set_dict $key)
+    #set( $dict = $springMacroRequestContext.getWebApplicationContext().getBean(
+        "messageSource").getMessagesByGroup($springMacroRequestContext.getLocale(),$key))
+#end
+
+
+#macro(toJson $dict)
+(function(){
+var json = {
+    #foreach( $entry in $dict.entrySet() )
+    '$entry.key' :  '$entry.value',
+    #end
+_last_dummy:""};
+delete json["_last_dummy"];
+return json;
+})();
+#end

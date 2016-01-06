@@ -215,10 +215,10 @@
       <if test="vipId != null">
         AND vip_id = #{vipId}
       </if>
-      <if test="payType != null">
+      <if test="payType != null and payType != -1">
         AND pay_type = #{payType}
       </if>
-      <if test="storeId != null">
+      <if test="storeId != null and storeId != -1">
         AND store_id = #{storeId}
       </if>
       <if test="cardId != null">

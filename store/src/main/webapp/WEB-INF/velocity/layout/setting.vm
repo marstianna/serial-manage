@@ -1,0 +1,52 @@
+<div class="ace-settings-container" id="ace-settings-container">
+    <div class="btn btn-app btn-xs ace-settings-btn" id="ace-settings-btn">
+        <i class="icon-cog bigger-150"></i>
+    </div>
+
+    <div class="ace-settings-box" id="ace-settings-box">
+        <div>
+            <span class="pickertips">选择皮肤</span>
+            <ul class="colorpicker">
+                <li><a class="colorpick-btn selected" href="#" style="background-color:#43484C;" data-class=""></a></li>
+                <li><a class="colorpick-btn" href="#" style="background-color:#fd5384;" data-class="skinpink"></a></li>
+                <li><a class="colorpick-btn" href="#" style="background-color:#13a3ec;" data-class="skinblue"></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        //init skin
+        var userName = "$localUser.get().authName";
+        var curSkin = $.cookie(userName + "skin");
+        curSkin = curSkin ? curSkin : "";
+        changeSkin($("[data-class='" + curSkin + "']"), curSkin);
+
+        $(".skincolor").click(function () {
+            $("#ace-settings-box").toggleClass("open");
+        });
+        $(".colorpick-btn").click(function () {
+            var _this = $(this);
+            var bodyclass = _this.data('class');
+            changeSkin(_this, bodyclass);
+            $.post("$ctx/extra/newSkinCount",
+                    {selectedSkin: bodyclass},
+                    function (result) {
+                    }
+            );
+
+            $.cookie(userName + "skin", bodyclass);
+        });
+
+        function changeSkin(_this, bodyclass) {
+            $('body').attr("class", bodyclass);
+            $(".colorpick-btn").removeClass("selected");
+            _this.addClass("selected");
+
+            var frame = $("#pageTabContent iframe").contents().find("body").attr("class", bodyclass);
+        }
+
+    });
+</script>

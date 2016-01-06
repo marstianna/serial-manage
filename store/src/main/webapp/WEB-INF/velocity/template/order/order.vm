@@ -1,0 +1,301 @@
+#parse( "./include/variable.vm" )
+
+<div class="nav-top">
+    <div class="">
+        <div class="nav-content">
+            <form id="search_form" method="post">
+                <table cellpadding="0" cellspacing="0" class="searchinfotable">
+                    <tr>
+                        <td class="text-right" width="150">订单号：</td>
+                        <td width="200"><input type="text" class="form-control"></td>
+                        <td class="text-right" width="150">会员ID：</td>
+                        <td width="200"><input type="text" class="form-control"></td>
+                        <td class="text-right" width="150">支付方式：</td>
+                        <td width="200">
+                            <select name="site" class="form-control">
+                                <option value="-1" selected="selected">全部</option>
+                                #foreach($param in ${payTypeList.keySet()})
+                                    <option value="$param">${payTypeList.get($param)}</option>
+                                #end
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="text-right" width="150">店铺ID：</td>
+                        <td width="200">
+                            <select name="site" class="form-control">
+                                <option value="-1" selected="selected">全部</option>
+                                #foreach($param in ${storeList.keySet()})
+                                    <option value="$param">${storeList.get($param)}</option>
+                                #end
+                            </select>
+                        </td>
+                        <td class="text-right" width="150">储值卡编号：</td>
+                        <td width="200"><input type="text" class="form-control"></td>
+
+
+                    </tr>
+                    <tr>
+                        <td class="text-right" width="150">开始时间：</td>
+                        <td width="">
+                            <div class="input-group date form_datetime col-md-5" id="startTime" data-date="1979-09-16T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                                <input class="form-control" size="16" type="text" value="" style="width: 200px"  readonly>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                            </div>
+                            <input type="hidden" id="dtp_input1" value="" /><br/>
+                        </td>
+                        <td class="text-right" width="150">结束时间：</td>
+                        <td width="200">
+                            <div class="input-group date form_datetime col-md-5" id="endTime" data-date="1979-09-16T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                                <input class="form-control" size="16" type="text" value="" style="width: 200px" readonly>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                            </div>
+                            <input type="hidden" id="dtp_input1" value="" /><br/>
+                        </td>
+                        <td class="text-right" width="150">是否已经结账：</td>
+                        <td width="200">
+                            <input type="radio" value="0" checked><label>是</label>
+                            <input type="radio" value="1"><label>否</label>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td width="150"></td>
+                        <td class="searchtd">
+                            <button type="button" id="search_btn" class="btn btn-search"><i class="icon-search align-top bigger-125"></i>搜索</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="table-jqgrid">
+    <!--这里放jqgrid-->
+    <table id="list" style="width: 95%;" form="search_form"></table>
+    <div id="pager"></div>
+</div>
+
+<script>
+    $(function () {
+        $("#startTime").datetimepicker({
+            format: "dd MM yyyy - hh:ii",
+            language: 'zh-CN'
+        })
+        $("#endTime").datetimepicker({
+            format: "dd MM yyyy - hh:ii",
+            language: 'zh-CN'
+        });
+        setTimeout(function () {
+            var topWin = window.top.document;
+            var bodyclass = $(topWin).find("body").attr("class");
+            //if(bodyclass){
+            $('body').attr("class", bodyclass);
+            //}
+        }, 0);
+        fixBtns();
+        $("#list")
+                .jqGrid(
+                        {
+                            url: '$ctx/order/getAllOrders',
+                            datatype: "local",
+                            colNames: ["id", "会员ID", "店铺ID", "支付方式", "储值卡编号", "订单原价", "实际支付金额",
+                                "酒水价格", "菜品金额", "创建时间", "是否排队"],
+                            colModel: [
+                                {
+                                    name: 'id',
+                                    index: 'id',
+                                    align: "center",
+                                    width: "45px",
+                                    key: true
+                                }, {
+                                    name: 'vipId',
+                                    index: 'vipId',
+                                    align: "center",
+                                    width: "50px",
+                                    minWidth: "45px",
+
+                                },
+                                {
+                                    name: 'storeId',
+                                    index: 'storeId',
+                                    align: "center",
+                                    width: "45px",
+                                },
+                                {
+                                    name: 'payType',
+                                    index: 'payType',
+                                    align: "center",
+                                    width: "140px",
+                                    minWidth: "90px",
+                                    formatter: "select",
+                                    editoptions: {
+                                        value: "0:储值卡;1:现金;2:支付宝;3:微信;4:团购优惠支付"
+                                    }
+                                },
+                                {
+                                    name: 'cardId',
+                                    index: 'cardId',
+                                    align: "center",
+                                    width: "100px",
+                                    minWidth: "80px",
+                                },
+                                {
+                                    name: 'paperPrice',
+                                    index: 'paperPrice',
+                                    align: "center",
+                                    width: "45px",
+                                },
+                                {
+                                    name: 'actualPrice',
+                                    index: 'actualPrice',
+                                    align: "center",
+                                    width: "90px",
+                                },
+                                {
+                                    name: 'drinkPrice',
+                                    index: 'drinkPrice',
+                                    align: "center",
+                                    width: "70px"
+                                },
+                                {
+                                    name: 'foodPrice',
+                                    index: 'foodPrice',
+                                    align: "center",
+                                    width: "50px",
+                                },
+                                {
+                                    name: 'createTime',
+                                    index: 'createTime',
+                                    align: "center",
+                                    width: "50px",
+                                    formatter: "select",
+                                },
+                                {
+                                    name: 'queueUp',
+                                    index: 'noCod',
+                                    align: "center",
+                                    width: "60px",
+                                    formatter: "select",
+                                    editoptions: {
+                                        value: "0:否;1:是"
+                                    }
+                                }
+                            ],
+                            rowNum: 15,
+                            rowList: [15, 30, 50],
+                            pager: '#pager',
+                            height: 'auto',
+                            multiselect: true,
+                            viewrecords: true,
+                            rownumbers: true,
+                            sortorder: "desc",
+                            mtype: "POST",
+                            deleteKeys: ["id"],
+                            width: "85%",
+                            shrinkToFit: true,
+                            autowidth: true,
+//			caption : "政策列表",
+                            editurl: "add",
+                            gridComplete: function () {
+                                //set online publish effect ,the row backgroud-color is green
+                                var onlineRows = $("#list tr td[aria-describedby=list_status][title='已发布']");
+                                $.each(onlineRows, function (i, item) {
+                                    var startTime = $(item).parent().find("[aria-describedby=list_startTime] div").html();
+                                    if (isRuleEffect(startTime)) {
+                                        $(item).parent().addClass('onlinestatus');
+                                    }
+                                });
+
+                                if ($("#showOverdue").attr("checked") == "checked") {
+                                    var overdueRows = $("#list tr td[aria-describedby=list_status][title='过期']");
+                                    overdueRows.parent().addClass('overduestatus');
+                                }
+
+                            }
+                        });
+
+        $("#list").jqGrid('navGrid', '#pager', {
+            edit: false,
+            add: false,
+            del: false
+        });
+        $("#list").jqGrid('setGridParam', {
+            datatype: 'json'
+        });
+
+        $("input:checkbox").click(function () {
+            var checked = $(this).attr("checked");
+            if (checked || checked == "checked") {
+                $(this).attr("checked", false);
+            } else
+                $(this).attr("checked", true);
+        });
+
+        $("#search_btn").click(function () {
+            $('#list').query('search_form');
+        });
+
+        $("#search_btn").click();
+
+        $("#time_select a").click(function () {
+            var value = $(this).attr("value");
+            switch (parseInt(value)) {
+                case 1:
+                    var day = getDateStr(0, '/');
+                    $("#startTime").val(day);
+                    break;
+                case 2:
+                    var day = getDateStr(1, '/');
+                    $("#startTime").val(day);
+                    break;
+                case 3:
+                    var day = getDateStr(2, '/');
+                    $("#startTime").val(day);
+                    break;
+                case 4:
+                    var startDay = getDateStr(1, '/');
+                    var endDay = getDateStr(7, '/');
+                    $("#startTime").val(startDay);
+                    $("#endTime").val(endDay);
+                    break;
+                case 5:
+                    $("#startTime").val("");
+                    $("#endTime").val("");
+                    break;
+            }
+        });
+
+        $("#showOverdue").click(function () {
+            $("#search_btn").click();
+        });
+    });
+
+
+    function fixBtns(){
+        $(window).scroll(function(){
+            var btncol = $('.btncol');
+            var topvalue = $('.table-jqgrid').offset().top;
+
+            var nowtop = $(window).scrollTop();
+
+            if(nowtop>topvalue && !btncol.hasClass('fixedbtn')){
+                btncol.addClass('fixedbtn');
+            }
+            if(nowtop<topvalue && btncol.hasClass('fixedbtn')){
+                btncol.removeClass('fixedbtn');
+            }
+        });
+    }
+
+    $(window).bind('resize', function() {
+        $("#list").setGridWidth($(window).width()-10);
+    }).trigger('resize');
+
+</script>
+
+</body>
+</html>
