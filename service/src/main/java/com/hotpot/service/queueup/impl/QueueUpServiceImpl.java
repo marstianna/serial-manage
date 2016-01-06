@@ -9,6 +9,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+import java.util.concurrent.BlockingQueue;
+
 /**
  * Created by zoupeng on 15/12/26.
  */
@@ -28,6 +31,11 @@ public class QueueUpServiceImpl implements QueueUpService{
             queueUp.setWeChat(weChat);
         }
         queueUpCache.queueUp(storeId,queueUp);
+    }
+
+    @Override
+    public Map<Integer,BlockingQueue<QueueUp>> getAllQueuesByStoreId(Integer storeId){
+        return queueUpCache.getAllQueuesByStoreId(storeId);
     }
 
     @Override

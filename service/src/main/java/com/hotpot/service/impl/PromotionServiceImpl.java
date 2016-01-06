@@ -5,6 +5,7 @@ import com.hotpot.commons.DateTool;
 import com.hotpot.dao.PromotionMapper;
 import com.hotpot.domain.Order;
 import com.hotpot.domain.Promotion;
+import com.hotpot.searcher.PromotionSearcher;
 import com.hotpot.service.PromotionService;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,11 @@ import java.util.List;
 public class PromotionServiceImpl implements PromotionService{
     @Autowired
     PromotionMapper promotionMapper;
+
+    @Override
+    public Promotion getPromotionById(Integer id) {
+        return promotionMapper.getPromotionById(id);
+    }
 
     @Override
     public void promotion(Order order) {
@@ -46,7 +52,12 @@ public class PromotionServiceImpl implements PromotionService{
         promotionMapper.insert(promotion);
     }
 
-    private boolean checkIsShoted(Order order,Promotion promotion){
+    @Override
+    public List<Promotion> getAllPromotionsBySearcher(PromotionSearcher searcher) {
+        return null;
+    }
+
+    private boolean checkIsShoted(Order order, Promotion promotion){
         return order.getPayType().intValue() == promotion.getPayType().intValue()
                 && (order.getStoreId().intValue() == promotion.getStoreId().intValue() || order.getStoreId() == Const.ALL)
                 && order.getPaperPrice().intValue() >= promotion.getEnough().intValue();

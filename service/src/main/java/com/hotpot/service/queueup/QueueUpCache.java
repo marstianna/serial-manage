@@ -31,6 +31,10 @@ public class QueueUpCache {
         }
     }
 
+    public Map<Integer,BlockingQueue<QueueUp>> getAllQueuesByStoreId(Integer id){
+        return lines.row(id);
+    }
+
     public QueueUp popup(Integer storeId,Integer number){
         return lines.get(storeId,number).poll();
     }

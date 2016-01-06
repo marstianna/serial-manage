@@ -79,5 +79,15 @@ public class ValueCardController extends BaseController {
         return valueCardService.settleOrdersForCom(ids);
     }
 
+    @RequestMapping("turnToAddCard")
+    public String turnToAddCard(HttpServletRequest request){
+        return "valuecard/valuecard.add";
+    }
+
+    @RequestMapping
+    @ResponseBody
+    public Object addCard(@ModelAttribute ValueCard card){
+        return "success";
+    }
 
 }
