@@ -84,7 +84,7 @@ public class ValueCardController extends BaseController {
         return "valuecard/valuecard.add";
     }
 
-    @RequestMapping
+    @RequestMapping("addCard")
     @ResponseBody
     public Object addCard(@ModelAttribute ValueCard card){
         return "success";

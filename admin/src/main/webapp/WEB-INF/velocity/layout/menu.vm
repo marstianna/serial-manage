@@ -5,24 +5,29 @@
         {id: 1, name: "订单", parent: -1, order: 1, path:"" , icon: "fa-laptop"},
         {id: 11, name: "订单列表", parent: 1, order: 1, path: "$ctx/order/index", icon: ""},
 
-        {id: 2, name: "会员", parent: -1, order: 2, path: "$ctx/vip/index", icon: ""},
+        {id: 2, name: "会员", parent: -1, order: 2, path: "", icon: ""},
+        {id: 21, name: "会员列表", parent: 2, order: 1, path: "$ctx/vip/index", icon: ""},
 
         {id: 3, name: "储值卡", parent: -1, order: 3, path:"" , icon: "fa-edit"},
         {id: 31, name: "储值卡列表", parent: 3, order: 1, path: "$ctx/valuecard/index", icon: ""},
         {id: 32, name: "储值卡账单", parent: 3, order: 2, path: "$ctx/valuecard/historyindex", icon: ""},
+        {id: 33, name: "新增储值卡", parent: 3, order: 3, path: "$ctx/valuecard/addCard", icon: ""},
 
-        {id: 4, name: "促销", parent: -1, order: 4, path: "$ctx/promotion/index", icon: ""},
+        {id: 4, name: "促销", parent: -1, order: 4, path: "", icon: ""},
+        {id: 41, name: "促销列表", parent: 4, order: 1, path: "$ctx/promotion/index", icon: ""},
 
         {id: 5, name: "财务", parent: -1, order: 5, path: "$ctx/finance/index", icon: ""},
 
         {id: 6, name: "管理系统", parent: -1, order: 6, path: "", icon: ""},
-        {id: 61, name: "添加店铺", parent: 6, order: 1, path: "$ctx/manage/turnToAdd", icon: ""}
+        {id: 61, name: "添加店铺", parent: 6, order: 1, path: "$ctx/manage/turnToAdd", icon: ""},
+        {id: 62, name: "店铺列表", parent: 6, order: 2, path: "$ctx/manage/getAllStores", icon: ""}
 
     ];
 
 
     $(document).keydown(function (e) {
-        if (e.which == 116 || e.keyCode == 82 && e.ctrlKey) { //116 = F5
+        if (e.which == 116 || e.key
+            Code == 82 && e.ctrlKey) { //116 = F5
             //alert(1);
             //window.location.reload();
             var frame = $("#pageTabContent iframe:visible").get(0);
