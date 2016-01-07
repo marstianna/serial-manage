@@ -14,4 +14,6 @@ public interface AdminService {
     void newStore(Store store);
 
     void newOwner(Owner owner);
+
+    boolean login(String loginName,String loginPassword);
 }

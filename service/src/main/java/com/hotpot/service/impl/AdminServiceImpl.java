@@ -1,6 +1,7 @@
 package com.hotpot.service.impl;
 
 import com.hotpot.commons.DateTool;
+import com.hotpot.dao.AdminMapper;
 import com.hotpot.dao.OwnerMapper;
 import com.hotpot.dao.StoreMapper;
 import com.hotpot.domain.Owner;
@@ -22,6 +23,8 @@ public class AdminServiceImpl implements AdminService {
     StoreMapper storeMapper;
     @Autowired
     OwnerMapper ownerMapper;
+    @Autowired
+    AdminMapper adminMapper;
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = Exception.class)
@@ -68,5 +71,11 @@ public class AdminServiceImpl implements AdminService {
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public void newOwner(Owner owner) {
         ownerMapper.insertSelective(owner);
+    }
+
+    @Override
+    public boolean login(String loginName, String loginPassword) {
+        Integer count = adminMapper.login(loginName,loginPassword);
+        return count > 0;
     }
 }

@@ -108,4 +108,8 @@
       login_password = #{loginPassword,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="login" resultType="java.lang.Integer">
+    select count(1) from admin where login_name = #{loginName} and login_password = #{loginPassword}
+  </select>
 </mapper>

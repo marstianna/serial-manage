@@ -65,4 +65,12 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> getOrdersBySearcher(OrderSearcher searcher) {
         return orderMapper.getOrderBySearcher(searcher);
     }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = Exception.class)
+    public ValueCard payByPhone(Order order, String phone, String password) {
+        promotionService.promotion(order);
+        createOrder(order);
+        return valueCardService.paymentWithPassword(phone, password, order.getStoreId(), order.getActualPrice(), order.getPaperPrice());
+    }
 }
