@@ -1,6 +1,7 @@
 package com.hotpot.controller;
 
 import com.hotpot.commons.DateTool;
+import com.hotpot.commons.framework.BaseController;
 import com.hotpot.domain.Order;
 import com.hotpot.domain.ValueCard;
 import com.hotpot.entity.QueueUp;
@@ -21,7 +22,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/index/")
-public class IndexController {
+public class IndexController extends BaseController {
     @Autowired
     OrderService orderService;
     @Autowired
@@ -30,6 +31,12 @@ public class IndexController {
     StoreService storeService;
     @Autowired
     QueueUpService queueUpService;
+
+    @RequestMapping("login")
+    @ResponseBody
+    public boolean login(String loginName,String loginPassword){
+        return storeService.login(loginName, loginPassword);
+    }
 
     @RequestMapping("info")
     public ModelAndView info(Integer storeId){

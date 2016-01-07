@@ -1,5 +1,6 @@
 package com.hotpot.controller;
 
+import com.hotpot.commons.framework.BaseController;
 import com.hotpot.domain.Store;
 import com.hotpot.service.AdminService;
 import com.hotpot.service.StoreService;
@@ -17,7 +18,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/manage/")
-public class ManageController {
+public class ManageController extends BaseController {
     @Autowired
     AdminService adminService;
     @Autowired

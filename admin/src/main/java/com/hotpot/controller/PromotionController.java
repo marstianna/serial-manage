@@ -1,5 +1,6 @@
 package com.hotpot.controller;
 
+import com.hotpot.commons.framework.BaseController;
 import com.hotpot.constenum.PromotionTypeEnum;
 import com.hotpot.domain.Promotion;
 import com.hotpot.searcher.PromotionSearcher;
@@ -19,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 @RequestMapping("/promotion/")
-public class PromotionController {
+public class PromotionController extends BaseController {
     @Autowired
     private PromotionService promotionService;
     @Autowired

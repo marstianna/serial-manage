@@ -1,6 +1,7 @@
 package com.hotpot.controller;
 
 import com.hotpot.commons.Const;
+import com.hotpot.commons.framework.BaseController;
 import com.hotpot.commons.pagination.annotation.Pagination;
 import com.hotpot.constenum.PayTypeEnum;
 import com.hotpot.domain.Order;
@@ -22,7 +23,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/order/")
-public class OrderController{
+public class OrderController extends BaseController {
     @Autowired
     OrderService orderService;
     @Autowired

@@ -26,8 +26,7 @@
 
 
     $(document).keydown(function (e) {
-        if (e.which == 116 || e.key
-            Code == 82 && e.ctrlKey) { //116 = F5
+        if (e.which == 116 || e.keyCode == 82 && e.ctrlKey) { //116 = F5
             //alert(1);
             //window.location.reload();
             var frame = $("#pageTabContent iframe:visible").get(0);

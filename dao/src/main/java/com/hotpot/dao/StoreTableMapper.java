@@ -5,6 +5,8 @@ import com.hotpot.domain.StoreTable;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface StoreTableMapper {
     /**
@@ -56,4 +58,7 @@ public interface StoreTableMapper {
     int updateByPrimaryKey(StoreTable record);
 
     StoreTable getStoreTable(@Param("tableCode")String tableCode,@Param("storeId")Integer storeId);
+
+    List<StoreTable> getTablesByStoreId(Integer storeId);
+
 }

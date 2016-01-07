@@ -60,6 +60,11 @@ public class StoreServiceImpl implements StoreService{
 
     @Override
     public List<StoreTable> getAllTablesByStoreId(Integer storeId) {
-        return null;
+        return storeTableMapper.getTablesByStoreId(storeId);
+    }
+
+    @Override
+    public boolean login(String loginName, String loginPassword) {
+        return false;
     }
 }

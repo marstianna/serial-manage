@@ -1,5 +1,6 @@
 package com.hotpot.controller;
 
+import com.hotpot.commons.framework.BaseController;
 import com.hotpot.domain.Staff;
 import com.hotpot.domain.Store;
 import com.hotpot.service.AdminService;
@@ -17,7 +18,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/store/")
-public class StoreController {
+public class StoreController extends BaseController {
     @Autowired
     private StoreService storeService;
     @Autowired
