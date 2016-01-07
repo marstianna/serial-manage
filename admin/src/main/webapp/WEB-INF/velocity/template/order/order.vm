@@ -81,14 +81,8 @@
 
 <script>
     $(function () {
-        $("#startTime").datetimepicker({
-            format: "dd MM yyyy - hh:ii",
-            language: 'zh-CN'
-        })
-        $("#endTime").datetimepicker({
-            format: "dd MM yyyy - hh:ii",
-            language: 'zh-CN'
-        });
+        $("#startTime").datepicker()
+        $("#endTime").datepicker();
         setTimeout(function () {
             var topWin = window.top.document;
             var bodyclass = $(topWin).find("body").attr("class");
