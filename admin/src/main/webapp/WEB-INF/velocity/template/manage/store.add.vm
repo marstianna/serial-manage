@@ -1,0 +1,37 @@
+#parse( "./include/variable.vm" )
+<form>
+##    owner
+    <div class="turnToAdd">
+    <label class="text-right">id</label><input type="text" placeholder="id" class="form-control">
+    <br>
+    <label>name</label><input type="text" placeholder="name" class="form-control">
+    <br>
+    <label>phone</label><input type="text" placeholder="phone" class="form-control">
+    <br>
+    <label>mobilephone</label><input type="text" placeholder="mobilephone" class="form-control">
+    <br>
+    <label>login_name</label><input type="text" placeholder="login_name" class="form-control">
+    <br>
+    <label>login_password</label><input type="text" placeholder="login_password" class="form-control">
+    <br>
+    <label>identity</label><input type="text" placeholder="identity" class="form-control">
+    <br>
+    <label>email</label><input type="text" placeholder="email" class="form-control">
+    <br>
+    <label>create_time</label><input type="text" placeholder="create_time" class="form-control">
+    <br>
+##    store
+    <label>id</label><input type="text" placeholder="id" class="form-control">
+    <br>
+    <label>store_name</label><input type="text" placeholder="store_name" class="form-control">
+    <br>
+    <label>address</label><input type="text" placeholder="address" class="form-control">
+    <br>
+    <label>phone</label><input type="text" placeholder="phone" class="form-control">
+    <br>
+    <label>owner_id</label><input type="text" placeholder="owner_id" class="form-control">
+    <br>
+    <label>create_time</label><input type="text" placeholder="create_time" class="form-control">
+    </div>
+    <button type="button" id="" class="btn btn-circle">提交</button>
+</form>

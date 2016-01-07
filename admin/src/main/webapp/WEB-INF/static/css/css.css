@@ -21,3 +21,5 @@ body {font-family:"Microsoft YaHei",微软雅黑,"Microsoft JhengHei",华文细�
 
 
 .nav-content table tr{margin: 10px 0;display: inline-block}
+.turnToAdd label { width: 100px;text-align: right;padding-right: 10px;margin-top: 10px;}
+.turnToAdd input { margin-top: 10px;}
