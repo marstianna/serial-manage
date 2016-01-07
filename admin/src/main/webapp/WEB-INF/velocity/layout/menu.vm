@@ -16,7 +16,8 @@
         {id: 5, name: "财务", parent: -1, order: 5, path: "$ctx/finance/index", icon: ""},
 
         {id: 6, name: "管理系统", parent: -1, order: 6, path: "", icon: ""},
-        {id: 61, name: "添加店铺", parent: 6, order: 1, path: "$ctx/manage/turnToAdd", icon: ""}
+        {id: 61, name: "添加店铺", parent: 6, order: 1, path: "$ctx/manage/turnToAdd", icon: ""},
+        {id: 62, name: "店铺列表", parent: 6, order: 2, path: "$ctx/manage/getAllStores", icon: ""}
 
     ];
 

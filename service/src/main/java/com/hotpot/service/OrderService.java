@@ -18,6 +18,8 @@ public interface OrderService {
 
     ValueCard payByCard(Order order, String cardId, String cardUuid);
 
+    ValueCard payByPhone(Order order, String phone, String password);
+
     Order pay(Order order);
 
     List<Order> getOrdersBySearcher(OrderSearcher searcher);
