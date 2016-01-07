@@ -57,10 +57,19 @@
 <script>
     $(function () {
         $("#startTime").datetimepicker({
-            format: "dd MM yyyy - hh:ii"
+            format: "dd MM yyyy - hh:ii",
+            autoclose: true,
+            pickerPosition: "bottom-left"
+        }).on("click",function(ev){
+            $("#startTime").datetimepicker("setEndDate", $("#endTime").val());
         });
+
         $("#endTime").datetimepicker({
-            format: "dd MM yyyy - hh:ii"
+            format: "dd MM yyyy - hh:ii",
+            autoclose: true,
+            pickerPosition: "bottom-left"
+        }).on("click",function(ev){
+            $("#endTime").datetimepicker("setStartDate", $("#startTime").val());
         });
         setTimeout(function () {
             var topWin = window.top.document;

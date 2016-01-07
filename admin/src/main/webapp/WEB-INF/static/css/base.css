@@ -386,10 +386,10 @@ h1{ font-size: 20px; line-height:36px;}
     font-size: 13px;
     font-weight: normal;
 }
-.searchinfotable input[type="text"]{box-shadow:none;border-radius: 0;}
-.searchinfotable select{border-radius: 0;}
+/*.searchinfotable input[type="text"]{box-shadow:none;border-radius: 0;}*/
+/*.searchinfotable select{border-radius: 0;}*/
 .addtable input[type="text"],.addtable select, .addtable textarea{
-    box-shadow:none;border-radius: 0;
+    /*box-shadow:none;border-radius: 0;*/
 }
 .showinfotable .vertical-align-top {
     background: #DCDCDC;
