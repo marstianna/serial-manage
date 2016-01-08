@@ -5,38 +5,43 @@
             <form id="promotionAdd" action="" method="post">
             ##    owner
                 <div class="turnToAdd">
-                    <label>id</label><input type="text" placeholder="id" name="id" class="form-control">
+                    <label>满足金额</label><input type="text" name="enough" placeholder="enough" class="form-control">
                     <br>
-                    <label>enough</label><input type="text" name="enough" placeholder="enough" class="form-control">
-                    <br>
-                    <label>discount</label><input type="text" name="discount" placeholder="discount"
-                                                  class="form-control">
-                    <br>
-                    <label>type</label>
+                    <label>促销类型</label>
                     <select class="form-control" id="type">
-                        <option>0未付款</option>
-                        <option selected>1已付款</option>
+                        #foreach($param in ${promotionTypeList.keySet()})
+                            <option value="$param">${promotionTypeList.get($param)}</option>
+                        #end
                     </select>
                     <br>
-                    <label>store_id</label><input type="text" name="store_id" placeholder="store_id"
+                    当促销类型为满减时,实际账单金额-减免金额
+                    <br>
+                    当促销类型为满折时,实际账单金额*减免金额
+                    <br>
+                    <label>减免金额</label><input type="text" name="discount" placeholder="discount"
                                                   class="form-control">
                     <br>
-                    <label>start_time</label><input type="text" name="start_time" placeholder="start_time"
+                    <label>店铺</label>
+                        <select name="site" class="form-control">
+                            <option value="-1" selected="selected">全部</option>
+                            #foreach($param in ${storeList.keySet()})
+                                <option value="$param">${storeList.get($param)}</option>
+                            #end
+                        </select>
+                    <br>
+                    <label>促销起始时间</label><input type="text" name="startTime" placeholder="start_time"
                                                     class="form-control">
                     <br>
-                    <label>end_time</label><input type="text" name="end_time" placeholder="end_time"
+                    <label>促销结束时间</label><input type="text" name="endTime" placeholder="end_time"
                                                   class="form-control">
                     <br>
-                    <label>pay_type</label>
-                    <select class="form-control" id="pay_type">
-                        <option>0储值卡</option>
-                        <option>1现金</option>
-                        <option>2支付宝</option>
-                        <option>3微信</option>
-                        <option>4团购优惠支付</option>
+                    <label>支付类型</label>
+                    <select name="site" class="form-control">
+                        <option value="-1" selected="selected">全部</option>
+                        #foreach($param in ${payTypeList.keySet()})
+                            <option value="$param">${payTypeList.get($param)}</option>
+                        #end
                     </select>
-                    <br>
-                    <label>valid</label><input type="text" name="valid" placeholder="valid" class="form-control">
                     <br>
                 </div>
                 <div style="margin-left: 130px;margin-top: 20px;">

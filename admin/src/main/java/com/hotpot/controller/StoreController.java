@@ -24,23 +24,6 @@ public class StoreController extends BaseController {
     @Autowired
     private AdminService adminService;
 
-    //admin不需要这个方法
-
-//    @RequestMapping("addStaff")
-//    @ResponseBody
-//    public String addStaff(@ModelAttribute Staff staff){
-//        String result = "添加成功";
-//
-//        try {
-//            storeService.addStaff(staff);
-//        } catch (Exception e) {
-//            //TODO:LOG
-//            result = "添加失败,请重试";
-//        }
-//
-//        return result;
-//    }
-
     @RequestMapping("getStaffByStoreId")
     @ResponseBody
     public List<Staff> getStaffByStoreId(Integer storeId){

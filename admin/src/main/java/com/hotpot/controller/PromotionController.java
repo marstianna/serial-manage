@@ -1,6 +1,7 @@
 package com.hotpot.controller;
 
 import com.hotpot.commons.framework.BaseController;
+import com.hotpot.constenum.PayTypeEnum;
 import com.hotpot.constenum.PromotionTypeEnum;
 import com.hotpot.domain.Promotion;
 import com.hotpot.searcher.PromotionSearcher;
@@ -43,6 +44,7 @@ public class PromotionController extends BaseController {
     public String turnToAddPromotion(HttpServletRequest request){
         request.setAttribute("promotionTypeList", PromotionTypeEnum.getMap());
         request.setAttribute("storeList",storeService.getStoreMap());
+        request.setAttribute("payTypeList", PayTypeEnum.getMap());
         return "promotion/promotion.add";
     }
 

@@ -15,6 +15,7 @@
 
         {id: 4, name: "促销", parent: -1, order: 4, path: "", icon: ""},
         {id: 41, name: "促销列表", parent: 4, order: 1, path: "$ctx/promotion/index", icon: ""},
+        {id: 42, name: "新增促销", parent: 4, order: 2, path: "$ctx/promotion/turnToAddPromotion", icon: ""},
 
         {id: 5, name: "财务", parent: -1, order: 5, path: "$ctx/finance/index", icon: ""},
 
