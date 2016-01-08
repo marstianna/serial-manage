@@ -11,8 +11,8 @@
                         <td class="text-right" width="150">会员ID：</td>
                         <td width="200"><input type="text" class="form-control"></td>
                         <td class="text-right" width="150">操作类型：</td>
-                        <td width="200"><input type="radio" name="operate" value="0" class="form-control">消费</td>
-                        <td width="200"><input type="radio" name="operate" value="1" class="form-control">充值</td>
+                        <td width="80" style="padding-left: 10px"><input type="radio" name="operate" value="0">&nbsp;消费</td>
+                        <td width="80" style="padding-left: 10px"><input type="radio" name="operate" value="1">&nbsp;充值</td>
                     </tr>
 
                     <tr>
@@ -29,11 +29,11 @@
                     <tr>
                         <td class="text-right" width="150">开始时间：</td>
                         <td width="200">
-                            <input type="text" class="form-control" placeholder="yyyy-MM-dd HH:mm:ss" name="startTime" id="startTime" before="endTime" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'#F{$dp.$D(\'endTime\')}'})" style="width: 160px;" readonly/>
+                            <input type="text" class="form-control" placeholder="yyyy-MM-dd HH:mm:ss" name="startTime" id="startTime" before="endTime" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'#F{$dp.$D(\'endTime\')}'})" readonly/>
                         </td>
                         <td class="text-right" width="150">结束时间：</td>
                         <td width="200">
-                            <input type="text" class="form-control" placeholder="yyyy-MM-dd HH:mm:ss" id="endTime" name="endTime" after="startTime"  onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'startTime\')}'})" style="width: 160px;" readonly/>
+                            <input type="text" class="form-control" placeholder="yyyy-MM-dd HH:mm:ss" id="endTime" name="endTime" after="startTime"  onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'startTime\')}'})" readonly/>
                         </td>
                     </tr>
                     <tr>

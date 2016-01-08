@@ -3,9 +3,9 @@
 <div class="head">
     <h1>
         <div class="slideicon" id="slideicon"></div>
-        <a href="">1</a>
+        <a href="">管理系统</a>
     </h1>
     <span><a href="$ctx/login/logout" title="退出"><i class="i-exit"></i></a></span>
 
-    <div><i class="i-user"></i><span class="userinfo">用户：</span></div>
+    <div><i class="i-user"></i><span class="userinfo">用户：?</span></div>
 </div>
