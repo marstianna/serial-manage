@@ -178,4 +178,8 @@
       create_time = #{createTime,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="login" resultType="java.lang.Integer">
+    select count(1) from owner where login_name = #{loginName} and login_password = #{loginPassword}
+  </select>
 </mapper>

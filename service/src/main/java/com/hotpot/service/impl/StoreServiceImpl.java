@@ -2,6 +2,7 @@ package com.hotpot.service.impl;
 
 import com.hotpot.commons.MyMaps;
 import com.hotpot.commons.function.FunctionForListToMap;
+import com.hotpot.dao.OwnerMapper;
 import com.hotpot.dao.StaffMapper;
 import com.hotpot.dao.StoreMapper;
 import com.hotpot.dao.StoreTableMapper;
@@ -28,6 +29,8 @@ public class StoreServiceImpl implements StoreService{
     StaffMapper staffMapper;
     @Autowired
     StoreTableMapper storeTableMapper;
+    @Autowired
+    OwnerMapper ownerMapper;
 
     @Override
     public void addStaff(Staff staff) {
@@ -65,6 +68,6 @@ public class StoreServiceImpl implements StoreService{
 
     @Override
     public boolean login(String loginName, String loginPassword) {
-        return false;
+        return ownerMapper.login(loginName,loginPassword) > 0;
     }
 }

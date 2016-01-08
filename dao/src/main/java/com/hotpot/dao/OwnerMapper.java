@@ -2,6 +2,7 @@ package com.hotpot.dao;
 
 
 import com.hotpot.domain.Owner;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -53,4 +54,6 @@ public interface OwnerMapper {
      * @mbggenerated Fri Dec 25 15:10:08 CST 2015
      */
     int updateByPrimaryKey(Owner record);
+
+    Integer login(@Param("loginName") String loginName , @Param("loginPassword") String loginPassword);
 }
