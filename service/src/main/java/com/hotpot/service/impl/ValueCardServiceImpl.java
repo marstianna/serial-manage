@@ -129,7 +129,7 @@ public class ValueCardServiceImpl implements ValueCardService{
         result.put(fail,Lists.newArrayList());
         for(Integer id: ids){
             try {
-                Integer count = valueCardHistoryMapper.settle(id,Const.SETTLE_FROM_COMP,Const.OPERATE_ADD);
+                Integer count = valueCardHistoryMapper.settle(id,Const.SETTLE_FROM_COMP,Const.OPERATE_MINUS);
                 if (count == 0){
                     result.get(fail).add(id);
                 }else{
