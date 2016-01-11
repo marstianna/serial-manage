@@ -132,7 +132,6 @@
                             height: 'auto',
                             multiselect: true,
                             viewrecords: true,
-                            rownumbers: true,
                             sortorder: "desc",
                             mtype: "POST",
                             deleteKeys: ["id"],
