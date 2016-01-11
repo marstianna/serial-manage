@@ -48,7 +48,6 @@
 </div>
 <div class="table-jqgrid">
     <!--这里放jqgrid-->
-    <button class="btn btn-sm" onclick="settleForCom()">结账</button>
     <table id="list" style="width: 95%;" form="search_form"></table>
     <div id="pager"></div>
 </div>
@@ -81,9 +80,9 @@
         $("#list")
                 .jqGrid(
                         {
-                            url: '$ctx/valuecard/getAllCardHistory',
+                            url: '',
                             datatype: "local",
-                            colNames: ["id", "储值卡编号", "操作类型", "消费店铺", "储值卡金额变更数额", "账单金额", "创建时间","结账情况"],
+                            colNames: ["id", "store_id", "type", "pay_type", "开始时间", "结束时间"],
                             colModel: [
                                 {
                                     name: 'id',
@@ -92,61 +91,46 @@
                                     width: "45px",
                                     key: true
                                 }, {
-                                    name: 'cardId',
-                                    index: 'cardId',
+                                    name: 'store_id',
+                                    index: 'store_id',
                                     align: "center",
                                     width: "50px",
                                     minWidth: "45px",
 
                                 },
                                 {
-                                    name: 'operate',
-                                    index: 'operate',
+                                    name: 'type',
+                                    index: 'type',
                                     align: "center",
                                     width: "45px",
                                     formatter: "select",
                                     editoptions: {
-                                        value: "0:消费;1:充值"
+//                                        value: "0:消费;1:充值"
                                     }
                                 },
                                 {
-                                    name: 'storeId',
-                                    index: 'storeId',
+                                    name: 'pay_type',
+                                    index: 'pay_type',
                                     align: "center",
-                                    width: "140px",
-                                    minWidth: "90px",
-                                },
-                                {
-                                    name: 'account',
-                                    index: 'account',
-                                    align: "center",
-                                    width: "140px",
-                                    minWidth: "90px",
-                                },
-                                {
-                                    name: 'price',
-                                    index: 'price',
-                                    align: "center",
-                                    width: "140px",
-                                    minWidth: "90px",
-                                },
-                                {
-                                    name: 'createTime',
-                                    index: 'createTime',
-                                    align: "center",
-                                    width: "140px",
-                                    minWidth: "90px",
-                                },
-                                {
-                                    name: 'settle',
-                                    index: 'settle',
-                                    align: "center",
-                                    width: "140px",
-                                    minWidth: "90px",
+                                    width: "45px",
                                     formatter: "select",
                                     editoptions: {
-                                        value: "0:未结账;1:店铺已上交;2:公司已下传"
+//                                        value: "0:消费;1:充值"
                                     }
+                                },
+                                {
+                                    name: 'startTime',
+                                    index: 'startTime',
+                                    align: "center",
+                                    width: "140px",
+                                    minWidth: "90px",
+                                },
+                                {
+                                    name: 'endTime',
+                                    index: 'endTime',
+                                    align: "center",
+                                    width: "140px",
+                                    minWidth: "90px",
                                 }
                             ],
                             rowNum: 15,
