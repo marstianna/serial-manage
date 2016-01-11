@@ -157,7 +157,7 @@
                             height: 'auto',
                             multiselect: true,
                             viewrecords: true,
-                            rownumbers: true,
+//                            rownumbers: true,
                             sortorder: "desc",
                             mtype: "POST",
                             deleteKeys: ["id"],
@@ -256,7 +256,7 @@
                 bar.hide();
                 if (res.success) {
                     $("#list").trigger('reloadGrid');
-                    showInfo('批量发布成功');
+                    showInfo('批量发布成功:'+res.message);
                 } else {
                     showError('数据发生异常:' + res.message);
                 }
