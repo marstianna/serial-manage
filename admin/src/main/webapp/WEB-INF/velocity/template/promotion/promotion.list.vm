@@ -6,22 +6,33 @@
             <form id="search_form" method="post">
                 <table cellpadding="0" cellspacing="0" class="searchinfotable">
                     <tr>
-                        <td class="text-right" width="150">store_id：</td>
-                        <td width="200"><input type="text" class="form-control"></td>
+                        <td class="text-right" width="150">作用门店：</td>
+                        <td width="200">
+                            <option value="-1" selected="selected">全部</option>
+                            <option value="0" selected="selected">所有门店</option>
+                            #foreach($param in ${storeList.keySet()})
+                                <option value="$param">${storeList.get($param)}</option>
+                            #end
                     </tr>
 
                     <tr>
 
-                        <td class="text-right" width="150">type：</td>
+                        <td class="text-right" width="150">促销类型：</td>
                         <td width="200">
                             <select name="site" class="form-control">
                                 <option value="-1" selected="selected">全部</option>
+                                #foreach($param in ${promotionList.keySet()})
+                                    <option value="$param">${promotionList.get($param)}</option>
+                                #end
                             </select>
                         </td>
-                        <td class="text-right" width="150">pay_type：</td>
+                        <td class="text-right" width="150">支付类型：</td>
                         <td width="200">
                             <select name="site" class="form-control">
                                 <option value="-1" selected="selected">全部</option>
+                                #foreach($param in ${payTypList.keySet()})
+                                    <option value="$param">${payTypList.get($param)}</option>
+                                #end
                             </select>
                         </td>
                     </tr>
@@ -81,33 +92,40 @@
         $("#list")
                 .jqGrid(
                         {
-                            url: '$ctx/valuecard/getAllCardHistory',
+                            url: '$ctx/promotion/getAllPromotions',
                             datatype: "local",
-                            colNames: ["id", "储值卡编号", "操作类型", "消费店铺", "储值卡金额变更数额", "账单金额", "创建时间","结账情况"],
+                            colNames: ["id", "促销类型", "满足金额", "减免", "作用门店", "限定的支付类型", "开始时间","结束时间"],
                             colModel: [
                                 {
                                     name: 'id',
-                                    index: 'draftId',
+                                    index: 'id',
                                     align: "center",
                                     width: "45px",
                                     key: true
                                 }, {
-                                    name: 'cardId',
-                                    index: 'cardId',
+                                    name: 'type',
+                                    index: 'type',
                                     align: "center",
                                     width: "50px",
                                     minWidth: "45px",
+                                    formatter: "select",
+                                    editoptions: {
+                                        value: "1:满减;2:满折"
+                                    }
 
                                 },
                                 {
-                                    name: 'operate',
-                                    index: 'operate',
+                                    name: 'enough',
+                                    index: 'discount',
                                     align: "center",
                                     width: "45px",
-                                    formatter: "select",
-                                    editoptions: {
-                                        value: "0:消费;1:充值"
-                                    }
+                                },
+                                {
+                                    name: 'discount',
+                                    index: 'discount',
+                                    align: "center",
+                                    width: "140px",
+                                    minWidth: "90px",
                                 },
                                 {
                                     name: 'storeId',
@@ -117,36 +135,29 @@
                                     minWidth: "90px",
                                 },
                                 {
-                                    name: 'account',
-                                    index: 'account',
-                                    align: "center",
-                                    width: "140px",
-                                    minWidth: "90px",
-                                },
-                                {
-                                    name: 'price',
-                                    index: 'price',
-                                    align: "center",
-                                    width: "140px",
-                                    minWidth: "90px",
-                                },
-                                {
-                                    name: 'createTime',
-                                    index: 'createTime',
-                                    align: "center",
-                                    width: "140px",
-                                    minWidth: "90px",
-                                },
-                                {
-                                    name: 'settle',
-                                    index: 'settle',
+                                    name: 'payType',
+                                    index: 'payType',
                                     align: "center",
                                     width: "140px",
                                     minWidth: "90px",
                                     formatter: "select",
                                     editoptions: {
-                                        value: "0:未结账;1:店铺已上交;2:公司已下传"
+                                        value: "0:储值卡;1:现金;2:支付宝;3微信;4:团购优惠支付"
                                     }
+                                },
+                                {
+                                    name: 'startTime',
+                                    index: 'startTime',
+                                    align: "center",
+                                    width: "140px",
+                                    minWidth: "90px",
+                                },
+                                {
+                                    name: 'endTime',
+                                    index: 'endTime',
+                                    align: "center",
+                                    width: "140px",
+                                    minWidth: "90px",
                                 }
                             ],
                             rowNum: 15,

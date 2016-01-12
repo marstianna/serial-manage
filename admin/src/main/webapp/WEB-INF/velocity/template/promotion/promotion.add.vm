@@ -2,13 +2,13 @@
 <div class="nav-top">
     <div class="">
         <div class="nav-content">
-            <form id="promotionAdd" action="" method="post">
+            <form id="promotionAdd" action="$ctx/promotion/addPromotion" method="post">
             ##    owner
                 <div class="turnToAdd">
                     <label>满足金额</label><input type="text" name="enough" placeholder="enough" class="form-control">
                     <br>
                     <label>促销类型</label>
-                    <select class="form-control" id="type">
+                    <select class="form-control" name="type" id="type">
                         #foreach($param in ${promotionTypeList.keySet()})
                             <option value="$param">${promotionTypeList.get($param)}</option>
                         #end
@@ -22,8 +22,8 @@
                                                   class="form-control">
                     <br>
                     <label>店铺</label>
-                        <select name="site" class="form-control">
-                            <option value="-1" selected="selected">全部</option>
+                        <select name="storeId" class="form-control">
+                            <option value="0" selected="selected">所有店铺</option>
                             #foreach($param in ${storeList.keySet()})
                                 <option value="$param">${storeList.get($param)}</option>
                             #end
@@ -36,7 +36,7 @@
                                                   class="form-control">
                     <br>
                     <label>支付类型</label>
-                    <select name="site" class="form-control">
+                    <select name="payType" class="form-control">
                         <option value="-1" selected="selected">全部</option>
                         #foreach($param in ${payTypeList.keySet()})
                             <option value="$param">${payTypeList.get($param)}</option>
@@ -45,43 +45,57 @@
                     <br>
                 </div>
                 <div style="margin-left: 130px;margin-top: 20px;">
-                    <button type="button" id="promotionSubmitBtn" name="submit" class="btn btn-default">提交</button>
+##                    <button type="button" id="promotionSubmitBtn" name="submit" class="btn btn-default" onclick="submitForm()">提交</button>
+                    <button type="submit" id="promotionSubmitBtn" name="submit" class="btn btn-default">提交</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 <script>
-    $(function(){
-        $("input[name='start_time']").datepicker();
-        $("input[name='end_time']").datepicker();
-        $("#promotionSubmitBtn").click(function(){
-//            验证
-            var id = $("input[name='id']").val();
-            var enough = $("input[name='enough']").val();
-            var discount = $("input[name='discount']").val();
-            var type = $("#type option:selected").val();
-            var store_id = $("input[name='store_id']").val();
-            var start_time = $("input[name='start_time']").val();
-            var end_time = $("input[name='end_time']").val();
-            var pay_type = $("#pay_type option:selected").val();
-            var valid = $("input[name='valid']").val();
-            console.log(id);
-            console.log(enough);
-            console.log(discount);
-            console.log(type);
-            console.log(store_id);
-            console.log(start_time);
-            console.log(end_time);
-            console.log(pay_type);
-            console.log(valid);
+    function submitForm(){
+        disableSaveBtn(".btn-default");
+        if (initValidate()) {
+            $("#promotionAdd").submit();
+        }else{
+            ableSaveBtn(".btn-default");
+        }
+    }
 
-            $("#promotionAdd").submit(function(){
-//提交后的函数
-            });
-        })
-
-
-
-    })
+    function initValidate(){
+        //TODO:cj,添加字段验证
+        return true;
+    }
+//    $(function(){
+//        $("input[name='start_time']").datepicker();
+//        $("input[name='end_time']").datepicker();
+//        $("#promotionSubmitBtn").click(function(){
+////            验证
+//            var id = $("input[name='id']").val();
+//            var enough = $("input[name='enough']").val();
+//            var discount = $("input[name='discount']").val();
+//            var type = $("#type option:selected").val();
+//            var store_id = $("input[name='store_id']").val();
+//            var start_time = $("input[name='start_time']").val();
+//            var end_time = $("input[name='end_time']").val();
+//            var pay_type = $("#pay_type option:selected").val();
+//            var valid = $("input[name='valid']").val();
+//            console.log(id);
+//            console.log(enough);
+//            console.log(discount);
+//            console.log(type);
+//            console.log(store_id);
+//            console.log(start_time);
+//            console.log(end_time);
+//            console.log(pay_type);
+//            console.log(valid);
+//
+//            $("#promotionAdd").submit(function(){
+////提交后的函数
+//            });
+//        })
+//
+//
+//
+//    })
 </script>

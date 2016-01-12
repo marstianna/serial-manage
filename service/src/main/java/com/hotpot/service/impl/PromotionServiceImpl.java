@@ -49,12 +49,13 @@ public class PromotionServiceImpl implements PromotionService{
 
     @Override
     public void addPromotion(Promotion promotion) {
+        promotion.setCreateTime(DateTool.unixTime());
         promotionMapper.insert(promotion);
     }
 
     @Override
     public List<Promotion> getAllPromotionsBySearcher(PromotionSearcher searcher) {
-        return null;
+        return promotionMapper.getAllPromotionsBySearcher(searcher);
     }
 
     private boolean checkIsShoted(Order order, Promotion promotion){
