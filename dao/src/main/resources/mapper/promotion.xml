@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hotpot.dao.PromotionMapper" >
     <sql id="Base_Column_List">
-        id,enough,discount,`type`,store_id storeId,start_time startTime,end_time endTime,pay_type payType
+        id,enough,discount,`type`,store_id storeId,start_time startTime,end_time endTime,pay_type payType,create_time createTime
     </sql>
 
     <insert id="insert" parameterType="com.hotpot.domain.Promotion">
-        insert into promotion(enough,discount,`type`,store_id,start_time,end_time,pay_type)
-        values (#{enough},#{discount},#{type},#{storeId},#{startTime},#{endTime},#{payType})
+        insert into promotion(enough,discount,`type`,store_id,start_time,end_time,pay_type,create_time)
+        values (#{enough},#{discount},#{type},#{storeId},#{startTime},#{endTime},#{payType},#{createTime})
     </insert>
 
    <select id="getAllPromotions" resultType="com.hotpot.domain.Promotion">

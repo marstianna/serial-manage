@@ -28,9 +28,9 @@ public class PromotionController extends BaseController {
     private StoreService storeService;
 
     @RequestMapping({"index",""})
-    public String index(HttpServletRequest request){
-        request.setAttribute("promotionTypeList", PromotionTypeEnum.getMap());
-        request.setAttribute("storeList",storeService.getStoreMap());
+    public String index(){
+        setRequestAttribute("promotionTypeList", PromotionTypeEnum.getMap());
+        setRequestAttribute("storeList",storeService.getStoreMap());
         return "promotion/promotion.list";
     }
 
@@ -49,10 +49,9 @@ public class PromotionController extends BaseController {
     }
 
     @RequestMapping("addPromotion")
-    @ResponseBody
     public Object addPromotion(@ModelAttribute Promotion promotion){
         promotionService.addPromotion(promotion);
-        return "success";
+        return index();
     }
 
     @RequestMapping("modifyPromotion")
