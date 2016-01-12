@@ -39,6 +39,9 @@ func (this *HttpResult) addData(key string, value interface{}) {
 	this.Data[key] = value
 }
 
+func (this *HttpResult) clearData() {
+}
+
 func (this *HttpResult) toJsonString() string {
 	v, err := json.Marshal(this)
 	if err != nil {

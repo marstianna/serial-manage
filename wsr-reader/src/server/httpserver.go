@@ -60,7 +60,19 @@ func readCard(w http.ResponseWriter, req *http.Request) {
 		io.WriteString(w, rep.toJsonString())
 		return
 	}
-	fmt.Println("cardNo:", cardNo)
+
+	//read uuid
+	uuid, code, err := wsr.ReadUuid()
+	if err != nil {
+		fmt.Println("readUuid failed, error:", err)
+		rep.setCodeAndStatus(code)
+		io.WriteString(w, rep.toJsonString())
+		return
+	}
+
+	fmt.Println("cardNo:", cardNo, ", uuid:", uuid)
 	rep.addData("cardno", cardNo)
+	rep.addData("uuid", uuid)
+
 	io.WriteString(w, rep.toJsonString())
 }
