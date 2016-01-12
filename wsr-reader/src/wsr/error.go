@@ -2,7 +2,28 @@ package wsr
 
 var errorMap map[int32]string = make(map[int32]string, 50)
 
+//成功
+const ERR_SUCC int32 = 0
+
+//基础设施错误
+
+const ERR_LOAD_LIB int32 = 1000
+const ERR_INTERFACE int32 = 1002
+const ERR_COM_PORT_NOTFOUND int32 = 1003
+
+//业务错误
+const ERR_UUID_LENGTH int32 = 2000
+const ERR_LOAD_PSW_LEN int32 = 2001
+const ERR_SET_PSW_LEN int32 = 2002
+
 func init() {
+	errorMap[ERR_SUCC] = "成功"
+	errorMap[ERR_LOAD_LIB] = "链接库加载失败"
+	errorMap[ERR_INTERFACE] = "找不到对应的函数地址"
+	errorMap[ERR_COM_PORT_NOTFOUND] = "找不到通讯端口"
+	errorMap[ERR_UUID_LENGTH] = "写入UUID时, 长度错误"
+	errorMap[ERR_LOAD_PSW_LEN] = "加载密码时, 密码长度错误"
+	errorMap[ERR_SET_PSW_LEN] = "设置密码时, 密码长度错误"
 	errorMap[-1] = "参数值不正确"
 
 	errorMap[-10] = "(仅修改密码)装载密码失败"
@@ -30,9 +51,9 @@ func init() {
 	errorMap[-242] = "值溢出"
 }
 
-func getErrorMsg(code int32) string {
-	if code >= 0 {
-		return "ok"
+func GetErrorMsg(code int32) string {
+	if code >= 0 && code < 1000 {
+		return "成功"
 	}
 
 	v, ok := errorMap[code]
@@ -40,5 +61,5 @@ func getErrorMsg(code int32) string {
 		return v
 	}
 
-	return "unknown error"
+	return "未知错误"
 }

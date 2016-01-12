@@ -4,8 +4,9 @@ import (
 	"testing"
 )
 
+
 func TestServer(t *testing.T) {
-	if err := Run(":12345"); err != nil {
-		t.Error("error")
+	if err := Run(":8088"); err != nil {
+		t.Error("error:" + err.Error())
 	}
 }
