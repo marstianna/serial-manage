@@ -1,5 +1,47 @@
+#################还要增加内容
 ##添加储值卡
 ##1.用户点击检测卡片
 ##2.从高个提供的 http 接口读取卡编号,并显示在界面,且不能修改
 ##3.填写充值金额和实际支付金额,以及用户信息
 ##4.ajax 提交创建请求,接受到返回的 cardUuid 发送给高个提供的卡片写接口
+#parse( "./include/variable.vm" )
+<div class="nav-top">
+    <div class="">
+        <div class="nav-content">
+            <form id="valueCardAdd">
+                <div class="turnToAdd">
+                    <label>id</label><input type="text" placeholder="id" class="form-control">
+                    <br>
+                    <label>card_id</label><input type="text" placeholder="card_id" class="form-control">
+                    <br>
+                    <label>card_uuid</label><input type="text" placeholder="card_uuid" class="form-control">
+                    <br>
+                    <label>balance</label><input type="text" placeholder="balance" class="form-control">
+                    <br>
+                    <label>vip_id</label><input type="text" placeholder="vip_id" class="form-control">
+                    <br>
+                    <label>创建时间:</label><input type="text" placeholder="create_time" class="form-control">
+                    <br>
+                    <label>设置密码:</label><input type="text" placeholder="password" class="form-control">
+                    <br>
+                    <div style="margin-left: 130px;margin-top: 20px;">
+                        <button type="button" id="submit" class="btn btn-circle">提交</button>
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    (function(){
+        $("#valueCardSubmitBtn").click(function(){
+//            验证
+
+            $("#valueCardAdd").submit(function(){
+//提交后的函数
+            });
+        })
+
+
+
+    })
+</script>
