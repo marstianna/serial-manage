@@ -20,19 +20,41 @@
                     <br>
                     <label>vip_id</label><input type="text" placeholder="vip_id" class="form-control">
                     <br>
-                    <label>创建时间:</label><input type="text" placeholder="create_time" class="form-control">
+                    <label>创建时间:</label><input type="text" name="create_time" placeholder="yyyy-MM-dd HH:mm:ss" readonly class="form-control">
                     <br>
                     <label>设置密码:</label><input type="text" placeholder="password" class="form-control">
                     <br>
                     <div style="margin-left: 130px;margin-top: 20px;">
-                        <button type="button" id="submit" class="btn btn-circle">提交</button>
+                        <button type="button" id="submit" class="btn btn-circle btn-sm">提交</button>
                     </div>
             </form>
         </div>
     </div>
 </div>
 <script>
-    (function(){
+##
+function currentTime(){
+    var d = new Date(),str = '';
+    str += d.getFullYear()+'-';
+    str += d.getMonth() + 1+'-';
+    str += d.getDate();
+    str += "   ";
+    str += d.getHours()+':';
+    str += d.getMinutes()+':';
+    str += d.getSeconds()+'';
+    return str;
+
+}
+//setInterval(function(){});
+    $(function(){
+    $("input[name='create_time']").val(currentTime);
+
+
+//        $("input[name='create_time']").datetimepicker({
+//            format: "dd MM yyyy - hh:ii",
+//            autoclose: true,
+//            pickerPosition: "bottom-left"
+//        });
         $("#valueCardSubmitBtn").click(function(){
 //            验证
 
