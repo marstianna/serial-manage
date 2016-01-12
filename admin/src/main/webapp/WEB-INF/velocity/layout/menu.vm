@@ -11,7 +11,7 @@
         {id: 3, name: "储值卡", parent: -1, order: 3, path:"" , icon: "fa-edit"},
         {id: 31, name: "储值卡列表", parent: 3, order: 1, path: "$ctx/valuecard/index", icon: ""},
         {id: 32, name: "储值卡账单", parent: 3, order: 2, path: "$ctx/valuecard/historyindex", icon: ""},
-        {id: 33, name: "新增储值卡", parent: 3, order: 3, path: "$ctx/valuecard/addCard", icon: ""},
+        {id: 33, name: "新增储值卡", parent: 3, order: 3, path: "$ctx/valuecard/turnToAddCard", icon: ""},
 
         {id: 4, name: "促销", parent: -1, order: 4, path: "", icon: ""},
         {id: 41, name: "促销列表", parent: 4, order: 1, path: "$ctx/promotion/index", icon: ""},

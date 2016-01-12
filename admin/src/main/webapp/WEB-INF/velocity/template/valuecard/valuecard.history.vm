@@ -157,14 +157,12 @@
                             height: 'auto',
                             multiselect: true,
                             viewrecords: true,
-//                            rownumbers: true,
                             sortorder: "desc",
                             mtype: "POST",
                             deleteKeys: ["id"],
                             width: "85%",
                             shrinkToFit: true,
                             autowidth: true,
-//			caption : "政策列表",
                             editurl: "add",
                             gridComplete: function () {
                                 //set online publish effect ,the row backgroud-color is green
