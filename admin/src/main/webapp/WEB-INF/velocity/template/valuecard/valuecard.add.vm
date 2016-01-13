@@ -42,7 +42,7 @@ function currentTime(){
     str += d.getHours()+':';
     str += d.getMinutes()+':';
     str += d.getSeconds()+'';
-    return str;
+    return str
 
 }
 //setInterval(function(){});
