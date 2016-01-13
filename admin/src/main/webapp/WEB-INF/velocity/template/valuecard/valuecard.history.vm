@@ -50,7 +50,9 @@
 </div>
 <div class="table-jqgrid">
     <!--这里放jqgrid-->
-    <button class="btn btn-sm" onclick="settleForCom()">结账</button>
+    <div style="margin:20px 0;">
+        <button class="btn btn-sm" onclick="settleForCom()">结账</button>
+    </div>
     <table id="list" style="width: 95%;" form="search_form"></table>
     <div id="pager"></div>
 </div>
