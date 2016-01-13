@@ -9,9 +9,10 @@ public class Promotion {
     private Integer discount;
     private Integer type;
     private Integer storeId;
-    private Integer startTime;
-    private Integer endTime;
+    private Long startTime;
+    private Long endTime;
     private Integer payType;
+    private Long createTime;
 
     public Integer getId() {
         return id;
@@ -53,27 +54,35 @@ public class Promotion {
         this.storeId = storeId;
     }
 
-    public Integer getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(Integer startTime) {
-        this.startTime = startTime;
-    }
-
-    public Integer getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Integer endTime) {
-        this.endTime = endTime;
-    }
-
     public Integer getPayType() {
         return payType;
     }
 
     public void setPayType(Integer payType) {
         this.payType = payType;
+    }
+
+    public Long getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Long startTime) {
+        this.startTime = startTime;
+    }
+
+    public Long getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Long endTime) {
+        this.endTime = endTime;
+    }
+
+    public Long getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Long createTime) {
+        this.createTime = createTime;
     }
 }
