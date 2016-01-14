@@ -2,20 +2,18 @@ package server
 
 import (
 	"encoding/json"
-
-	"wsr"
 )
 
 //http相关数据结构
 
-type ReplyBase struct {
+type replyBase struct {
 	Code   int32                  `json:"code"`
 	Status string                 `json:"status"`
 	Data   map[string]interface{} `json:"data"`
 }
 
 
-func (this *ReplyBase) toJsonString() string {
+func (this *replyBase) toJsonString() string {
 	v, err := json.Marshal(this)
 	if err != nil {
 		return ""
@@ -24,16 +22,16 @@ func (this *ReplyBase) toJsonString() string {
 	return string(v)
 }
 
-func (this *ReplyBase) addData(key string, value interface{}) {
+func (this *replyBase) addData(key string, value interface{}) {
 	this.Data[key] = value
 }
 
 
 //////////////////////////////////////////////////////////////////////
 
-func NewReplySucc() *ReplyBase {
-	return &ReplyBase{
-		Code: wsr.ERR_SUCC,
+func newReplySucc() *replyBase {
+	return &replyBase{
+		Code: 0,
 		Status: "成功",
 		Data:   make(map[string]interface{}),
 	}
@@ -41,8 +39,8 @@ func NewReplySucc() *ReplyBase {
 
 //////////////////////////////////////////////////////////////////////
 
-func NewReplyFail(e error) *ReplyBase {
-	return &ReplyBase{
+func newReplyFail(e error) *replyBase {
+	return &replyBase{
 		Code:   -1,
 		Status: e.Error(),
 		Data:   make(map[string]interface{}),
