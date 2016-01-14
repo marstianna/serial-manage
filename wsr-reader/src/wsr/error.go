@@ -16,50 +16,56 @@ const ERR_UUID_LENGTH int32 = 2000
 const ERR_LOAD_PSW_LEN int32 = 2001
 const ERR_SET_PSW_LEN int32 = 2002
 
-func init() {
-	errorMap[ERR_SUCC] = "成功"
-	errorMap[ERR_LOAD_LIB] = "链接库加载失败"
-	errorMap[ERR_INTERFACE] = "找不到对应的函数地址"
-	errorMap[ERR_COM_PORT_NOTFOUND] = "找不到通讯端口"
-	errorMap[ERR_UUID_LENGTH] = "写入UUID时, 长度错误"
-	errorMap[ERR_LOAD_PSW_LEN] = "加载密码时, 密码长度错误"
-	errorMap[ERR_SET_PSW_LEN] = "设置密码时, 密码长度错误"
-	errorMap[-1] = "参数值不正确"
-
-	errorMap[-10] = "(仅修改密码)装载密码失败"
-	errorMap[-11] = "(仅修改密码)读数据失败"
-	errorMap[-12] = "(仅修改密码)写数据失败"
-
-	errorMap[-100] = "写串口失败"
-	errorMap[-101] = "读串口失败"
-	errorMap[-102] = "接收的数据无效"
-
-	errorMap[-226] = "卡不存在/卡坏"
-	errorMap[-227] = "防冲撞错误"
-	errorMap[-228] = "锁定卡出错"
-	errorMap[-229] = "传密钥出错"
-	errorMap[-230] = "密码验证出错"
-	errorMap[-231] = "读块数据出错"
-	errorMap[-232] = "写块数据出错"
-	errorMap[-233] = "复位 RC500 失败"
-	errorMap[-234] = "钱包值调入缓冲区出错"
-	errorMap[-235] = "保存缓冲区值中的钱包值出错"
-	errorMap[-236] = "增值出错"
-	errorMap[-238] = "减值出错"
-	errorMap[-240] = "块值格式不对"
-	errorMap[-241] = "块值不够减"
-	errorMap[-242] = "值溢出"
+type wsrError struct {
+	code int32
 }
 
-func GetErrorMsg(code int32) string {
-	if code >= 0 && code < 1000 {
+func newWsrError(code int32) error{
+	return &wsrError{ code : code }
+}
+
+func (this *wsrError) Error() string {
+	if this.code >= 0 && this.code < 1000 {
 		return "成功"
 	}
 
-	v, ok := errorMap[code]
-	if ok {
-		return v
+	var ret string = "未知错误"
+
+	switch this.code {
+		case ERR_SUCC: ret = "成功"
+		case ERR_LOAD_LIB: ret = "链接库加载失败"
+		case ERR_INTERFACE: ret = "找不到对应的函数地址"
+		case ERR_COM_PORT_NOTFOUND: ret = "找不到通讯端口"
+		case ERR_UUID_LENGTH: ret = "写入UUID时, 长度错误"
+		case ERR_LOAD_PSW_LEN: ret = "加载密码时, 密码长度错误"
+		case ERR_SET_PSW_LEN: ret = "设置密码时, 密码长度错误"
+
+		case -1: ret = "参数值不正确"
+
+		case -10: ret = "(仅修改密码)装载密码失败"
+		case -11: ret = "(仅修改密码)读数据失败"
+		case -12: ret = "(仅修改密码)写数据失败"
+
+		case -100: ret = "写串口失败"
+		case -101: ret = "读串口失败"
+		case -102: ret = "接收的数据无效"
+
+		case -226: ret = "卡不存在/卡坏"
+		case -227: ret = "防冲撞错误"
+		case -228: ret = "锁定卡出错"
+		case -229: ret = "传密钥出错"
+		case -230: ret = "密码验证出错"
+		case -231: ret = "读块数据出错"
+		case -232: ret = "写块数据出错"
+		case -233: ret = "复位 RC500 失败"
+		case -234: ret = "钱包值调入缓冲区出错"
+		case -235: ret = "保存缓冲区值中的钱包值出错"
+		case -236: ret = "增值出错"
+		case -238: ret = "减值出错"
+		case -240: ret = "块值格式不对"
+		case -241: ret = "块值不够减"
+		case -242: ret = "值溢出"
 	}
 
-	return "未知错误"
+	return ret
 }
