@@ -103,7 +103,7 @@
                             url: '$ctx/order/getAllOrders',
                             datatype: "local",
                             colNames: ["id", "会员ID", "店铺ID", "支付方式", "储值卡编号", "订单原价", "实际支付金额",
-                                "酒水价格", "菜品金额", "创建时间", "是否排队", "是否已结账"],
+                                "酒水价格", "菜品金额", "创建时间", "是否排队"],
                             colModel: [
                                 {
                                     name: 'id',
@@ -179,16 +179,6 @@
                                     index: 'noCod',
                                     align: "center",
                                     width: "60px",
-                                    formatter: "select",
-                                    editoptions: {
-                                        value: "0:否;1:是"
-                                    }
-                                },
-                                {
-                                    name: 'settle',
-                                    index: "freeShipping",
-                                    align: "center",
-                                    width: "50px",
                                     formatter: "select",
                                     editoptions: {
                                         value: "0:否;1:是"
