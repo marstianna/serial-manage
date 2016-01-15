@@ -6,17 +6,17 @@
             ##    owner
                 <div class="turnToAdd">
                     <h1>用户信息设置</h1>
-                    <label>name</label><input type="text" placeholder="name" class="form-control">
+                    <label>name</label><input type="text" placeholder="name" name="storeName" id="storeName" class="form-control">
                     <br>
-                    <label>store_id</label><input type="text" placeholder="store_id" class="form-control">
+                    <label>store_id</label><input type="text" placeholder="store_id" name="storeId" id="storeId" class="form-control">
                     <br>
-                    <label>手机号</label><input type="text" placeholder="mobilephone" class="form-control">
+                    <label>手机号</label><input type="text" placeholder="mobilephone" name="mobilephone" id="mobilephone" class="form-control">
                     <br>
-                    <label>微信</label><input type="text" placeholder="wechat" class="form-control">
+                    <label>微信</label><input type="text" placeholder="wechat" name="wechat" id="wechat" class="form-control">
                     <br>
-                    <label>邮箱</label><input type="text" placeholder="email" class="form-control">
+                    <label>邮箱</label><input type="text" placeholder="email" name="email" id="email" class="form-control">
                     <br>
-                    <label>创建时间</label><input type="text" placeholder="create_time" class="form-control">
+                    <label>创建时间</label><input type="text" placeholder="create_time" name="creatTime" id="creatTime" class="form-control">
                     <br>
                     <div style="margin-left: 130px;margin-top: 20px;">
                         <button type="button" id="vipSubmitBtn" class="btn btn-circle btn-sm">提交</button>

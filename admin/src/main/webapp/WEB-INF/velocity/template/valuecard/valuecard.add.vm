@@ -10,19 +10,19 @@
         <div class="nav-content">
             <form id="valueCardAdd">
                 <div class="turnToAdd">
-                    <label>id</label><input type="text" placeholder="id" class="form-control">
+                    <label>id</label><input type="text" placeholder="id" name="id" id="id" class="form-control">
                     <br>
-                    <label>card_id</label><input type="text" placeholder="card_id" class="form-control">
+                    <label>card_id</label><input type="text" placeholder="card_id" name="cardId" id="cardId" class="form-control">
                     <br>
-                    <label>card_uuid</label><input type="text" placeholder="card_uuid" class="form-control">
+                    <label>card_uuid</label><input type="text" placeholder="card_uuid" name="cardUuid" id="cardUuid" class="form-control">
                     <br>
-                    <label>balance</label><input type="text" placeholder="balance" class="form-control">
+                    <label>balance</label><input type="text" placeholder="balance" name="balance" id="balance" class="form-control">
                     <br>
-                    <label>vip_id</label><input type="text" placeholder="vip_id" class="form-control">
+                    <label>vip_id</label><input type="text" placeholder="vip_id" id="vipId" name="vipId" class="form-control">
                     <br>
-                    <label>创建时间:</label><input type="text" name="create_time" placeholder="yyyy-MM-dd HH:mm:ss" readonly class="form-control">
+                    <label>创建时间:</label><input type="text" name="create_time" id="createTime" placeholder="yyyy-MM-dd HH:mm:ss" readonly class="form-control">
                     <br>
-                    <label>设置密码:</label><input type="text" placeholder="password" class="form-control">
+                    <label>设置密码:</label><input type="text" placeholder="password" id="password" name="password" class="form-control">
                     <br>
                     <div style="margin-left: 130px;margin-top: 20px;">
                         <button type="button" id="submit" class="btn btn-circle btn-sm">提交</button>

@@ -11,6 +11,8 @@
                         <td width="200"><input id="mobilephone" name="mobilephone" type="text" class="form-control"></td>
                         <td class="text-right" width="150">卡号：</td>
                         <td width="200"><input id="cardId" name="cardId" type="text" class="form-control"></td>
+                    </tr>
+                    <tr>
                         <td class="text-right" width="150">创建店铺：</td>
                         <td width="200">
                             <select id="storeId" name="storeId" class="form-control">
@@ -34,8 +36,7 @@
                     <tr>
                         <td width="150"></td>
                         <td class="searchtd">
-                            <button type="button" id="search_btn" class="btn btn-search"><i
-                                    class="icon-search align-top bigger-125"></i>搜索
+                            <button type="button" id="search_btn" class="btn btn-sm"><i class="icon-search align-top bigger-125"></i>搜索
                             </button>
                         </td>
                     </tr>

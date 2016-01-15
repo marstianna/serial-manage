@@ -5,7 +5,7 @@
             <form id="promotionAdd" action="$ctx/promotion/addPromotion" method="post">
             ##    owner
                 <div class="turnToAdd">
-                    <label>满足金额</label><input type="text" name="enough" placeholder="enough" class="form-control">
+                    <label>满足金额</label><input type="text" name="enough" placeholder="enough" id="enough" class="form-control">
                     <br>
                     <label>促销类型</label>
                     <select class="form-control" name="type" id="type">
@@ -18,7 +18,7 @@
                     <br>
                     当促销类型为满折时,实际账单金额*减免金额
                     <br>
-                    <label>减免金额</label><input type="text" name="discount" placeholder="discount"
+                    <label>减免金额</label><input type="text" name="discount" id="discount" placeholder="discount"
                                                   class="form-control">
                     <br>
                     <label>店铺</label>
@@ -29,10 +29,10 @@
                             #end
                         </select>
                     <br>
-                    <label>促销起始时间</label><input type="text" name="startTime" placeholder="start_time"
+                    <label>促销起始时间</label><input type="text" name="startTime" placeholder="start_time" id="startTime"
                                                     class="form-control">
                     <br>
-                    <label>促销结束时间</label><input type="text" name="endTime" placeholder="end_time"
+                    <label>促销结束时间</label><input type="text" name="endTime" placeholder="end_time" id="endTime"
                                                   class="form-control">
                     <br>
                     <label>支付类型</label>
@@ -46,7 +46,7 @@
                 </div>
                 <div style="margin-left: 130px;margin-top: 20px;">
 ##                    <button type="button" id="promotionSubmitBtn" name="submit" class="btn btn-default" onclick="submitForm()">提交</button>
-                    <button type="submit" id="promotionSubmitBtn" name="submit" class="btn btn-default">提交</button>
+                    <button type="submit" id="promotionSubmitBtn" name="submit" class="btn btn-sm">提交</button>
                 </div>
             </form>
         </div>
