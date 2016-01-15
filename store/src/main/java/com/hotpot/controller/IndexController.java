@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 /**
@@ -86,6 +87,12 @@ public class IndexController extends BaseController {
     @ResponseBody
     public Object queueups(){
         return queueUpService.getAllQueuesByStoreId(getStoreId());
+    }
+
+    @RequestMapping("download")
+    public Object download(HttpServletResponse response){
+        response.setHeader("Content-Disposition", "attachment;filename=card_reader");
+        return null;
     }
 
     private Integer getStoreId(){

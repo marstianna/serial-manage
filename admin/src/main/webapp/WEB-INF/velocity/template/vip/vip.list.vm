@@ -70,11 +70,11 @@
         $("#list")
                 .jqGrid(
                         {
-                            url: '$ctx/order/getAllOrders',
+                            url: '$ctx/vip/list',
                             datatype: "local",
 //                            会员展示信息
-                            colNames: ["id", "会员ID", "店铺ID", "支付方式", "储值卡编号", "订单原价", "实际支付金额",
-                                "酒水价格", "菜品金额", "创建时间", "是否排队", "是否已结账"],
+                            colNames: ["id", "姓名", "创建所在店铺", "电话", "微信号", "邮箱", "创建时间",
+                                "拥有储值卡列表", "操作"],
                             colModel: [
                                 {
                                     name: 'id',
@@ -83,8 +83,8 @@
                                     width: "45px",
                                     key: true
                                 }, {
-                                    name: 'vipId',
-                                    index: 'vipId',
+                                    name: 'name',
+                                    index: 'name',
                                     align: "center",
                                     width: "50px",
                                     minWidth: "45px",
@@ -97,74 +97,56 @@
                                     width: "45px",
                                 },
                                 {
-                                    name: 'payType',
-                                    index: 'payType',
+                                    name: 'mobilephone',
+                                    index: 'mobilephone',
                                     align: "center",
                                     width: "140px",
                                     minWidth: "90px",
-                                    formatter: "select",
-                                    editoptions: {
-                                        value: "0:储值卡;1:现金;2:支付宝;3:微信;4:团购优惠支付"
-                                    }
                                 },
                                 {
-                                    name: 'cardId',
-                                    index: 'cardId',
+                                    name: 'wechat',
+                                    index: 'wechat',
                                     align: "center",
                                     width: "100px",
                                     minWidth: "80px",
                                 },
                                 {
-                                    name: 'paperPrice',
-                                    index: 'paperPrice',
+                                    name: 'email',
+                                    index: 'email',
                                     align: "center",
                                     width: "45px",
-                                },
-                                {
-                                    name: 'actualPrice',
-                                    index: 'actualPrice',
-                                    align: "center",
-                                    width: "90px",
-                                },
-                                {
-                                    name: 'drinkPrice',
-                                    index: 'drinkPrice',
-                                    align: "center",
-                                    width: "70px"
-                                },
-                                {
-                                    name: 'foodPrice',
-                                    index: 'foodPrice',
-                                    align: "center",
-                                    width: "50px",
                                 },
                                 {
                                     name: 'createTime',
                                     index: 'createTime',
                                     align: "center",
-                                    width: "50px",
-                                    formatter: "select",
+                                    width: "90px",
                                 },
                                 {
-                                    name: 'queueUp',
-                                    index: 'noCod',
+                                    name: 'cardlist',
+                                    index: 'cardlist',
                                     align: "center",
-                                    width: "60px",
-                                    formatter: "select",
-                                    editoptions: {
-                                        value: "0:否;1:是"
+                                    width: "70px",
+                                    formatter : function(cellval, opts,
+                                                         rowObject, action){
+                                        var cards = rowObject['cardList'];
+                                        var result;
+                                        for(var card : cards){
+                                            result +='<a href="javascript:getCardHistory('+card+') class="row_btn">'+card+'</a><br />'
+                                        }
+                                        return result;
                                     }
                                 },
                                 {
-                                    name: 'settle',
-                                    index: "freeShipping",
+                                    name: 'operate',
+                                    index: 'operate',
                                     align: "center",
                                     width: "50px",
-                                    formatter: "select",
-                                    editoptions: {
-                                        value: "0:否;1:是"
+                                    formatter : function(cellval, opts,
+                                                         rowObject, action){
+                                        return '<a href="javascript:modifyVipInfo('+rowObject['id']+') class="row_btn">修改</a>';
                                     }
-                                },
+                                }
                             ],
                             rowNum: 15,
                             rowList: [15, 30, 50],
@@ -172,7 +154,6 @@
                             height: 'auto',
                             multiselect: true,
                             viewrecords: true,
-//                            rownumbers: true,
                             sortorder: "desc",
                             mtype: "POST",
                             deleteKeys: ["id"],
@@ -353,6 +334,17 @@
         $("#list").setGridWidth($(window).width()-10);
     }).trigger('resize');
 
+    function getCardHistory(cardId){
+        $.get("$ctx/valuecard/getCardHistoryByCardId?id="+cardId,function(res){
+            //TODO 弹出框显示储值卡消费历史纪录
+        });
+    }
+
+    function modifyVipInfo(id){
+        $.get("$ctx/vip/modifyVipInfo?id="+id,function(res){
+            //TODO 弹出框现实 Vip信息,可以修改
+        });
+    }
 </script>
 
 </body>
