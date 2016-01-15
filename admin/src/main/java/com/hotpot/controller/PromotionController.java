@@ -50,6 +50,7 @@ public class PromotionController extends BaseController {
 
     @RequestMapping("addPromotion")
     public Object addPromotion(@ModelAttribute Promotion promotion){
+        setRequestAttribute("useLayout",false);
         promotionService.addPromotion(promotion);
         return index();
     }

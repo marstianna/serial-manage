@@ -1,7 +1,6 @@
 package wsr
 
 import (
-	"errors"
 	"fmt"
 	"syscall"
 	"unsafe"
@@ -22,10 +21,10 @@ type Wsr struct {
 	pswSector     int
 }
 
-func NewWsr() (*Wsr, int32, error) {
+func NewWsr() (*Wsr, error) {
 	hWsr, err := syscall.LoadLibrary("WSR.DLL")
 	if err != nil {
-		return nil, ERR_LOAD_LIB, errors.New("LoadLibrary failed, error:" + err.Error())
+		return nil, newWsrError(ERR_LOAD_LIB)
 	}
 
 	return &Wsr{
@@ -36,7 +35,7 @@ func NewWsr() (*Wsr, int32, error) {
 		passwdLen:     6,
 		accessCodeLen: 4,
 		pswSector:     0,
-	}, ERR_SUCC, nil
+	}, nil
 }
 
 func (this *Wsr) Destroy() error {
@@ -44,10 +43,10 @@ func (this *Wsr) Destroy() error {
 }
 
 //find the com port and open it
-func (this *Wsr) OpenPort() (int32, error) {
+func (this *Wsr) OpenPort() error {
 	proc, err := syscall.GetProcAddress(this.hWsr, "ws_openPort")
 	if err != nil {
-		return ERR_INTERFACE, errors.New("failed to GetProcAddress of ws_openPort, error:" + err.Error())
+		return newWsrError(ERR_INTERFACE)
 	}
 
 	//find the port
@@ -56,61 +55,61 @@ func (this *Wsr) OpenPort() (int32, error) {
 		if int32(r1) >= 0 {
 			this.port = uintptr(port)
 			fmt.Println("open port ", port, " succ")
-			return ERR_SUCC, nil
+			return nil
 		}
 	}
 
-	return ERR_COM_PORT_NOTFOUND, errors.New("no com port found")
+	return newWsrError(ERR_COM_PORT_NOTFOUND)
 }
 
 //close the com port
-func (this *Wsr) ClosePort() (int32, error) {
+func (this *Wsr) ClosePort() error {
 	proc, err := syscall.GetProcAddress(this.hWsr, "ws_closePort")
 	if err != nil {
-		return ERR_INTERFACE, errors.New("failed to GetProcAddress of ws_closePort, error:" + err.Error())
+		return newWsrError(ERR_INTERFACE)
 	}
 	r1, _, _ := syscall.Syscall(uintptr(proc), 1, this.port, 0, 0)
 	if int32(r1) >= 0 {
-		return ERR_SUCC, nil
+		return nil
 	}
 
 	//关闭端口失败也算是成功
-	return ERR_SUCC, errors.New("close port failed")
+	return newWsrError(int32(r1))
 }
 
-func (this *Wsr) Beep() (int32, error) {
+func (this *Wsr) Beep() error {
 	proc, err := syscall.GetProcAddress(this.hWsr, "ws_beep")
 	if err != nil {
-		return ERR_INTERFACE, errors.New("failed to GetProcAddress of ws_beep, error:" + err.Error())
+		return newWsrError(ERR_INTERFACE)
 	}
 
 	r1, _, _ := syscall.Syscall(uintptr(proc), 1, this.port, 0, 0)
 	if int32(r1) >= 0 {
-		return ERR_SUCC, nil
+		return nil
 	}
 
-	return int32(r1), errors.New(GetErrorMsg(int32(r1)))
+	return newWsrError(int32(r1))
 }
 
-func (this *Wsr) GetCardNo() (string, int32, error) {
+func (this *Wsr) GetCardNo() (string, error) {
 	proc, err := syscall.GetProcAddress(this.hWsr, "ws_getCardNo_String")
 	if err != nil {
-		return "", ERR_INTERFACE, errors.New("failed to GetProcAddress of ws_getCardNo_String, error:" + err.Error())
+		return "", newWsrError(ERR_INTERFACE)
 	}
 
 	cardNo := make([]byte, 11)
 	r1, _, _ := syscall.Syscall(uintptr(proc), 2, this.port, uintptr(unsafe.Pointer(&cardNo[0])), 0)
 	if int32(r1) >= 0 {
-		return string(cardNo), ERR_SUCC, nil
+		return string(cardNo), nil
 	}
 
-	return "", int32(r1), errors.New(GetErrorMsg(int32(r1)))
+	return "", newWsrError(int32(r1))
 }
 
-func (this *Wsr) ReadUuid() (string, int32, error) {
+func (this *Wsr) ReadUuid() (string, error) {
 	proc, err := syscall.GetProcAddress(this.hWsr, "ws_readData")
 	if err != nil {
-		return "", ERR_INTERFACE, errors.New("failed to GetProcAddress of ws_readData, error:" + err.Error())
+		return "", newWsrError(ERR_INTERFACE)
 	}
 
 	uuid := make([]byte, this.uuidLen)
@@ -118,20 +117,20 @@ func (this *Wsr) ReadUuid() (string, int32, error) {
 		this.port, this.uuidBlk, uintptr(unsafe.Pointer(&uuid[0])), uintptr(this.uuidLen),
 		0, 0)
 	if int32(r1) >= 0 {
-		return string(uuid), ERR_SUCC, nil
+		return string(uuid), nil
 	}
 
-	return "", int32(r1), errors.New(GetErrorMsg(int32(r1)))
+	return "", newWsrError(int32(r1))
 }
 
-func (this *Wsr) WriteUuid(uuid string) (int32, error) {
+func (this *Wsr) WriteUuid(uuid string) error {
 	if uintptr(len(uuid)) != this.uuidLen {
-		return ERR_UUID_LENGTH, errors.New("uuid length error")
+		return newWsrError(ERR_UUID_LENGTH)
 	}
 
 	proc, err := syscall.GetProcAddress(this.hWsr, "ws_writeData")
 	if err != nil {
-		return ERR_INTERFACE, errors.New("failed to GetProcAddress of ws_writeData, error:" + err.Error())
+		return newWsrError(ERR_INTERFACE)
 	}
 
 	uuidBytes := []byte(uuid)
@@ -139,22 +138,22 @@ func (this *Wsr) WriteUuid(uuid string) (int32, error) {
 		this.port, this.uuidBlk, uintptr(unsafe.Pointer(&uuidBytes[0])), this.uuidLen,
 		0, 0)
 	if int32(r1) >= 0 {
-		return ERR_SUCC, nil
+		return nil
 	}
 
-	return int32(r1), errors.New(GetErrorMsg(int32(r1)))
+	return newWsrError(int32(r1))
 }
 
 //load passwd
 //pswType: 0-Password A(default), 1-Password B
-func (this *Wsr) LoadPsw(passwd string, pswType int32) (int32, error) {
+func (this *Wsr) LoadPsw(passwd string, pswType int32) error {
 	if len(passwd) != this.passwdLen {
-		return ERR_LOAD_PSW_LEN, errors.New("wrong password length")
+		return newWsrError(ERR_LOAD_PSW_LEN)
 	}
 
 	proc, err := syscall.GetProcAddress(this.hWsr, "ws_loadKey")
 	if err != nil {
-		return ERR_INTERFACE, errors.New("failed to GetProcAddress of ws_loadKey, error:" + err.Error())
+		return newWsrError(ERR_INTERFACE)
 	}
 
 	passwdBytes := []byte(passwd)
@@ -162,20 +161,20 @@ func (this *Wsr) LoadPsw(passwd string, pswType int32) (int32, error) {
 		this.port, uintptr(unsafe.Pointer(&passwdBytes[0])), uintptr(pswType),
 	)
 	if int32(r1) >= 0 {
-		return ERR_SUCC, nil
+		return nil
 	}
 
-	return int32(r1), errors.New(GetErrorMsg(int32(r1)))
+	return newWsrError(int32(r1))
 }
 
-func (this *Wsr) SetPsw(pswA string, accessCode string, pswB string) (int32, error) {
+func (this *Wsr) SetPsw(pswA string, accessCode string, pswB string) error {
 	if len(pswA) != this.passwdLen || len(pswB) != this.passwdLen || len(accessCode) != this.accessCodeLen {
-		return ERR_SET_PSW_LEN, errors.New("parameter length error")
+		return newWsrError(ERR_SET_PSW_LEN)
 	}
 
 	proc, err := syscall.GetProcAddress(this.hWsr, "ws_changeKeyA")
 	if err != nil {
-		return ERR_INTERFACE, errors.New("failed to GetProcAddress of ws_changeKeyA, error:" + err.Error())
+		return newWsrError(ERR_INTERFACE)
 	}
 
 	paBytes := []byte(pswA)
@@ -189,8 +188,8 @@ func (this *Wsr) SetPsw(pswA string, accessCode string, pswB string) (int32, err
 		uintptr(unsafe.Pointer(&pbBytes[0])),
 		0)
 	if int32(r1) >= 0 {
-		return ERR_SUCC, nil
+		return nil
 	}
 
-	return int32(r1), errors.New(GetErrorMsg(int32(r1)))
+	return newWsrError(int32(r1))
 }
