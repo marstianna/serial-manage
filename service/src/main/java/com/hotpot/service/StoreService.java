@@ -39,4 +39,6 @@ public interface StoreService {
     List<StoreTable> getAllTablesByStoreId(Integer storeId);
 
     boolean login(String loginName,String loginPassword);
+
+    Store getStoreByStoreId(Integer storeId);
 }

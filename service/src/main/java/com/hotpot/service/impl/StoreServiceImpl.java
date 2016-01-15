@@ -70,4 +70,9 @@ public class StoreServiceImpl implements StoreService{
     public boolean login(String loginName, String loginPassword) {
         return ownerMapper.login(loginName,loginPassword) > 0;
     }
+
+    @Override
+    public Store getStoreByStoreId(Integer storeId) {
+        return storeMapper.selectByPrimaryKey(storeId);
+    }
 }

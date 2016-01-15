@@ -50,4 +50,6 @@ public class StoreController extends BaseController {
     public List<Store> getAllStores(){
         return storeService.getAllStores();
     }
+
+
 }
