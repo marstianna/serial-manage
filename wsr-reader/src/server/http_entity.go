@@ -12,7 +12,6 @@ type replyBase struct {
 	Data   map[string]interface{} `json:"data"`
 }
 
-
 func (this *replyBase) toJsonString() string {
 	v, err := json.Marshal(this)
 	if err != nil {
@@ -26,12 +25,11 @@ func (this *replyBase) addData(key string, value interface{}) {
 	this.Data[key] = value
 }
 
-
 //////////////////////////////////////////////////////////////////////
 
 func newReplySucc() *replyBase {
 	return &replyBase{
-		Code: 0,
+		Code:   0,
 		Status: "成功",
 		Data:   make(map[string]interface{}),
 	}
@@ -43,6 +41,14 @@ func newReplyFail(e error) *replyBase {
 	return &replyBase{
 		Code:   -1,
 		Status: e.Error(),
+		Data:   make(map[string]interface{}),
+	}
+}
+
+func newReplyFailWithString(e string) *replyBase {
+	return &replyBase{
+		Code:   -1,
+		Status: e,
 		Data:   make(map[string]interface{}),
 	}
 }

@@ -144,7 +144,7 @@ func (this *Wsr) WriteUuid(uuid string) error {
 	return newWsrError(int32(r1))
 }
 
-//load passwd
+//load passwd.
 //pswType: 0-Password A(default), 1-Password B
 func (this *Wsr) LoadPsw(passwd string, pswType int32) error {
 	if len(passwd) != this.passwdLen {
