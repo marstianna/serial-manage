@@ -68,8 +68,7 @@
         }, 0);
         fixBtns();
         $("#list")
-                .jqGrid(
-                        {
+                .jqGrid({
                             url: '$ctx/order/getAllOrders',
                             datatype: "local",
 //                            会员展示信息
