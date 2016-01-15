@@ -4,12 +4,13 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"errors"
 
 	"wsr"
 )
 
 func Run(addr string) error {
-	http.HandleFunc("/test", test)
+	http.HandleFunc("/", defaultPage)
 	http.HandleFunc("/read_card", readCard)
 	if err := http.ListenAndServe(addr, nil); err != nil {
 		return err
@@ -18,18 +19,16 @@ func Run(addr string) error {
 	return nil
 }
 
-func test(w http.ResponseWriter, req *http.Request) {
-
+func defaultPage(w http.ResponseWriter, req *http.Request) {
+	io.WriteString(w, newReplyFail(errors.New("wrong page")).toJsonString())
 }
 
 //读取卡号和uuid
 func readCard(w http.ResponseWriter, req *http.Request) {
-	rep := NewHttpResult()
-	wsr, code, err := wsr.NewWsr()
+	wsr, err := wsr.NewWsr()
 	if err != nil {
 		fmt.Println("init failed, error:", err)
-		rep.setCodeAndStatus(code)
-		io.WriteString(w, rep.toJsonString())
+		io.WriteString(w, newReplyFail(err).toJsonString())
 		return
 	}
 	defer func() {
@@ -37,42 +36,39 @@ func readCard(w http.ResponseWriter, req *http.Request) {
 		wsr.Destroy()
 	}()
 
-	if code, err := wsr.OpenPort(); err != nil {
+	if err := wsr.OpenPort(); err != nil {
 		fmt.Println("open port failed, error:", err)
-		rep.setCodeAndStatus(code)
-		io.WriteString(w, rep.toJsonString())
+		io.WriteString(w, newReplyFail(err).toJsonString())
 		return
 	}
 	defer func() {
-		_, err := wsr.ClosePort()
+		err := wsr.ClosePort()
 		fmt.Println("close port, error:", err)
 	}()
 
-	if _, err := wsr.Beep(); err != nil {
+	if err := wsr.Beep(); err != nil {
 		fmt.Println("beep failed, error:", err)
 	}
 
 	//read card no
-	cardNo, code, err := wsr.GetCardNo()
+	cardNo, err := wsr.GetCardNo()
 	if err != nil {
 		fmt.Println("getCardNo failed, error:", err)
-		rep.setCodeAndStatus(code)
-		io.WriteString(w, rep.toJsonString())
+		io.WriteString(w, newReplyFail(err).toJsonString())
 		return
 	}
 
 	//read uuid
-	uuid, code, err := wsr.ReadUuid()
+	uuid, err := wsr.ReadUuid()
 	if err != nil {
 		fmt.Println("readUuid failed, error:", err)
-		rep.setCodeAndStatus(code)
-		io.WriteString(w, rep.toJsonString())
+		io.WriteString(w, newReplyFail(err).toJsonString())
 		return
 	}
 
-	fmt.Println("cardNo:", cardNo, ", uuid:", uuid)
-	rep.addData("cardno", cardNo)
-	rep.addData("uuid", uuid)
+	succReply := newReplySucc()
+	succReply.addData("cardno", cardNo)
+	succReply.addData("uuid", uuid)
 
-	io.WriteString(w, rep.toJsonString())
+	io.WriteString(w, succReply.toJsonString())
 }
