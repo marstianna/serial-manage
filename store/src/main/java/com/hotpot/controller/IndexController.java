@@ -60,7 +60,7 @@ public class IndexController extends BaseController {
 
         Order order = new Order();
         order.setPaperPrice(paperPrice);
-        order.setCreateTime(DateTool.unixTime());
+        order.setCreateTime(DateTool.getDateTime());
         order.setFoodPrice(foodPrice);
         order.setDrinkPrice(drinkPrice);
 

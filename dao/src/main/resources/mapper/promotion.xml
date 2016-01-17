@@ -2,20 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hotpot.dao.PromotionMapper" >
     <sql id="Base_Column_List">
-        id,enough,discount,`type`,store_id storeId,start_time startTime,end_time endTime,pay_type payType,create_time createTime
+        id,enough,discount,`type`,store_id storeId,FROM_UNIXTIME(start_time,'%Y-%m-%d %H:%i:%S') startTime ,FROM_UNIXTIME(end_time,'%Y-%m-%d %H:%i:%S') endTime ,pay_type payType,FROM_UNIXTIME(create_time,'%Y-%m-%d %H:%i:%S') createTime
     </sql>
 
     <insert id="insert" parameterType="com.hotpot.domain.Promotion">
         insert into promotion(enough,discount,`type`,store_id,start_time,end_time,pay_type,create_time)
-        values (#{enough},#{discount},#{type},#{storeId},#{startTime},#{endTime},#{payType},#{createTime})
+        values (#{enough},#{discount},#{type},#{storeId},UNIX_TIMESTAMP(#{startTime,jdbcType=VARCHAR}),UNIX_TIMESTAMP(#{endTime,jdbcType=VARCHAR}),#{payType},UNIX_TIMESTAMP(#{createTime,jdbcType=VARCHAR}))
     </insert>
 
    <select id="getAllPromotions" resultType="com.hotpot.domain.Promotion">
        SELECT
        <include refid="Base_Column_List" />
        from promotion where
-           <![CDATA[ start_time <= #{currentTime} ]]>
-           AND <![CDATA[ end_time >= #{currentTime} ]]>
+           <![CDATA[ start_time <= UNIX_TIMESTAMP(#{createTime,jdbcType=VARCHAR}) ]]>
+           AND <![CDATA[ end_time >= UNIX_TIMESTAMP(#{createTime,jdbcType=VARCHAR}) ]]>
    </select>
 
     <select id="getPromotionById" resultType="com.hotpot.domain.Promotion">
@@ -42,10 +42,10 @@
                 AND store_id = #{storeId}
             </if>
             <if test="startTime != null">
-                AND <![CDATA[ start_time >= #{startTime} ]]>
+                AND <![CDATA[ start_time >= UNIX_TIMESTAMP(#{startTime,jdbcType=VARCHAR}) ]]>
             </if>
             <if test="endTime != null">
-                AND <![CDATA[ end_time <= #{endTime} ]]>
+                AND <![CDATA[ end_time <= UNIX_TIMESTAMP(#{endTime,jdbcType=VARCHAR}) ]]>
             </if>
         </where>
         order by create_time desc

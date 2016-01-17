@@ -35,4 +35,9 @@ public class VipInfoServiceImpl implements VipInfoService {
     public VipInfo getVipInfoByMobilephone(String mobilephone) {
         return vipInfoMapper.getVipByMobilephone(mobilephone);
     }
+
+    @Override
+    public VipInfo getVipInfoById(Integer id) {
+        return vipInfoMapper.selectByPrimaryKey(id);
+    }
 }

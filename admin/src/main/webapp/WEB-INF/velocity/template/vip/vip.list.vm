@@ -87,13 +87,13 @@
                             colModel: [
                                 {
                                     name: 'vipInfo.id',
-                                    index: 'vipInfo.id',
+                                    index: 'id',
                                     align: "center",
                                     width: "45px",
                                     key: true
                                 }, {
                                     name: 'vipInfo.name',
-                                    index: 'vipInfo.name',
+                                    index: 'name',
                                     align: "center",
                                     width: "50px",
                                     minWidth: "45px",
@@ -107,27 +107,27 @@
                                 },
                                 {
                                     name: 'vipInfo.mobilephone',
-                                    index: 'vipInfo.mobilephone',
+                                    index: 'mobilephone',
                                     align: "center",
                                     width: "140px",
                                     minWidth: "90px",
                                 },
                                 {
                                     name: 'vipInfo.wechat',
-                                    index: 'vipInfo.wechat',
+                                    index: 'wechat',
                                     align: "center",
                                     width: "100px",
                                     minWidth: "80px",
                                 },
                                 {
                                     name: 'vipInfo.email',
-                                    index: 'vipInfo.email',
+                                    index: 'email',
                                     align: "center",
                                     width: "45px",
                                 },
                                 {
                                     name: 'vipInfo.createTime',
-                                    index: 'vipInfo.createTime',
+                                    index: 'createTime',
                                     align: "center",
                                     width: "90px",
                                 },
@@ -153,7 +153,7 @@
                                     width: "50px",
                                     formatter : function(cellval, opts,
                                                          rowObject, action){
-                                        return '<a href="javascript:modifyVipInfo('+rowObject['id']+') class="row_btn">修改</a>';
+                                        return '<a href="javascript:modifyVipInfo('+rowObject['vipInfo']['id']+') class="row_btn">修改</a>';
                                     }
                                 }
                             ],
@@ -171,22 +171,6 @@
                             autowidth: true,
 //			caption : "政策列表",
                             editurl: "add",
-                            gridComplete: function () {
-                                //set online publish effect ,the row backgroud-color is green
-                                var onlineRows = $("#list tr td[aria-describedby=list_status][title='已发布']");
-                                $.each(onlineRows, function (i, item) {
-                                    var startTime = $(item).parent().find("[aria-describedby=list_startTime] div").html();
-                                    if (isRuleEffect(startTime)) {
-                                        $(item).parent().addClass('onlinestatus');
-                                    }
-                                });
-
-                                if ($("#showOverdue").attr("checked") == "checked") {
-                                    var overdueRows = $("#list tr td[aria-describedby=list_status][title='过期']");
-                                    overdueRows.parent().addClass('overduestatus');
-                                }
-
-                            }
                         });
 
         $("#list").jqGrid('navGrid', '#pager', {

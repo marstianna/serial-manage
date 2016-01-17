@@ -1,6 +1,7 @@
 package com.hotpot.controller;
 
 import com.hotpot.commons.framework.BaseController;
+import com.hotpot.commons.pagination.annotation.Pagination;
 import com.hotpot.constenum.PayTypeEnum;
 import com.hotpot.constenum.PromotionTypeEnum;
 import com.hotpot.domain.Promotion;
@@ -35,6 +36,7 @@ public class PromotionController extends BaseController {
     }
 
     @RequestMapping("getAllPromotions")
+    @Pagination
     @ResponseBody
     public Object getAllPromotions(@ModelAttribute PromotionSearcher searcher){
         return promotionService.getAllPromotionsBySearcher(searcher);

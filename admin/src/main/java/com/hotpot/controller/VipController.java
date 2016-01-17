@@ -2,6 +2,7 @@ package com.hotpot.controller;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
+import com.hotpot.commons.pagination.annotation.Pagination;
 import com.hotpot.domain.Store;
 import com.hotpot.domain.ValueCard;
 import com.hotpot.domain.VipInfo;
@@ -36,6 +37,7 @@ public class VipController {
     }
 
     @RequestMapping("list")
+    @Pagination
     @ResponseBody
     public Object getVipList(){
         List<VipInfo> vips = vipInfoService.getAllVips();

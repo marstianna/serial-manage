@@ -1,12 +1,17 @@
 package com.hotpot.controller;
 
 import com.hotpot.commons.framework.BaseController;
+import com.hotpot.commons.pagination.annotation.Pagination;
 import com.hotpot.domain.ValueCard;
 import com.hotpot.domain.ValueCardHistory;
+import com.hotpot.domain.VipInfo;
 import com.hotpot.searcher.ValueCardHistorySearcher;
 import com.hotpot.searcher.ValueCardSearcher;
 import com.hotpot.service.StoreService;
 import com.hotpot.service.ValueCardService;
+import com.hotpot.service.VipInfoService;
+import com.hotpot.view.CardHistoryView;
+import com.hotpot.view.CardView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -28,6 +33,8 @@ public class ValueCardController extends BaseController {
     ValueCardService valueCardService;
     @Autowired
     StoreService storeService;
+    @Autowired
+    VipInfoService vipInfoService;
 
     @RequestMapping({"index"})
     public String toValueCardIndex(){
@@ -42,9 +49,19 @@ public class ValueCardController extends BaseController {
     }
 
     @RequestMapping("getAllCards")
+    @Pagination
     @ResponseBody
-    public List<ValueCard> getAllCards(@ModelAttribute ValueCardSearcher searcher){
-        return  valueCardService.getAllCards(searcher);
+    public Object getAllCards(@ModelAttribute ValueCardSearcher searcher){
+        List<ValueCard> allCards = valueCardService.getAllCards(searcher);
+        List<CardView> results = new ArrayList<>();
+        for(ValueCard card : allCards){
+            CardView cardView = new CardView();
+            cardView.setCard(card);
+            VipInfo vipInfo = vipInfoService.getVipInfoById(card.getVipId());
+            cardView.setVipName(vipInfo.getName()+"("+vipInfo.getId()+")");
+            results.add(cardView);
+        }
+        return results;
     }
 
     @RequestMapping("historyindex")
@@ -55,12 +72,18 @@ public class ValueCardController extends BaseController {
 
 
     @RequestMapping("getAllCardHistory")
+    @Pagination
     @ResponseBody
-    public List<ValueCardHistory> getAllCardHistory(@ModelAttribute ValueCardHistorySearcher searcher){
-        if(null == searcher){
-            searcher = new ValueCardHistorySearcher();
+    public Object getAllCardHistory(@ModelAttribute ValueCardHistorySearcher searcher){
+        List<ValueCardHistory> allCardHistory = valueCardService.getAllCardHistory(searcher);
+        List<CardHistoryView> results = new ArrayList<>();
+        for (ValueCardHistory cardHistory : allCardHistory){
+            CardHistoryView view = new CardHistoryView();
+            view.setValueCardHistory(cardHistory);
+            view.setStoreName(storeService.getStoreByStoreId(cardHistory.getStoreId()).getStoreName());
+            results.add(view);
         }
-        return valueCardService.getAllCardHistory(searcher);
+        return results;
     }
 
     @RequestMapping("getCardHistoryByCardId")

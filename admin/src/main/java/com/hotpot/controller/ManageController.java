@@ -1,6 +1,7 @@
 package com.hotpot.controller;
 
 import com.hotpot.commons.framework.BaseController;
+import com.hotpot.commons.pagination.annotation.Pagination;
 import com.hotpot.domain.Store;
 import com.hotpot.service.AdminService;
 import com.hotpot.service.StoreService;
@@ -37,6 +38,7 @@ public class ManageController extends BaseController {
     }
 
     @RequestMapping("getAllStores")
+    @Pagination
     @ResponseBody
     public List<Store> getAllStores(){
         return storeService.getAllStores();

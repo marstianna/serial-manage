@@ -24,7 +24,7 @@ public class VipInfoServiceTest {
     public void testAddVip() throws Exception {
         VipInfo vipInfo = new VipInfo();
         vipInfo.setName("test_vip_name");
-        vipInfo.setCreateTime(DateTool.unixTime());
+        vipInfo.setCreateTime(DateTool.getDateTime());
         vipInfo.setEmail("123@qq.com");
         vipInfo.setMobilephone("13888888889");
         vipInfo.setStoreId(1);

@@ -157,7 +157,7 @@ public class ValueCardServiceImpl implements ValueCardService{
         history.setOperate(operate);
         history.setAccount(account);
         history.setPrice(price);
-        history.setCreateTime(DateTool.unixTime());
+        history.setCreateTime(DateTool.getDateTime());
         valueCardHistoryMapper.insertSelective(history);
     }
 }

@@ -49,7 +49,7 @@ public class PromotionServiceImpl implements PromotionService{
 
     @Override
     public void addPromotion(Promotion promotion) {
-        promotion.setCreateTime(DateTool.unixTime());
+        promotion.setCreateTime(DateTool.getDateTime());
         promotionMapper.insert(promotion);
     }
 

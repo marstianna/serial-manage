@@ -99,28 +99,28 @@
                                 "酒水价格", "菜品金额", "创建时间", "是否排队"],
                             colModel: [
                                 {
-                                    name: 'id',
-                                    index: 'id',
+                                    name: 'order.id',
+                                    index: 'order.id',
                                     align: "center",
                                     width: "45px",
                                     key: true
                                 }, {
-                                    name: 'vipId',
-                                    index: 'vipId',
+                                    name: 'vipName',
+                                    index: 'vipName',
                                     align: "center",
                                     width: "50px",
                                     minWidth: "45px",
 
                                 },
                                 {
-                                    name: 'storeId',
-                                    index: 'storeId',
+                                    name: 'storeName',
+                                    index: 'storeName',
                                     align: "center",
                                     width: "45px",
                                 },
                                 {
-                                    name: 'payType',
-                                    index: 'payType',
+                                    name: 'order.payType',
+                                    index: 'order.payType',
                                     align: "center",
                                     width: "140px",
                                     minWidth: "90px",
@@ -130,46 +130,45 @@
                                     }
                                 },
                                 {
-                                    name: 'cardId',
-                                    index: 'cardId',
+                                    name: 'order.cardId',
+                                    index: 'order.cardId',
                                     align: "center",
                                     width: "100px",
                                     minWidth: "80px",
                                 },
                                 {
-                                    name: 'paperPrice',
-                                    index: 'paperPrice',
+                                    name: 'order.paperPrice',
+                                    index: 'order.paperPrice',
                                     align: "center",
                                     width: "45px",
                                 },
                                 {
-                                    name: 'actualPrice',
-                                    index: 'actualPrice',
+                                    name: 'order.actualPrice',
+                                    index: 'order.actualPrice',
                                     align: "center",
                                     width: "90px",
                                 },
                                 {
-                                    name: 'drinkPrice',
-                                    index: 'drinkPrice',
+                                    name: 'order.drinkPrice',
+                                    index: 'order.drinkPrice',
                                     align: "center",
                                     width: "70px"
                                 },
                                 {
-                                    name: 'foodPrice',
-                                    index: 'foodPrice',
+                                    name: 'order.foodPrice',
+                                    index: 'order.foodPrice',
                                     align: "center",
                                     width: "50px",
                                 },
                                 {
-                                    name: 'createTime',
-                                    index: 'createTime',
+                                    name: 'order.createTime',
+                                    index: 'order.createTime',
                                     align: "center",
                                     width: "50px",
-                                    formatter: "select",
                                 },
                                 {
-                                    name: 'queueUp',
-                                    index: 'noCod',
+                                    name: 'order.queueUp',
+                                    index: 'order.queueUp',
                                     align: "center",
                                     width: "60px",
                                     formatter: "select",
@@ -193,22 +192,6 @@
                             autowidth: true,
 //			caption : "政策列表",
                             editurl: "add",
-                            gridComplete: function () {
-                                //set online publish effect ,the row backgroud-color is green
-                                var onlineRows = $("#list tr td[aria-describedby=list_status][title='已发布']");
-                                $.each(onlineRows, function (i, item) {
-                                    var startTime = $(item).parent().find("[aria-describedby=list_startTime] div").html();
-                                    if (isRuleEffect(startTime)) {
-                                        $(item).parent().addClass('onlinestatus');
-                                    }
-                                });
-
-                                if ($("#showOverdue").attr("checked") == "checked") {
-                                    var overdueRows = $("#list tr td[aria-describedby=list_status][title='过期']");
-                                    overdueRows.parent().addClass('overduestatus');
-                                }
-
-                            }
                         });
 
         $("#list").jqGrid('navGrid', '#pager', {

@@ -40,7 +40,7 @@ public class OrderServiceTest {
     @Test
     public void testPay() throws Exception {
         Order order = new Order();
-        order.setCreateTime(DateTool.unixTime());
+        order.setCreateTime(DateTool.getDateTime());
         order.setPayType(0);
         order.setPaperPrice(1500);
         order.setStoreId(1);

@@ -71,13 +71,13 @@
                             colNames: ["id", "储值卡编号", "会员ID", "创建时间", "最后修改时间", "余额", "查看流水"],
                             colModel: [
                                 {
-                                    name: 'id',
-                                    index: 'draftId',
+                                    name: 'card.id',
+                                    index: 'id',
                                     align: "center",
                                     width: "45px",
                                     key: true
                                 }, {
-                                    name: 'cardId',
+                                    name: 'card.cardId',
                                     index: 'cardId',
                                     align: "center",
                                     width: "50px",
@@ -85,41 +85,41 @@
 
                                 },
                                 {
-                                    name: 'vipId',
-                                    index: 'vipId',
+                                    name: 'vipName',
+                                    index: 'vipName',
                                     align: "center",
                                     width: "45px",
                                 },
                                 {
-                                    name: 'createTime',
+                                    name: 'card.createTime',
                                     index: 'createTime',
                                     align: "center",
                                     width: "140px",
                                     minWidth: "90px",
                                 },
                                 {
-                                    name: 'modifiedTime',
+                                    name: 'card.modifiedTime',
                                     index: 'modifiedTime',
                                     align: "center",
                                     width: "140px",
                                     minWidth: "90px",
                                 },
                                 {
-                                    name: 'balance',
+                                    name: 'card.balance',
                                     index: 'balance',
                                     align: "center",
                                     width: "140px",
                                     minWidth: "90px",
                                 },
                                 {
-                                    name: 'checkHistory',
+                                    name: 'card.checkHistory',
                                     index: 'checkHistory',
                                     align: "center",
                                     width: "140px",
                                     minWidth: "90px",
                                     formatter : function(cellval, opts,
                                                          rowObject, action) {
-                                        var cardId = rowObject['cardId'];
+                                        var cardId = rowObject['card']['cardId'];
                                         return '<a href="javascript:getHistoryByCardId('
                                         + cardId
                                         + ')" class="row_btn">查看</a>';

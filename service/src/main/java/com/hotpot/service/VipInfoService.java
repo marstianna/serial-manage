@@ -34,4 +34,6 @@ public interface VipInfoService {
      *
      */
     VipInfo getVipInfoByMobilephone(String mobilephone);
+
+    VipInfo getVipInfoById(Integer id);
 }

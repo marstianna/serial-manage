@@ -26,7 +26,7 @@
       This element was generated on Fri Dec 25 15:10:08 CST 2015.
     -->
     id, vip_id vipId, store_id storeId, pay_type payType, card_id cardId, paper_price paperPrice, actual_price actualPrice, drink_price drinkPrice,
-    food_price foodPrice, create_time createTime, queue_up queueUp
+    food_price foodPrice, FROM_UNIXTIME(create_time,'%Y-%m-%d %H:%i:%S') createTime, queue_up queueUp
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     <!--
@@ -61,8 +61,8 @@
       )
     values (#{id,jdbcType=INTEGER}, #{vipId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, 
       #{payType,jdbcType=TINYINT}, #{cardId,jdbcType=VARCHAR}, #{paperPrice,jdbcType=INTEGER},
-      #{actualPrice,jdbcType=INTEGER}, #{drinkPrice,jdbcType=INTEGER}, #{foodPrice,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=INTEGER}, #{queueUp,jdbcType=TINYINT}, #{settle,jdbcType=TINYINT}
+      #{actualPrice,jdbcType=INTEGER}, #{drinkPrice,jdbcType=INTEGER}, #{foodPrice,jdbcType=INTEGER},
+    UNIX_TIMESTAMP(#{createTime,jdbcType=VARCHAR}), #{queueUp,jdbcType=TINYINT}, #{settle,jdbcType=TINYINT}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.hotpot.domain.Order" >
@@ -136,7 +136,7 @@
         #{foodPrice,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
-        #{createTime,jdbcType=INTEGER},
+        UNIX_TIMESTAMP(#{createTime,jdbcType=VARCHAR}),
       </if>
       <if test="queueUp != null" >
         #{queueUp,jdbcType=TINYINT},
@@ -175,9 +175,6 @@
       <if test="foodPrice != null" >
         food_price = #{foodPrice,jdbcType=INTEGER},
       </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=INTEGER},
-      </if>
       <if test="queueUp != null" >
         queue_up = #{queueUp,jdbcType=TINYINT},
       </if>
@@ -199,7 +196,6 @@
       actual_price = #{actualPrice,jdbcType=INTEGER},
       drink_price = #{drinkPrice,jdbcType=INTEGER},
       food_price = #{foodPrice,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=INTEGER},
       queue_up = #{queueUp,jdbcType=TINYINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -225,10 +221,10 @@
         AND card_id = #{cardId}
       </if>
       <if test="startTime != null">
-        AND <![CDATA[ create_time >= #{startTime} ]]>
+        AND <![CDATA[ create_time >= UNIX_TIMESTAMP(#{startTime,jdbcType=VARCHAR}) ]]>
       </if>
       <if test="endTime != null">
-        AND <![CDATA[ create_time <= #{endTime} ]]>
+        AND <![CDATA[ create_time <= UNIX_TIMESTAMP(#{endTime,jdbcType=VARCHAR}) ]]>
       </if>
     </where>
   </select>

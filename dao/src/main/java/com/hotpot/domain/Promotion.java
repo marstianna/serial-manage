@@ -9,10 +9,10 @@ public class Promotion {
     private Integer discount;
     private Integer type;
     private Integer storeId;
-    private Long startTime;
-    private Long endTime;
+    private String startTime;
+    private String endTime;
     private Integer payType;
-    private Long createTime;
+    private String createTime;
 
     public Integer getId() {
         return id;
@@ -62,27 +62,27 @@ public class Promotion {
         this.payType = payType;
     }
 
-    public Long getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Long startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public Long getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Long endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 
-    public Long getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Long createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 }

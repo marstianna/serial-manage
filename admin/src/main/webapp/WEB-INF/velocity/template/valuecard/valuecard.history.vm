@@ -90,13 +90,13 @@
                             colNames: ["id", "储值卡编号", "操作类型", "消费店铺", "储值卡金额变更数额", "账单金额", "创建时间","结账情况"],
                             colModel: [
                                 {
-                                    name: 'id',
-                                    index: 'draftId',
+                                    name: 'valueCardHistory.id',
+                                    index: 'id',
                                     align: "center",
                                     width: "45px",
                                     key: true
                                 }, {
-                                    name: 'cardId',
+                                    name: 'valueCardHistory.cardId',
                                     index: 'cardId',
                                     align: "center",
                                     width: "50px",
@@ -104,7 +104,7 @@
 
                                 },
                                 {
-                                    name: 'operate',
+                                    name: 'valueCardHistory.operate',
                                     index: 'operate',
                                     align: "center",
                                     width: "45px",
@@ -114,35 +114,35 @@
                                     }
                                 },
                                 {
-                                    name: 'storeId',
-                                    index: 'storeId',
+                                    name: 'storeName',
+                                    index: 'storeName',
                                     align: "center",
                                     width: "140px",
                                     minWidth: "90px",
                                 },
                                 {
-                                    name: 'account',
+                                    name: 'valueCardHistory.account',
                                     index: 'account',
                                     align: "center",
                                     width: "140px",
                                     minWidth: "90px",
                                 },
                                 {
-                                    name: 'price',
+                                    name: 'valueCardHistory.price',
                                     index: 'price',
                                     align: "center",
                                     width: "140px",
                                     minWidth: "90px",
                                 },
                                 {
-                                    name: 'createTime',
+                                    name: 'valueCardHistory.createTime',
                                     index: 'createTime',
                                     align: "center",
                                     width: "140px",
                                     minWidth: "90px",
                                 },
                                 {
-                                    name: 'settle',
+                                    name: 'valueCardHistory.settle',
                                     index: 'settle',
                                     align: "center",
                                     width: "140px",
