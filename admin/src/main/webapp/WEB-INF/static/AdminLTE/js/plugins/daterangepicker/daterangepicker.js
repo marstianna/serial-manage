@@ -243,7 +243,7 @@
             this.endDate = this.endDate.startOf('day');
         }
 
-        //apply CSS classes to buttons
+        //transform CSS classes to buttons
         var c = this.container;
         $.each(this.buttonClasses, function (idx, val) {
             c.find('button').addClass(val);

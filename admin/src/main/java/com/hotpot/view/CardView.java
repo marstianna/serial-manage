@@ -35,7 +35,7 @@ public class CardView {
         this.card = card;
     }
 
-    public static CardView apply(ValueCard valueCard) {
+    public static CardView transform(ValueCard valueCard) {
         CardView cardView = new CardView(valueCard);
         VipInfo vipInfo = vipInfoService.getVipInfoById(valueCard.getVipId());
         cardView.setVipName(vipInfo.getName() + "(" + vipInfo.getId() + ")");

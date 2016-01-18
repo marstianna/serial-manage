@@ -43,7 +43,7 @@ public class OrderView {
         this.storeName = storeName;
     }
 
-    public static OrderView createOrderView(Order order){
+    public static OrderView transform(Order order){
         OrderView orderView = new OrderView();
         orderView.setOrder(order);
         orderView.setStoreName(storeService.getStoreByStoreId(order.getStoreId()).getStoreName());

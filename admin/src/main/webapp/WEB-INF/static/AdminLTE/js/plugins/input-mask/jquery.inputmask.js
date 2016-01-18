@@ -1365,7 +1365,7 @@
                     if (msie10)
                         $el.bind("input.inputmask", inputEvent);
 
-                    //apply mask
+                    //transform mask
                     checkVal(el, true, false);
                     valueOnFocus = getActiveBuffer().join('');
                     // Wrap document.activeElement in a try/catch block since IE9 throw "Unspecified error" if document.activeElement is undefined when we are in an IFrame.

@@ -380,7 +380,7 @@
 		
 		/**
 		 * Take the column definitions and static columns arrays and calculate how
-		 * they relate to column indexes. The callback function will then apply the
+		 * they relate to column indexes. The callback function will then transform the
 		 * definition found for a column to a suitable configuration object.
 		 *  @param {object} oSettings dataTables settings object
 		 *  @param {array} aoColDefs The aoColumnDefs array that is to be applied
@@ -1172,7 +1172,7 @@
 			/* If there is a header in place - then use it - otherwise it's going to get nuked... */
 			if ( iThs !== 0 )
 			{
-				/* We've got a thead from the DOM, so remove hidden columns and apply width to vis cols */
+				/* We've got a thead from the DOM, so remove hidden columns and transform width to vis cols */
 				for ( i=0, iLen=oSettings.aoColumns.length ; i<iLen ; i++ )
 				{
 					nTh = oSettings.aoColumns[i].nTh;
@@ -3238,8 +3238,8 @@
 			 * 2. Take live measurements from the DOM - do not alter the DOM itself!
 			 */
 			
-			/* Remove old sizing and apply the calculated column widths
-			 * Get the unique column headers in the newly created (cloned) header. We want to apply the
+			/* Remove old sizing and transform the calculated column widths
+			 * Get the unique column headers in the newly created (cloned) header. We want to transform the
 			 * calculated sizes to this header
 			 */
 			if ( o.oScroll.sX === "" )
@@ -3485,7 +3485,7 @@
 		/**
 		 * Apply a given function to the display child nodes of an element array (typically
 		 * TD children of TR rows
-		 *  @param {function} fn Method to apply to the objects
+		 *  @param {function} fn Method to transform to the objects
 		 *  @param array {nodes} an1 List of elements to look through for display children
 		 *  @param array {nodes} an2 Another list (identical structure to the first) - optional
 		 *  @memberof DataTable#oApi
@@ -3926,7 +3926,7 @@
 		/**
 		 * Change the order of the table
 		 *  @param {object} oSettings dataTables settings object
-		 *  @param {bool} bApplyClasses optional - should we apply classes or not
+		 *  @param {bool} bApplyClasses optional - should we transform classes or not
 		 *  @memberof DataTable#oApi
 		 */
 		function _fnSort ( oSettings, bApplyClasses )
@@ -3950,7 +3950,7 @@
 					oSettings.aaSorting.slice();
 				
 				/* If there is a sorting data type, and a function belonging to it, then we need to
-				 * get the data from the developer's function and apply it for this column
+				 * get the data from the developer's function and transform it for this column
 				 */
 				for ( i=0 ; i<aaSort.length ; i++ )
 				{
@@ -5241,7 +5241,7 @@
 			}
 			else if ( oSettings.oScroll.sX !== "" || oSettings.oScroll.sY !== "" )
 			{
-				/* If not redrawing, but scrolling, we want to apply the new column sizes anyway */
+				/* If not redrawing, but scrolling, we want to transform the new column sizes anyway */
 				this.oApi._fnScrollDraw(oSettings);
 			}
 		};
@@ -6442,7 +6442,7 @@
 				oInit = {};
 			}
 			
-			// Backwards compatibility, before we apply all the defaults
+			// Backwards compatibility, before we transform all the defaults
 			if ( oInit.oLanguage )
 			{
 				_fnLanguageCompat( oInit.oLanguage );
@@ -6713,7 +6713,7 @@
 			}
 				
 			/* Do a first pass on the sorting classes (allows any size changes to be taken into
-			 * account, and also will apply sorting disabled classes if disabled
+			 * account, and also will transform sorting disabled classes if disabled
 			 */
 			_fnSortingClasses( oSettings );
 			
@@ -7372,7 +7372,7 @@
 		 * Sorting plug-in methods - Sorting in DataTables is based on the detected type of the
 		 * data column (you can add your own type detection functions, or override automatic 
 		 * detection using sType). With this specific type given to the column, DataTables will 
-		 * apply the required sort from the functions in the object. Each sort type must provide
+		 * transform the required sort from the functions in the object. Each sort type must provide
 		 * two mandatory methods, one each for ascending and descending sorting, and can optionally
 		 * provide a pre-formatting method that will help speed up sorting by allowing DataTables
 		 * to pre-format the sort data only once (rather than every time the actual sort functions
@@ -7735,7 +7735,7 @@
 		"nTf": null,
 		
 		/**
-		 * The class to apply to all TD elements in the table's TBODY for the column
+		 * The class to transform to all TD elements in the table's TBODY for the column
 		 *  @type string
 		 *  @default null
 		 */
@@ -8029,7 +8029,7 @@
 	
 		/**
 		 * An array of CSS classes that should be applied to displayed rows. This 
-		 * array may be of any length, and DataTables will apply each class 
+		 * array may be of any length, and DataTables will transform each class
 		 * sequentially, looping when required.
 		 *  @type array
 		 *  @default null <i>Will take the values determined by the oClasses.sStripe*

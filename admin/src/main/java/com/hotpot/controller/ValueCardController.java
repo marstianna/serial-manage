@@ -55,9 +55,9 @@ public class ValueCardController extends BaseController {
     public Object getAllCards(@ModelAttribute ValueCardSearcher searcher){
         List<ValueCard> allCards = valueCardService.getAllCards(searcher);
 //        List<CardView> results = new ArrayList<>();
-//        allCards.stream().forEach((card) -> results.add(new CardView().apply(card)));
+//        allCards.stream().forEach((card) -> results.add(new CardView().transform(card)));
 //        return results;
-        List<CardView> collect = allCards.stream().collect(Collectors.mapping(CardView::apply, Collectors.toList()));
+        List<CardView> collect = allCards.stream().collect(Collectors.mapping(CardView::transform, Collectors.toList()));
         return getResultPage((Page<ValueCard>)allCards,collect);
     }
 
@@ -75,11 +75,11 @@ public class ValueCardController extends BaseController {
         List<ValueCardHistory> allCardHistory = valueCardService.getAllCardHistory(searcher);
 //        Page<ValueCardHistory> page = (Page<ValueCardHistory>)allCardHistory;
 //        List<CardHistoryView> results = new ArrayList<>();
-//        page.stream().forEach((history)->results.add(new CardHistoryView().apply(history)));
+//        page.stream().forEach((history)->results.add(new CardHistoryView().transform(history)));
 //        PageInfo pageInfo = new PageInfo(page);
 //        pageInfo.setList(results);
 //        return pageInfo;
-        List<CardHistoryView> collect = allCardHistory.stream().collect(Collectors.mapping(CardHistoryView::apply, Collectors.toList()));
+        List<CardHistoryView> collect = allCardHistory.stream().collect(Collectors.mapping(CardHistoryView::transform, Collectors.toList()));
         return getResultPage((Page<ValueCardHistory>)allCardHistory,collect);
     }
 

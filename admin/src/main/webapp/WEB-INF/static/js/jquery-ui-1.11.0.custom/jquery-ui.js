@@ -14515,7 +14515,7 @@ $.effects.animateClass = function( value, duration, easing, callback ) {
 			};
 		});
 
-		// apply class change
+		// transform class change
 		applyClassChange = function() {
 			$.each( classAnimationActions, function(i, action) {
 				if ( value[ action ] ) {
@@ -14532,7 +14532,7 @@ $.effects.animateClass = function( value, duration, easing, callback ) {
 			return this;
 		});
 
-		// apply original class
+		// transform original class
 		animated.attr( "class", baseClass );
 
 		// map all animated objects again - this time collecting a promise

@@ -52,7 +52,7 @@
 
  var options = { series: { curvedLines: {  active: true }}};
 
- $.plot($("#placeholder"), [{data = d1, lines: { show: true}, curvedLines: {apply: true}}], options);
+ $.plot($("#placeholder"), [{data = d1, lines: { show: true}, curvedLines: {transform: true}}], options);
 
  _____________________________________________________
 
@@ -60,7 +60,7 @@
  _____________________________________________________
 
  active:           bool true => plugin can be used
- apply:            bool true => series will be drawn as curved line
+ transform:            bool true => series will be drawn as curved line
  fit:              bool true => forces the max,mins of the curve to be on the datapoints
  curvePointFactor  int  defines how many "virtual" points are used per "real" data point to
  emulate the curvedLines (points total = real points * curvePointFactor)

@@ -50,7 +50,7 @@ public class OrderController extends BaseController {
     @Pagination
     public Object getAllOrders(@ModelAttribute OrderSearcher searcher){
         List<Order> ordersBySearcher = orderService.getOrdersBySearcher(searcher);
-        List<OrderView> views = ordersBySearcher.stream().collect(Collectors.mapping(OrderView::createOrderView,Collectors.toList()));
+        List<OrderView> views = ordersBySearcher.stream().collect(Collectors.mapping(OrderView::transform,Collectors.toList()));
         return getResultPage((Page<Order>)ordersBySearcher,views);
     }
 

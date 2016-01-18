@@ -2909,7 +2909,7 @@ $.widget("ui.resizable", $.ui.mouse, {
 					//Checking the correct pad and border
 					padWrapper = /sw|ne|nw|se|n|s/.test(i) ? axis.outerHeight() : axis.outerWidth();
 
-					//The padding type i have to apply...
+					//The padding type i have to transform...
 					padPos = [ "padding",
 						/ne|nw|n/.test(i) ? "Top" :
 						/se|sw|s/.test(i) ? "Bottom" :
@@ -7224,7 +7224,7 @@ $.effects.animateClass = function( value, duration, easing, callback ) {
 			};
 		});
 
-		// apply class change
+		// transform class change
 		applyClassChange = function() {
 			$.each( classAnimationActions, function(i, action) {
 				if ( value[ action ] ) {
@@ -7241,7 +7241,7 @@ $.effects.animateClass = function( value, duration, easing, callback ) {
 			return this;
 		});
 
-		// apply original class
+		// transform original class
 		animated.attr( "class", baseClass );
 
 		// map all animated objects again - this time collecting a promise

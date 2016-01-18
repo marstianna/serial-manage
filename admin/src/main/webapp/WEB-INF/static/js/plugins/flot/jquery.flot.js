@@ -166,7 +166,7 @@
     // The Canvas object is a wrapper around an HTML5 <canvas> tag.
     //
     // @constructor
-    // @param {string} cls List of classes to apply to the canvas.
+    // @param {string} cls List of classes to transform to the canvas.
     // @param {element} container Element onto which to append the canvas.
     //
     // Requiring a container is a little iffy, but unfortunately canvas

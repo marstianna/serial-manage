@@ -65,7 +65,7 @@ $.widget("ui.multiselect", {
 				placeholder: 'ui-state-highlight',
 				axis: 'y',
 				update: function(event, ui) {
-					// apply the new sort order to the original selectbox
+					// transform the new sort order to the original selectbox
 					that.selectedList.find('li').each(function() {
 						if ($(this).data('optionLink'))
 							$(this).data('optionLink').remove().appendTo(that.element);

@@ -33,7 +33,7 @@ public class CardHistoryView {
         this.storeName = storeName;
     }
 
-    public static CardHistoryView apply(ValueCardHistory origin) {
+    public static CardHistoryView transform(ValueCardHistory origin) {
         CardHistoryView view = new CardHistoryView(origin);
         view.setValueCardHistory(origin);
         view.setStoreName(storeService.getStoreByStoreId(origin.getStoreId()).getStoreName());

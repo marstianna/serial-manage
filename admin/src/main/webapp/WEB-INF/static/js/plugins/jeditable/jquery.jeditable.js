@@ -43,8 +43,8 @@
  * @param String  options[event]     jQuery event such as 'click' of 'dblclick' **
  * @param String  options[submit]    submit button value, empty means no button **
  * @param String  options[cancel]    cancel button value, empty means no button **
- * @param String  options[cssclass]  CSS class to apply to input form. 'inherit' to copy from parent. **
- * @param String  options[style]     Style to apply to input form 'inherit' to copy from parent. **
+ * @param String  options[cssclass]  CSS class to transform to input form. 'inherit' to copy from parent. **
+ * @param String  options[style]     Style to transform to input form 'inherit' to copy from parent. **
  * @param String  options[select]    true or false, when true text is highlighted ??
  * @param String  options[placeholder] Placeholder text or html to insert when element is empty. **
  * @param String  options[onblur]    'cancel', 'submit', 'ignore' or function ??
@@ -185,7 +185,7 @@
                 /* create the form object */
                 var form = $('<form />');
 
-                /* apply css or style or both */
+                /* transform css or style or both */
                 if (settings.cssclass) {
                     if ('inherit' == settings.cssclass) {
                         form.attr('class', $(self).attr('class'));

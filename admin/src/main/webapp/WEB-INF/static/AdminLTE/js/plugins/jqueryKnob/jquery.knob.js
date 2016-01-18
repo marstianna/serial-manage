@@ -248,7 +248,7 @@
                                 * parseInt(this.o.height) / 100
                             : this.$div.parent().height();
 
-                // apply relative
+                // transform relative
                 this.w = this.h = Math.min(w, h);
             } else {
                 this.w = this.o.width;
