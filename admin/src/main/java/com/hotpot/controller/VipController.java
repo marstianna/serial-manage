@@ -9,7 +9,6 @@ import com.hotpot.domain.VipInfo;
 import com.hotpot.service.StoreService;
 import com.hotpot.service.ValueCardService;
 import com.hotpot.service.VipInfoService;
-import com.hotpot.view.VipInfoView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,4 +60,42 @@ public class VipController {
         return results;
     }
 
+    class VipInfoView implements java.util.function.Function<VipInfo, VipInfoView> {
+        VipInfo vipInfo;
+        String storeName;
+        List<String> cardList;
+
+        public String getStoreName() {
+            return storeName;
+        }
+
+        public void setStoreName(String storeName) {
+            this.storeName = storeName;
+        }
+
+        public VipInfo getVipInfo() {
+            return vipInfo;
+        }
+
+        public void setVipInfo(VipInfo vipInfo) {
+            this.vipInfo = vipInfo;
+        }
+
+        public List<String> getCardList() {
+            return cardList;
+        }
+
+        public void setCardList(List<String> cardList) {
+            this.cardList = cardList;
+        }
+
+        public void test(VipInfo vip){
+//            valueCardService.getCardBalanceByVipInfo(vip).stream().collect(ArrayList::new,)
+        }
+
+        @Override
+        public VipInfoView apply(VipInfo vipInfo) {
+            return null;
+        }
+    }
 }

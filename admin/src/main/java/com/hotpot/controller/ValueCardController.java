@@ -1,10 +1,10 @@
 package com.hotpot.controller;
 
 import com.hotpot.commons.framework.BaseController;
+import com.hotpot.commons.pagination.Page;
 import com.hotpot.commons.pagination.annotation.Pagination;
 import com.hotpot.domain.ValueCard;
 import com.hotpot.domain.ValueCardHistory;
-import com.hotpot.domain.VipInfo;
 import com.hotpot.searcher.ValueCardHistorySearcher;
 import com.hotpot.searcher.ValueCardSearcher;
 import com.hotpot.service.StoreService;
@@ -20,8 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by zoupeng on 16/1/4.
@@ -48,20 +49,16 @@ public class ValueCardController extends BaseController {
         return null;
     }
 
-    @RequestMapping("getAllCards")
     @Pagination
     @ResponseBody
+    @RequestMapping("getAllCards")
     public Object getAllCards(@ModelAttribute ValueCardSearcher searcher){
         List<ValueCard> allCards = valueCardService.getAllCards(searcher);
-        List<CardView> results = new ArrayList<>();
-        for(ValueCard card : allCards){
-            CardView cardView = new CardView();
-            cardView.setCard(card);
-            VipInfo vipInfo = vipInfoService.getVipInfoById(card.getVipId());
-            cardView.setVipName(vipInfo.getName()+"("+vipInfo.getId()+")");
-            results.add(cardView);
-        }
-        return results;
+//        List<CardView> results = new ArrayList<>();
+//        allCards.stream().forEach((card) -> results.add(new CardView().apply(card)));
+//        return results;
+        List<CardView> collect = allCards.stream().collect(Collectors.mapping(CardView::apply, Collectors.toList()));
+        return getResultPage((Page<ValueCard>)allCards,collect);
     }
 
     @RequestMapping("historyindex")
@@ -71,19 +68,19 @@ public class ValueCardController extends BaseController {
     }
 
 
-    @RequestMapping("getAllCardHistory")
     @Pagination
     @ResponseBody
+    @RequestMapping("getAllCardHistory")
     public Object getAllCardHistory(@ModelAttribute ValueCardHistorySearcher searcher){
         List<ValueCardHistory> allCardHistory = valueCardService.getAllCardHistory(searcher);
-        List<CardHistoryView> results = new ArrayList<>();
-        for (ValueCardHistory cardHistory : allCardHistory){
-            CardHistoryView view = new CardHistoryView();
-            view.setValueCardHistory(cardHistory);
-            view.setStoreName(storeService.getStoreByStoreId(cardHistory.getStoreId()).getStoreName());
-            results.add(view);
-        }
-        return results;
+//        Page<ValueCardHistory> page = (Page<ValueCardHistory>)allCardHistory;
+//        List<CardHistoryView> results = new ArrayList<>();
+//        page.stream().forEach((history)->results.add(new CardHistoryView().apply(history)));
+//        PageInfo pageInfo = new PageInfo(page);
+//        pageInfo.setList(results);
+//        return pageInfo;
+        List<CardHistoryView> collect = allCardHistory.stream().collect(Collectors.mapping(CardHistoryView::apply, Collectors.toList()));
+        return getResultPage((Page<ValueCardHistory>)allCardHistory,collect);
     }
 
     @RequestMapping("getCardHistoryByCardId")
@@ -95,10 +92,7 @@ public class ValueCardController extends BaseController {
     @RequestMapping("settleForCom")
     @ResponseBody
     public Object settleForCom(@RequestParam String rids){
-        List<Integer> ids = new ArrayList<>();
-        for(String id : rids.split(",")){
-            ids.add(Integer.parseInt(id));
-        }
+        List<Integer> ids = Arrays.asList(rids.split(",")).stream().collect(Collectors.mapping(Integer::parseInt,Collectors.toList()));
         return valueCardService.settleOrdersForCom(ids);
     }
 

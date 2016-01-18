@@ -204,6 +204,7 @@ public class PageHelper implements Interceptor {
             page.addAll((List) result);
             //返回结果
             return page;
+//            return new PageInfo(page);
         }
     }
 

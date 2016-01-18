@@ -50,8 +50,7 @@
     <!-- mvc basic configuration -->
        <mvc:annotation-driven validator="validator">
               <mvc:message-converters>
-                     <bean id="fastJsonHttpMessageConverter"
-                           class="com.hotpot.commons.JMFastJsonHttpMessageConverter">
+                     <bean id="fastJsonHttpMessageConverter" class="com.hotpot.commons.JMFastJsonHttpMessageConverter">
                             <property name="supportedMediaTypes">
                                    <list>
                                           <value>application/json;charset=UTF-8</value>

@@ -4,6 +4,8 @@
 package com.hotpot.commons.framework;
 
 import com.alibaba.fastjson.JSONObject;
+import com.hotpot.commons.pagination.Page;
+import com.hotpot.commons.pagination.PageInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.text.StrBuilder;
@@ -349,5 +351,10 @@ public class BaseController {
         cookie.setMaxAge(1200);
     }
 
+    protected <E,O> PageInfo getResultPage(Page<O> origin,List<E> results){
+        PageInfo pageInfo = new PageInfo(origin);
+        pageInfo.setList(results);
+        return pageInfo;
+    }
 
 }
