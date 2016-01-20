@@ -145,4 +145,9 @@
     <include refid="Base_Column_List" />
     from store
   </select>
+  <select id="getStoresByOwnerId" resultType="com.hotpot.domain.Store">
+    select
+    <include refid="Base_Column_List" />
+    from store where owner_id = #{ownerId}
+  </select>
 </mapper>

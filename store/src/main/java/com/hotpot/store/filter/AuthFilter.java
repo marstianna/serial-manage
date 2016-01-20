@@ -40,13 +40,13 @@ public class AuthFilter implements Filter{
             return;
         }
         Optional<String> loginInfo =  Optional.of(String.valueOf(req.getSession().getAttribute("loginInfo")));
-        if(loginInfo.orElse("false").equals("success")){
+        if(!loginInfo.orElse("false").equals("success")){
             req.setAttribute("srcPath", req.getRequestURI());
             req.getRequestDispatcher("/login/turnToLogin").forward(req, rep);
             return;
         }
         try {
-            Integer storeId = Integer.parseInt(String.valueOf(req.getAttribute("storeId")));
+            Integer storeId = Integer.parseInt(String.valueOf(req.getSession().getAttribute("storeId")));
             Store store = storeService.getStoreByStoreId(storeId);
             Context.set(store);
             chain.doFilter(request, response);

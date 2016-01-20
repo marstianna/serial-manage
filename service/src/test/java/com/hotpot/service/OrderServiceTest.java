@@ -28,12 +28,6 @@ public class OrderServiceTest {
     }
 
     @Test
-    public void testGetUnsettleOrderByOrderId() throws Exception {
-        List<Order> unsettles = orderService.getUnsettleOrderByStoreId(1);
-        System.out.println(JSON.toJSONString(unsettles));
-    }
-
-    @Test
     public void testSettleOrders() throws Exception {
     }
 

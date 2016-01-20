@@ -178,4 +178,9 @@
   <select id="login" resultType="java.lang.Integer">
     select count(1) from owner where login_name = #{loginName} and login_password = #{loginPassword}
   </select>
+  <select id="getOwner" resultType="com.hotpot.domain.Owner">
+    select
+    <include refid="Base_Column_List"/>
+    from owner where login_name = #{loginName} and login_password = #{loginPassword}
+  </select>
 </mapper>

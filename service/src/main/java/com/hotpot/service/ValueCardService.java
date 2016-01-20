@@ -102,6 +102,7 @@ public interface ValueCardService {
     List<ValueCard> getAllCards(ValueCardSearcher searcher);
 
     Map<String,List<Integer>> settleOrdersForCom(List<Integer> orderIds);
+    Map<String,List<Integer>> settleForStore(List<Integer> orderIds);
 
     List<ValueCardHistory> getAllCardHistory(ValueCardHistorySearcher searcher);
 }

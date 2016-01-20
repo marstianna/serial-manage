@@ -819,7 +819,7 @@
 
                             detectedType = types[j](cache[k], settings);
 
-                            // If null, then this type can't apply to this column, so
+                            // If null, then this type can't transform to this column, so
                             // rather than testing all cells, break out. There is an
                             // exception for the last type which is `html`. We need to
                             // scan all rows since it is possible to mix string and HTML
@@ -854,7 +854,7 @@
 
         /**
          * Take the column definitions and static columns arrays and calculate how
-         * they relate to column indexes. The callback function will then apply the
+         * they relate to column indexes. The callback function will then transform the
          * definition found for a column to a suitable configuration object.
          *  @param {object} oSettings dataTables settings object
          *  @param {array} aoColDefs The aoColumnDefs array that is to be applied
@@ -3125,7 +3125,7 @@
         function _fnInitComplete(settings, json) {
             settings._bInitComplete = true;
 
-            // On an Ajax load we now have data and therefore want to apply the column
+            // On an Ajax load we now have data and therefore want to transform the column
             // sizing
             if (json) {
                 _fnAdjustColumnSizing(settings);
@@ -3589,8 +3589,8 @@
              * 2. Take live measurements from the DOM - do not alter the DOM itself!
              */
 
-            // Remove old sizing and apply the calculated column widths
-            // Get the unique column headers in the newly created (cloned) header. We want to apply the
+            // Remove old sizing and transform the calculated column widths
+            // Get the unique column headers in the newly created (cloned) header. We want to transform the
             // calculated sizes to this header
             if (!scrollX) {
                 divBodyStyle.width = '100%';
@@ -3800,7 +3800,7 @@
         /**
          * Apply a given function to the display child nodes of an element array (typically
          * TD children of TR rows
-         *  @param {function} fn Method to apply to the objects
+         *  @param {function} fn Method to transform to the objects
          *  @param array {nodes} an1 List of elements to look through for display children
          *  @param array {nodes} an2 Another list (identical structure to the first) - optional
          *  @memberof DataTable#oApi
@@ -5198,7 +5198,7 @@
                     api.draw(false);
                 }
                 else if (scroll.sX !== "" || scroll.sY !== "") {
-                    /* If not redrawing, but scrolling, we want to apply the new column sizes anyway */
+                    /* If not redrawing, but scrolling, we want to transform the new column sizes anyway */
                     _fnScrollDraw(settings);
                 }
             };
@@ -5838,7 +5838,7 @@
                 // to the settings array, so we can self reference the table instance if more than one
                 oSettings.oInstance = (_that.length === 1) ? _that : $(this).dataTable();
 
-                // Backwards compatibility, before we apply all the defaults
+                // Backwards compatibility, before we transform all the defaults
                 _fnCompatOpts(oInit);
 
                 if (oInit.oLanguage) {
@@ -6097,7 +6097,7 @@
                 }
 
                 /* Do a first pass on the sorting classes (allows any size changes to be taken into
-                 * account, and also will apply sorting disabled classes if disabled
+                 * account, and also will transform sorting disabled classes if disabled
                  */
                 _fnSortingClasses(oSettings);
 
@@ -6362,7 +6362,7 @@
             if (!this instanceof _Api) {
                 throw 'DT API must be constructed as a new object';
                 // or should it do the 'new' for the caller?
-                // return new _Api.apply( this, arguments );
+                // return new _Api.transform( this, arguments );
             }
 
             var settings = [];
@@ -7277,7 +7277,7 @@
          * {}          - no selector - use all available rows
          * {integer}   - row aoData index
          * {node}      - TR node
-         * {string}    - jQuery selector to apply to the TR elements
+         * {string}    - jQuery selector to transform to the TR elements
          * {array}     - jQuery array of nodes, or simply an array of TR nodes
          *
          */
@@ -9015,7 +9015,7 @@
             "nTf": null,
 
             /**
-             * The class to apply to all TD elements in the table's TBODY for the column
+             * The class to transform to all TD elements in the table's TBODY for the column
              *  @type string
              *  @default null
              */
@@ -9487,7 +9487,7 @@
 
             /**
              * An array of CSS classes that should be applied to displayed rows. This
-             * array may be of any length, and DataTables will apply each class
+             * array may be of any length, and DataTables will transform each class
              * sequentially, looping when required.
              *  @type array
              *  @default null <i>Will take the values determined by the `oClasses.stripe*`
@@ -13418,7 +13418,7 @@
                 /**
                  * Type based ordering.
                  *
-                 * The column type tells DataTables what ordering to apply to the table
+                 * The column type tells DataTables what ordering to transform to the table
                  * when a column is sorted upon. The order for each type that is defined,
                  * is defined by the functions available in this object.
                  *

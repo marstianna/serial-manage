@@ -14,39 +14,44 @@ public class ValueCardHistorySearcher {
         return operate;
     }
 
-    public void setOperate(Integer operate) {
+    public ValueCardHistorySearcher setOperate(Integer operate) {
         this.operate = operate;
+        return this;
     }
 
     public String getCardId() {
         return cardId;
     }
 
-    public void setCardId(String cardId) {
+    public ValueCardHistorySearcher setCardId(String cardId) {
         this.cardId = cardId;
+        return this;
     }
 
     public Integer getStoreId() {
         return storeId;
     }
 
-    public void setStoreId(Integer storeId) {
+    public ValueCardHistorySearcher setStoreId(Integer storeId) {
         this.storeId = storeId;
+        return this;
     }
 
     public Integer getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Integer startTime) {
+    public ValueCardHistorySearcher setStartTime(Integer startTime) {
         this.startTime = startTime;
+        return this;
     }
 
     public Integer getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Integer endTime) {
+    public ValueCardHistorySearcher setEndTime(Integer endTime) {
         this.endTime = endTime;
+        return this;
     }
 }

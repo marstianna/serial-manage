@@ -2,12 +2,11 @@
 <!--start left-->
 <script type="text/javascript">
     var menus = [
-        {id: 1, name: "首页", parent: -1, order: 1, path:"" , icon: "fa-laptop"},
-        {id: 11, name: "店铺信息", parent: 1, order: 1, path:"$ctx/index/info" , icon: "fa-laptop"},
-
+        {id: 1, name: "店铺首页", parent: -1, order: 1, path:"" , icon: "fa-laptop"},
+        {id: 11, name: "订单列表", parent: 1, order: 1, path: "$ctx/index", icon: ""},
 
         {id: 2, name: "订单", parent: -1, order: 2, path:"" , icon: "fa-laptop"},
-        {id: 21, name: "订单列表", parent: 2, order: 1, path: "$ctx/order/index", icon: ""},
+        {id: 21, name: "订单列表", parent: 2, order: 1, path: "$ctx/order/order", icon: ""},
 
         {id: 3, name: "会员", parent: -1, order: 3, path: "", icon: ""},
         {id: 31, name: "会员列表", parent: 3, order: 1, path: "$ctx/vip/index", icon: ""},
@@ -15,11 +14,12 @@
         {id: 4, name: "储值卡", parent: -1, order: 4, path:"" , icon: "fa-edit"},
         {id: 41, name: "储值卡列表", parent: 4, order: 1, path: "$ctx/valuecard/index", icon: ""},
         {id: 42, name: "储值卡账单", parent: 4, order: 2, path: "$ctx/valuecard/historyindex", icon: ""},
-        {id: 43, name: "新增储值卡", parent: 4, order: 3, path: "$ctx/valuecard/addCard", icon: ""},
+        {id: 43, name: "新增储值卡", parent: 4, order: 3, path: "$ctx/valuecard/turnToAddCard", icon: ""},
 
-        {id: 5, name: "促销", parent: -1, order: 5, path: "$ctx/promotion/index", icon: ""},
+        {id: 5, name: "促销", parent: -1, order: 5, path: "", icon: ""},
         {id: 51, name: "促销列表", parent: 5, order: 1, path: "$ctx/promotion/index", icon: ""},
-        {id: 52, name: "新增促销", parent: 5, order: 2, path: "$ctx/promotion/turnToAddPromotion", icon: ""}
+        {id: 52, name: "新增促销", parent: 5, order: 2, path: "$ctx/promotion/turnToAddPromotion", icon: ""},
+
     ];
 
 

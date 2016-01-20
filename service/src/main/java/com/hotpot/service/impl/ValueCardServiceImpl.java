@@ -144,6 +144,29 @@ public class ValueCardServiceImpl implements ValueCardService {
     }
 
     @Override
+    public Map<String, List<Integer>> settleForStore(List<Integer> orderIds) {
+        Map<String,List<Integer>> result = new HashMap<>();
+        String success = "success";
+        String fail = "fail";
+        result.put(success, Lists.newArrayList());
+        result.put(fail,Lists.newArrayList());
+        for(Integer id: orderIds){
+            try {
+                Integer count = valueCardHistoryMapper.settle(id,Const.SETTLE_FROM_STORE,Const.OPERATE_ADD);
+                if (count == 0){
+                    result.get(fail).add(id);
+                }else{
+                    result.get(success).add(id);
+                }
+            }catch(Exception e){
+                //TODO log
+                result.get(fail).add(id);
+            }
+        }
+        return result;
+    }
+
+    @Override
     public List<ValueCardHistory> getAllCardHistory(ValueCardHistorySearcher searcher) {
         return valueCardHistoryMapper.getCardHistoryBySearcher(searcher);
     }

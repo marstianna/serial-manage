@@ -11,7 +11,6 @@ public class OrderSearcher {
     private Integer cardId; //储值卡编号
     private Long startTime; //查询起始时间
     private Long endTime;   //查询结束时间
-    private Integer settle; //是否已经结账
 
     public Integer getId() {
         return id;
@@ -73,15 +72,6 @@ public class OrderSearcher {
 
     public OrderSearcher setEndTime(Long endTime) {
         this.endTime = endTime;
-        return this;
-    }
-
-    public Integer getSettle() {
-        return settle;
-    }
-
-    public OrderSearcher setSettle(Integer settle) {
-        this.settle = settle;
         return this;
     }
 }

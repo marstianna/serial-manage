@@ -2,6 +2,9 @@ package com.hotpot.store.controller;
 
 import com.hotpot.commons.framework.BaseController;
 import com.hotpot.domain.Order;
+import com.hotpot.domain.Store;
+import com.hotpot.service.Context;
+import com.hotpot.service.OrderService;
 import com.hotpot.service.StoreService;
 import com.hotpot.service.ValueCardService;
 import com.hotpot.service.queueup.QueueUpService;
@@ -23,6 +26,8 @@ public class IndexController extends BaseController{
     ValueCardService valueCardService;
     @Autowired
     QueueUpService queueUpService;
+    @Autowired
+    OrderService orderService;
 
     @RequestMapping("queueUp")
     @ResponseBody
@@ -41,7 +46,8 @@ public class IndexController extends BaseController{
     @RequestMapping("checkOut")
     @ResponseBody
     public Object checkOut(Integer tableId,@ModelAttribute Order order){
-        Integer storeId = getStoreId();
+        Store store = Context.get();
+        orderService.pay(order);
         return null;
     }
 

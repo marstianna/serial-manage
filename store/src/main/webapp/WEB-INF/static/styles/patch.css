@@ -1,0 +1,50 @@
+/*patch*/
+body > .header .logo {
+	position:fixed;
+	z-index:1001;
+}
+body > .header .navbar {
+	position:fixed;
+	margin-left:0;
+	width:100%;
+}
+body > .header .navbar .sidebar-toggle {
+    margin-left:228px;
+}
+#pageTab {
+	margin-top:50px;
+	width:99%;
+	z-index:3;
+	/*position:fixed;*/
+	background:#efefef !important;
+    margin-bottom: 0;
+}
+
+#pageTabContent {
+	/*top:91px !important;*/
+	position:relative;
+}
+
+.col-lg-2 {
+	min-width: 16.66666667%;
+	padding: 0 10px 10px !important;
+	float:left;
+}
+
+.left-side {
+	top:50px !important;
+	z-index:2 !important;
+}
+.left-side.collapse-left {
+	left:-220px;
+}
+
+.right-side {
+	overflow-y:hidden;
+}
+
+@media screen and (max-width: 992px) {
+	.row-offcanvas-left.active {
+		left:0px;
+	}
+}
