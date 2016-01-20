@@ -7,15 +7,16 @@
                 <table cellpadding="0" cellspacing="0" class="searchinfotable">
                     <tr>
                         <td class="text-right" width="150">储值卡号：</td>
-                        <td width="200"><input type="text" class="form-control"></td>
+                        <td width="200"><input type="text" id="cardId" name="cardId" class="form-control"></td>
                         <td class="text-right" width="150">会员ID：</td>
-                        <td width="200"><input type="text" class="form-control"></td>
-                        <td class="text-right" width="150">操作类型：</td>
-                        <td width="200"><input type="radio" name="operate" value="0" class="form-control">消费</td>
-                        <td width="200"><input type="radio" name="operate" value="1" class="form-control">充值</td>
-                    </tr>
+                        <td width="200"><input type="text" id="vipId" name="vipId" class="form-control"></td>
+                        </tr>
 
                     <tr>
+                        <td class="text-right" width="150">操作类型：</td>
+                        <td width="80" style="padding-left: 10px"><input type="radio" name="operate" value="0">&nbsp;消费</td>
+                        <td width="80" style="padding-left: 10px"><input type="radio" name="operate" value="1">&nbsp;充值</td>
+                        <td width="60"></td>
                         <td class="text-right" width="150">店铺ID：</td>
                         <td width="200">
                             <select name="site" class="form-control">
@@ -29,17 +30,17 @@
                     <tr>
                         <td class="text-right" width="150">开始时间：</td>
                         <td width="200">
-                            <input type="text" class="form-control" placeholder="yyyy-MM-dd HH:mm:ss" name="startTime" id="startTime" before="endTime" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'#F{$dp.$D(\'endTime\')}'})" style="width: 160px;" readonly/>
+                            <input type="text" class="form-control" placeholder="yyyy-MM-dd HH:mm:ss" name="startTime" id="startTime" before="endTime" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'#F{$dp.$D(\'endTime\')}'})" readonly/>
                         </td>
                         <td class="text-right" width="150">结束时间：</td>
                         <td width="200">
-                            <input type="text" class="form-control" placeholder="yyyy-MM-dd HH:mm:ss" id="endTime" name="endTime" after="startTime"  onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'startTime\')}'})" style="width: 160px;" readonly/>
+                            <input type="text" class="form-control" placeholder="yyyy-MM-dd HH:mm:ss" id="endTime" name="endTime" after="startTime"  onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'startTime\')}'})" readonly/>
                         </td>
                     </tr>
                     <tr>
                         <td width="150"></td>
                         <td class="searchtd">
-                            <button type="button" id="search_btn" class="btn btn-search"><i class="icon-search align-top bigger-125"></i>搜索</button>
+                            <button type="button" id="search_btn" class="btn btn-sm"><i class="icon-search align-top bigger-125"></i>搜索</button>
                         </td>
                     </tr>
                 </table>
@@ -49,7 +50,9 @@
 </div>
 <div class="table-jqgrid">
     <!--这里放jqgrid-->
-    <button class="btn btn-sm" onclick="settleForCom()">结账</button>
+    <div style="margin:20px 0;">
+        <button class="btn btn-sm" onclick="settleForCom()">结账</button>
+    </div>
     <table id="list" style="width: 95%;" form="search_form"></table>
     <div id="pager"></div>
 </div>
@@ -57,7 +60,19 @@
 <script>
     $(function () {
         $("#startTime").datetimepicker({
-            format: "dd MM yyyy - hh:ii"
+            format: "dd MM yyyy - hh:ii",
+            autoclose: true,
+            pickerPosition: "bottom-left"
+        }).on("click",function(ev){
+            $("#startTime").datetimepicker("setEndDate", $("#endTime").val());
+        });
+
+        $("#endTime").datetimepicker({
+            format: "dd MM yyyy - hh:ii",
+            autoclose: true,
+            pickerPosition: "bottom-left"
+        }).on("click",function(ev){
+            $("#endTime").datetimepicker("setStartDate", $("#startTime").val());
         });
         setTimeout(function () {
             var topWin = window.top.document;
@@ -75,13 +90,13 @@
                             colNames: ["id", "储值卡编号", "操作类型", "消费店铺", "储值卡金额变更数额", "账单金额", "创建时间","结账情况"],
                             colModel: [
                                 {
-                                    name: 'id',
-                                    index: 'draftId',
+                                    name: 'valueCardHistory.id',
+                                    index: 'id',
                                     align: "center",
                                     width: "45px",
                                     key: true
                                 }, {
-                                    name: 'cardId',
+                                    name: 'valueCardHistory.cardId',
                                     index: 'cardId',
                                     align: "center",
                                     width: "50px",
@@ -89,7 +104,7 @@
 
                                 },
                                 {
-                                    name: 'operate',
+                                    name: 'valueCardHistory.operate',
                                     index: 'operate',
                                     align: "center",
                                     width: "45px",
@@ -99,35 +114,35 @@
                                     }
                                 },
                                 {
-                                    name: 'storeId',
-                                    index: 'storeId',
+                                    name: 'storeName',
+                                    index: 'storeName',
                                     align: "center",
                                     width: "140px",
                                     minWidth: "90px",
                                 },
                                 {
-                                    name: 'account',
+                                    name: 'valueCardHistory.account',
                                     index: 'account',
                                     align: "center",
                                     width: "140px",
                                     minWidth: "90px",
                                 },
                                 {
-                                    name: 'price',
+                                    name: 'valueCardHistory.price',
                                     index: 'price',
                                     align: "center",
                                     width: "140px",
                                     minWidth: "90px",
                                 },
                                 {
-                                    name: 'createTime',
+                                    name: 'valueCardHistory.createTime',
                                     index: 'createTime',
                                     align: "center",
                                     width: "140px",
                                     minWidth: "90px",
                                 },
                                 {
-                                    name: 'settle',
+                                    name: 'valueCardHistory.settle',
                                     index: 'settle',
                                     align: "center",
                                     width: "140px",
@@ -144,14 +159,12 @@
                             height: 'auto',
                             multiselect: true,
                             viewrecords: true,
-                            rownumbers: true,
                             sortorder: "desc",
                             mtype: "POST",
                             deleteKeys: ["id"],
                             width: "85%",
                             shrinkToFit: true,
                             autowidth: true,
-//			caption : "政策列表",
                             editurl: "add",
                             gridComplete: function () {
                                 //set online publish effect ,the row backgroud-color is green
@@ -243,7 +256,7 @@
                 bar.hide();
                 if (res.success) {
                     $("#list").trigger('reloadGrid');
-                    showInfo('批量发布成功');
+                    showInfo('批量发布成功:'+res.message);
                 } else {
                     showError('数据发生异常:' + res.message);
                 }

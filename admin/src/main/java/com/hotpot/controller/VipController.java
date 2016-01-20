@@ -5,8 +5,8 @@ import com.hotpot.commons.pagination.Page;
 import com.hotpot.commons.pagination.annotation.Pagination;
 import com.hotpot.domain.VipInfo;
 import com.hotpot.service.StoreService;
-import com.hotpot.service.ValueCardService;
 import com.hotpot.service.VipInfoService;
+import com.hotpot.service.ValueCardService;
 import com.hotpot.view.VipInfoView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  */
 @Controller
 @RequestMapping("/vip/")
-public class VipController extends BaseController{
+public class VipController extends BaseController {
     @Autowired
     private VipInfoService vipInfoService;
     @Autowired

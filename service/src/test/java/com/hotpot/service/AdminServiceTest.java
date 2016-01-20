@@ -24,7 +24,7 @@ public class AdminServiceTest {
         store.setPhone("023-80140524");
         store.setOwnerId(1);
         store.setAddress("********地址");
-        store.setCreateTime(DateTool.unixTime());
+        store.setCreateTime(DateTool.getDateTime());
         store.setStoreName("店名");
         adminService.newStore(store);
     }
@@ -32,7 +32,7 @@ public class AdminServiceTest {
     @Test
     public void testNewOwner() throws Exception {
         Owner owner = new Owner();
-        owner.setCreateTime(DateTool.unixTime());
+        owner.setCreateTime(DateTool.getDateTime());
         owner.setEmail("111@qq.com");
         owner.setIdentity("513900199009090303");
         owner.setLoginName("name");

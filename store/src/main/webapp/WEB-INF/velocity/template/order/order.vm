@@ -7,12 +7,15 @@
                 <table cellpadding="0" cellspacing="0" class="searchinfotable">
                     <tr>
                         <td class="text-right" width="150">订单号：</td>
-                        <td width="200"><input type="text" class="form-control"></td>
+                        <td width="200"><input id="id" name="id" type="text" class="form-control"></td>
                         <td class="text-right" width="150">会员ID：</td>
-                        <td width="200"><input type="text" class="form-control"></td>
+                        <td width="200"><input id="vipId" name="vipId" type="text" class="form-control"></td>
+
+                    </tr>
+                    <tr>
                         <td class="text-right" width="150">支付方式：</td>
                         <td width="200">
-                            <select name="site" class="form-control">
+                            <select id="payType" name="payType" class="form-control">
                                 <option value="-1" selected="selected">全部</option>
                                 #foreach($param in ${payTypeList.keySet()})
                                     <option value="$param">${payTypeList.get($param)}</option>
@@ -20,52 +23,26 @@
                             </select>
                         </td>
                     </tr>
-
                     <tr>
-                        <td class="text-right" width="150">店铺ID：</td>
-                        <td width="200">
-                            <select name="site" class="form-control">
-                                <option value="-1" selected="selected">全部</option>
-                                #foreach($param in ${storeList.keySet()})
-                                    <option value="$param">${storeList.get($param)}</option>
-                                #end
-                            </select>
-                        </td>
                         <td class="text-right" width="150">储值卡编号：</td>
-                        <td width="200"><input type="text" class="form-control"></td>
-
-
+                        <td width="200"><input id="cardId" name="cardId" type="text" class="form-control"></td>
                     </tr>
                     <tr>
                         <td class="text-right" width="150">开始时间：</td>
-                        <td width="">
-                            <div class="input-group date form_datetime col-md-5" id="startTime" data-date="1979-09-16T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
-                                <input class="form-control" size="16" type="text" value="" style="width: 200px"  readonly>
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
-                            </div>
-                            <input type="hidden" id="dtp_input1" value="" /><br/>
+                        <td width="200">
+                            <input class="form-control" size="16" type="text" value="" id="startTime" name="startTime" readonly>
                         </td>
                         <td class="text-right" width="150">结束时间：</td>
                         <td width="200">
-                            <div class="input-group date form_datetime col-md-5" id="endTime" data-date="1979-09-16T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
-                                <input class="form-control" size="16" type="text" value="" style="width: 200px" readonly>
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
-                            </div>
-                            <input type="hidden" id="dtp_input1" value="" /><br/>
+                            <input class="form-control" size="16" type="text" value="" id="endTime" name="endTime" readonly>
                         </td>
-                        <td class="text-right" width="150">是否已经结账：</td>
-                        <td width="200">
-                            <input type="radio" value="0" checked><label>是</label>
-                            <input type="radio" value="1"><label>否</label>
-                        </td>
-
                     </tr>
                     <tr>
                         <td width="150"></td>
                         <td class="searchtd">
-                            <button type="button" id="search_btn" class="btn btn-search"><i class="icon-search align-top bigger-125"></i>搜索</button>
+                            <button type="button" id="search_btn" class="btn btn-search"><i
+                                    class="icon-search align-top bigger-125"></i>搜索
+                            </button>
                         </td>
                     </tr>
                 </table>
@@ -83,11 +60,18 @@
     $(function () {
         $("#startTime").datetimepicker({
             format: "dd MM yyyy - hh:ii",
-            language: 'zh-CN'
-        })
+            autoclose: true,
+            pickerPosition: "bottom-left"
+        }).on("click",function(ev){
+            $("#startTime").datetimepicker("setEndDate", $("#endTime").val());
+        });
+
         $("#endTime").datetimepicker({
             format: "dd MM yyyy - hh:ii",
-            language: 'zh-CN'
+            autoclose: true,
+            pickerPosition: "bottom-left"
+        }).on("click",function(ev){
+            $("#endTime").datetimepicker("setStartDate", $("#startTime").val());
         });
         setTimeout(function () {
             var topWin = window.top.document;
@@ -106,28 +90,28 @@
                                 "酒水价格", "菜品金额", "创建时间", "是否排队"],
                             colModel: [
                                 {
-                                    name: 'id',
-                                    index: 'id',
+                                    name: 'order.id',
+                                    index: 'order.id',
                                     align: "center",
                                     width: "45px",
                                     key: true
                                 }, {
-                                    name: 'vipId',
-                                    index: 'vipId',
+                                    name: 'vipName',
+                                    index: 'vipName',
                                     align: "center",
                                     width: "50px",
                                     minWidth: "45px",
 
                                 },
                                 {
-                                    name: 'storeId',
-                                    index: 'storeId',
+                                    name: 'storeName',
+                                    index: 'storeName',
                                     align: "center",
                                     width: "45px",
                                 },
                                 {
-                                    name: 'payType',
-                                    index: 'payType',
+                                    name: 'order.payType',
+                                    index: 'order.payType',
                                     align: "center",
                                     width: "140px",
                                     minWidth: "90px",
@@ -137,53 +121,52 @@
                                     }
                                 },
                                 {
-                                    name: 'cardId',
-                                    index: 'cardId',
+                                    name: 'order.cardId',
+                                    index: 'order.cardId',
                                     align: "center",
                                     width: "100px",
                                     minWidth: "80px",
                                 },
                                 {
-                                    name: 'paperPrice',
-                                    index: 'paperPrice',
+                                    name: 'order.paperPrice',
+                                    index: 'order.paperPrice',
                                     align: "center",
                                     width: "45px",
                                 },
                                 {
-                                    name: 'actualPrice',
-                                    index: 'actualPrice',
+                                    name: 'order.actualPrice',
+                                    index: 'order.actualPrice',
                                     align: "center",
                                     width: "90px",
                                 },
                                 {
-                                    name: 'drinkPrice',
-                                    index: 'drinkPrice',
+                                    name: 'order.drinkPrice',
+                                    index: 'order.drinkPrice',
                                     align: "center",
                                     width: "70px"
                                 },
                                 {
-                                    name: 'foodPrice',
-                                    index: 'foodPrice',
+                                    name: 'order.foodPrice',
+                                    index: 'order.foodPrice',
                                     align: "center",
                                     width: "50px",
                                 },
                                 {
-                                    name: 'createTime',
-                                    index: 'createTime',
+                                    name: 'order.createTime',
+                                    index: 'order.createTime',
                                     align: "center",
                                     width: "50px",
-                                    formatter: "select",
                                 },
                                 {
-                                    name: 'queueUp',
-                                    index: 'noCod',
+                                    name: 'order.queueUp',
+                                    index: 'order.queueUp',
                                     align: "center",
                                     width: "60px",
                                     formatter: "select",
                                     editoptions: {
                                         value: "0:否;1:是"
                                     }
-                                }
+                                },
                             ],
                             rowNum: 15,
                             rowList: [15, 30, 50],
@@ -191,7 +174,7 @@
                             height: 'auto',
                             multiselect: true,
                             viewrecords: true,
-                            rownumbers: true,
+//                            rownumbers: true,
                             sortorder: "desc",
                             mtype: "POST",
                             deleteKeys: ["id"],
@@ -200,22 +183,6 @@
                             autowidth: true,
 //			caption : "政策列表",
                             editurl: "add",
-                            gridComplete: function () {
-                                //set online publish effect ,the row backgroud-color is green
-                                var onlineRows = $("#list tr td[aria-describedby=list_status][title='已发布']");
-                                $.each(onlineRows, function (i, item) {
-                                    var startTime = $(item).parent().find("[aria-describedby=list_startTime] div").html();
-                                    if (isRuleEffect(startTime)) {
-                                        $(item).parent().addClass('onlinestatus');
-                                    }
-                                });
-
-                                if ($("#showOverdue").attr("checked") == "checked") {
-                                    var overdueRows = $("#list tr td[aria-describedby=list_status][title='过期']");
-                                    overdueRows.parent().addClass('overduestatus');
-                                }
-
-                            }
                         });
 
         $("#list").jqGrid('navGrid', '#pager', {
@@ -273,7 +240,75 @@
             $("#search_btn").click();
         });
     });
+    //开始时间不能小于当前时间
+    function startTimeIsBigThanTotay(startTime){
+        var startdate = new Date((startTime).replace(/-/g,"/"));
+        var date = new Date();
+        if(startdate < date)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
 
+    //结束时间不能小于当前时间
+    function endThanTotay(endTime){
+        var enddate = new Date((endTime).replace(/-/g,"/"));
+        var nowdate = new Date();
+        if(enddate < nowdate)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+
+    //结束时间不能小于开始时间
+    function endThanStart(startTime,endTime){
+        var startdate = new Date((startTime).replace(/-/g,"/"));
+        var enddate = new Date((endTime).replace(/-/g,"/"));
+        if(enddate < startdate)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+
+
+    function isRuleEffect(startTime){
+        var year = startTime.split(" ")[0].split("-")[0];
+        var month = startTime.split(" ")[0].split("-")[1];
+        var day = startTime.split(" ")[0].split("-")[2];
+
+        var hour = startTime.split(" ")[1].split(":")[0];
+        var minu = startTime.split(" ")[1].split(":")[1];
+        var sec = startTime.split(" ")[1].split(":")[2];
+
+        return new Date(year, month - 1, day, hour, minu, sec) < new Date();
+    }
+
+    function checkAll(id, obj) {
+        var itemlist = $("#" + id + " :checkbox");
+        if (obj.checked) {
+            for (var i = 0; i < itemlist.length; i++) {
+                itemlist[i].checked = true;
+            }
+        } else {
+            for (var i = 0; i < itemlist.length; i++) {
+                itemlist[i].checked = false;
+            }
+        }
+    }
 
     function fixBtns(){
         $(window).scroll(function(){
@@ -289,6 +324,15 @@
                 btncol.removeClass('fixedbtn');
             }
         });
+    }
+
+    function buildResults(str,optionsArr){
+        var strArr = str.split(',');
+        var result = "";
+        for(var i = 0;i<strArr.length;i++){
+            result+=optionsArr[strArr[i]]+"\n";
+        }
+        return result.substring(0,result.length-1);
     }
 
     $(window).bind('resize', function() {

@@ -1,0 +1,40 @@
+.small-icon-success {
+  display: inline-block;
+  width: 15px;
+  height: 14px;
+  margin-top: 1px;
+  margin-right: 3px;
+  line-height: 14px;
+  vertical-align: text-top;
+  background-image: url("../images/small.jpg");
+  background-position: -266px -456px;
+  background-repeat: no-repeat;
+}
+
+
+.small-icon-warning {
+  display: inline-block;
+  width: 15px;
+  height: 14px;
+  margin-top: 1px;
+  margin-right: 3px;
+  line-height: 14px;
+  vertical-align: text-top;
+  background-image: url("../images/small.jpg");
+  background-position: -295px -456px;
+  background-repeat: no-repeat;
+}
+
+.small-icon-fatal {
+  display: inline-block;
+  width: 15px;
+  height: 14px;
+  margin-top: 1px;
+  margin-right: 3px;
+  line-height: 14px;
+  vertical-align: text-top;
+  background-image: url("../images/small.jpg");
+  background-position: -45px -456px;
+  background-repeat: no-repeat;
+}
+

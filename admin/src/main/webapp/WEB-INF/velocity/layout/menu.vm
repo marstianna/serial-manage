@@ -21,7 +21,7 @@
 
         {id: 5, name: "管理系统", parent: -1, order: 5, path: "", icon: ""},
         {id: 51, name: "添加店铺", parent: 5, order: 1, path: "$ctx/manage/turnToAdd", icon: ""},
-        {id: 52, name: "店铺列表", parent: 5, order: 2, path: "$ctx/manage/getAllStores", icon: ""}
+        {id: 52, name: "店铺列表", parent: 5, order: 2, path: "$ctx/manage/index", icon: ""}
 
     ];
 

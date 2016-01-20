@@ -56,4 +56,6 @@ public interface OwnerMapper {
     int updateByPrimaryKey(Owner record);
 
     Integer login(@Param("loginName") String loginName , @Param("loginPassword") String loginPassword);
+
+    Owner getOwner(@Param("loginName") String loginName , @Param("loginPassword") String loginPassword);
 }

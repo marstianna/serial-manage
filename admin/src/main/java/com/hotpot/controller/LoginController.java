@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/login")
-public class LoginController extends BaseController{
+public class LoginController extends BaseController {
     @Autowired
     AdminService adminService;
 

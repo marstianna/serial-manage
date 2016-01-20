@@ -522,7 +522,7 @@
             /**
              * Alter the table display for a resized viewport. This involves first
              * determining what breakpoint the window currently is in, getting the
-             * column visibilities to apply and then setting them.
+             * column visibilities to transform and then setting them.
              *
              * @private
              */

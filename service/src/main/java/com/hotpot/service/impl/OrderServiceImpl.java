@@ -1,6 +1,5 @@
 package com.hotpot.service.impl;
 
-import com.hotpot.commons.Const;
 import com.hotpot.dao.OrderMapper;
 import com.hotpot.domain.Order;
 import com.hotpot.domain.ValueCard;
@@ -36,12 +35,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> getOrdersByStoreId(Integer storeId) {
         return getOrdersBySearcher(new OrderSearcher().setStoreId(storeId));
-    }
-
-    @Override
-    public List<Order> getUnsettleOrderByStoreId(Integer storeId) {
-        return getOrdersBySearcher(new OrderSearcher().setStoreId(storeId)
-                                                    .setSettle(Const.ORDER_UNSETTLE));
     }
 
     @Override

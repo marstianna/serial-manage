@@ -1,8 +1,8 @@
 package com.hotpot.service;
 
-import com.hotpot.domain.ValueCard;
 import com.hotpot.domain.ValueCardHistory;
 import com.hotpot.domain.VipInfo;
+import com.hotpot.domain.ValueCard;
 import com.hotpot.searcher.ValueCardHistorySearcher;
 import com.hotpot.searcher.ValueCardSearcher;
 
@@ -102,6 +102,7 @@ public interface ValueCardService {
     List<ValueCard> getAllCards(ValueCardSearcher searcher);
 
     Map<String,List<Integer>> settleOrdersForCom(List<Integer> orderIds);
+    Map<String,List<Integer>> settleForStore(List<Integer> orderIds);
 
     List<ValueCardHistory> getAllCardHistory(ValueCardHistorySearcher searcher);
 }

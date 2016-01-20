@@ -1,0 +1,111 @@
+@charset "utf-8";
+/* CSS Document */
+/**
+ * "Yet Another Multicolumn Layout" - (X)HTML/CSS Framework
+ * @Date		2012-04-16 10:28 AM $
+ * @purpose     login styles.
+**/
+
+
+/******************************** 
+	login
+*********************************/
+#loginBg{
+	background: url(../images/login_bg.gif) repeat-x 0 105px #d7e4ec;
+	
+}
+
+#loginWarpper{
+	width: 1048px;
+	margin: 0 auto;
+}
+
+.logoBox{
+	height: 105px;
+	background:  url(../images/logo.gif) no-repeat 0 36px;
+}
+
+.loginContent{
+	height: 399px;
+	background: url(../images/login_text.gif) no-repeat 0 55px;
+}
+
+.loginPannel{
+	float: right;
+	width: 454px;
+	height: 340px;
+	margin-top: 28px;
+	border-bottom: #2f79b2 solid 4px;
+	background: url(../images/loginPannel_bg.gif) repeat-x 0 0;
+	-moz-box-shadow: 5px 5px 3px #3d6c8a;
+	-webkit-box-shadow: 5px 5px 3px #3d6c8a;
+	box-shadow: 5px 5px 3px #3d6c8a;
+	filter: progid:DXImageTransform.Microsoft.Shadow(color='#325972', Direction=135, Strength=6);
+	z-index: 0;
+}
+
+.loginPannel .corner{
+	width: 52px;
+	height: 54px;
+ 	background: url(../images/corner.gif) no-repeat 0 0;
+}
+
+.loginPannel .welcome{
+	width: 350px;
+	height: 45px;
+	background: url(../images/login_welcome.gif) no-repeat 0 0;
+	margin-left: -9px;
+	position: relative;
+	z-index: 1;
+}
+
+.loginBox{
+	margin: 18px 58px 0;
+	padding-top: 52px;
+	padding-left: 18px;
+	background: url(../images/login_title.gif) no-repeat 0 0;
+	
+}
+
+.loginBox table{
+	width: auto;
+}
+
+.loginBox table tr td, 
+.loginBox table tr th{
+	padding-bottom: 8px;
+}
+
+.loginBox table tr th{
+	font-size: 14px;
+	font-weight: 400;
+}
+
+.loginBox table tr th.noBottom, 
+.loginBox table tr td.noBottom{
+	padding-bottom: 0;
+}
+
+.loginCB{
+	position: relative;
+	top: 2px;
+}
+
+.btnLogin{
+	float: right;
+	width: 83px;
+	height: 28px;
+	line-height: 28px;
+	background: url(../images/btn_login.gif) no-repeat 0 0;
+	font-size: 14px;
+	font-weight: 700;
+	border: 0;
+	cursor: pointer;
+	text-align: left;
+	padding-left: 12px;
+	color: #005aa0;
+}
+
+.loginPannel .errorBox{
+	width: 235px;
+}

@@ -1,10 +1,10 @@
 package com.hotpot.view;
 
 import com.hotpot.commons.ApplicationContextUtil;
-import com.hotpot.domain.ValueCard;
 import com.hotpot.domain.VipInfo;
 import com.hotpot.service.VipInfoService;
 import com.hotpot.service.impl.VipInfoServiceImpl;
+import com.hotpot.domain.ValueCard;
 
 /**
  * Created by zoupeng on 16/1/18.

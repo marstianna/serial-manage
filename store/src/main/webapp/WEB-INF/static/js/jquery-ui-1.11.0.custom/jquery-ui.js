@@ -7756,12 +7756,19 @@ function Datepicker() {
 		prevText: "Prev", // Display text for previous month link
 		nextText: "Next", // Display text for next month link
 		currentText: "Today", // Display text for current month link
-		monthNames: ["January","February","March","April","May","June",
-			"July","August","September","October","November","December"], // Names of months for drop-down and formatting
-		monthNamesShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], // For formatting
-		dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], // For formatting
-		dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], // For formatting
-		dayNamesMin: ["Su","Mo","Tu","We","Th","Fr","Sa"], // Column headings for days starting at Sunday
+		//monthNames: ["January","February","March","April","May","June",
+		//	"July","August","September","October","November","December"], // Names of months for drop-down and formatting
+		//monthNamesShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], // For formatting
+		//dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], // For formatting
+		//dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], // For formatting
+		//dayNamesMin: ["Su","Mo","Tu","We","Th","Fr","Sa"], // Column headings for days starting at Sunday
+
+
+		monthNames: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"], // Names of months for drop-down and formatting
+		monthNamesShort: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"], // For formatting
+		dayNames: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"], // For formatting
+		dayNamesShort: ["日", "一", "二", "三", "四", "五", "六"], // For formatting
+		dayNamesMin: ["日", "一", "二", "三", "四", "五", "六"], // Column headings for days starting at Sunday
 		weekHeader: "Wk", // Column header for week of the year
 		dateFormat: "mm/dd/yy", // See format options on parseDate
 		firstDay: 0, // The first day of the week, Sun = 0, Mon = 1, ...
@@ -14508,7 +14515,7 @@ $.effects.animateClass = function( value, duration, easing, callback ) {
 			};
 		});
 
-		// apply class change
+		// transform class change
 		applyClassChange = function() {
 			$.each( classAnimationActions, function(i, action) {
 				if ( value[ action ] ) {
@@ -14525,7 +14532,7 @@ $.effects.animateClass = function( value, duration, easing, callback ) {
 			return this;
 		});
 
-		// apply original class
+		// transform original class
 		animated.attr( "class", baseClass );
 
 		// map all animated objects again - this time collecting a promise

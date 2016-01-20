@@ -57,4 +57,6 @@ public interface StoreMapper {
     int updateByPrimaryKey(Store record);
 
     List<Store> getAllStores();
+
+    List<Store> getStoresByOwnerId(Integer ownerId);
 }

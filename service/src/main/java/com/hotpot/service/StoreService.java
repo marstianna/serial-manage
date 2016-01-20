@@ -40,5 +40,7 @@ public interface StoreService {
 
     boolean login(String loginName,String loginPassword);
 
+    List<Store> getStoreByLoginInfo(String loginName, String loginPassword);
+
     Store getStoreByStoreId(Integer storeId);
 }

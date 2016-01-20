@@ -8,6 +8,10 @@ public class QueueUp {
     private String phone;
     private String weChat;
     private String lineCode;            //排队编号
+    private Integer frontCount;
+    private String datetime;
+    private String storeName;
+    private String storePhone;
 
     public Integer getWaitingNumber() {
         return waitingNumber;
@@ -39,5 +43,37 @@ public class QueueUp {
 
     public void setLineCode(String lineCode) {
         this.lineCode = lineCode;
+    }
+
+    public Integer getFrontCount() {
+        return frontCount;
+    }
+
+    public void setFrontCount(Integer frontCount) {
+        this.frontCount = frontCount;
+    }
+
+    public String getDatetime() {
+        return datetime;
+    }
+
+    public void setDatetime(String datetime) {
+        this.datetime = datetime;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
+    public String getStorePhone() {
+        return storePhone;
+    }
+
+    public void setStorePhone(String storePhone) {
+        this.storePhone = storePhone;
     }
 }

@@ -2,8 +2,8 @@ package com.hotpot.view;
 
 import com.hotpot.commons.ApplicationContextUtil;
 import com.hotpot.domain.Store;
-import com.hotpot.domain.ValueCard;
 import com.hotpot.domain.VipInfo;
+import com.hotpot.domain.ValueCard;
 import com.hotpot.service.StoreService;
 import com.hotpot.service.ValueCardService;
 import com.hotpot.service.impl.StoreServiceImpl;
@@ -51,7 +51,7 @@ public class VipInfoView {
         VipInfoView view = new VipInfoView();
 
         view.setVipInfo(vipInfo);
-        List<String> cards = valueCardService.getCardBalanceByVipInfo(vipInfo).stream().collect(Collectors.mapping(ValueCard :: getCardId,Collectors.toList()));
+        List<String> cards = valueCardService.getCardBalanceByVipInfo(vipInfo).stream().collect(Collectors.mapping(ValueCard:: getCardId,Collectors.toList()));
         view.setCardList(cards);
         Store store = storeService.getStoreByStoreId(vipInfo.getStoreId());
         view.setStoreName(store.getStoreName());

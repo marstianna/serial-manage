@@ -5,12 +5,12 @@ import com.hotpot.commons.Const;
 import com.hotpot.commons.DateTool;
 import com.hotpot.dao.ValueCardHistoryMapper;
 import com.hotpot.dao.ValueCardMapper;
-import com.hotpot.domain.ValueCard;
 import com.hotpot.domain.ValueCardHistory;
 import com.hotpot.domain.VipInfo;
 import com.hotpot.searcher.ValueCardHistorySearcher;
-import com.hotpot.searcher.ValueCardSearcher;
 import com.hotpot.service.ValueCardService;
+import com.hotpot.domain.ValueCard;
+import com.hotpot.searcher.ValueCardSearcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -25,7 +25,7 @@ import java.util.UUID;
  * Created by zoupeng on 15/12/26.
  */
 @Service
-public class ValueCardServiceImpl implements ValueCardService{
+public class ValueCardServiceImpl implements ValueCardService {
     @Autowired
     ValueCardMapper valueCardMapper;
     @Autowired
@@ -42,7 +42,7 @@ public class ValueCardServiceImpl implements ValueCardService{
         card.setVipId(vipId);
         card.setPassword(password);
         valueCardMapper.insertSelective(card);
-        recordHistory(cardId,storeId,Const.OPERATE_ADD,account,money);
+        recordHistory(cardId,storeId, Const.OPERATE_ADD,account,money);
         return cardUuid;
     }
 
@@ -144,13 +144,35 @@ public class ValueCardServiceImpl implements ValueCardService{
     }
 
     @Override
+    public Map<String, List<Integer>> settleForStore(List<Integer> orderIds) {
+        Map<String,List<Integer>> result = new HashMap<>();
+        String success = "success";
+        String fail = "fail";
+        result.put(success, Lists.newArrayList());
+        result.put(fail,Lists.newArrayList());
+        for(Integer id: orderIds){
+            try {
+                Integer count = valueCardHistoryMapper.settle(id,Const.SETTLE_FROM_STORE,Const.OPERATE_ADD);
+                if (count == 0){
+                    result.get(fail).add(id);
+                }else{
+                    result.get(success).add(id);
+                }
+            }catch(Exception e){
+                //TODO log
+                result.get(fail).add(id);
+            }
+        }
+        return result;
+    }
+
+    @Override
     public List<ValueCardHistory> getAllCardHistory(ValueCardHistorySearcher searcher) {
         return valueCardHistoryMapper.getCardHistoryBySearcher(searcher);
     }
 
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     private void recordHistory(String cardId,Integer storeId,Integer operate,Integer account,Integer price){
-//        throw new Exception();
         ValueCardHistory history = new ValueCardHistory();
         history.setCardId(cardId);
         history.setStoreId(storeId);

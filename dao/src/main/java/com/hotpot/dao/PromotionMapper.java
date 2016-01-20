@@ -1,7 +1,7 @@
 package com.hotpot.dao;
 
-import com.hotpot.domain.Promotion;
 import com.hotpot.searcher.PromotionSearcher;
+import com.hotpot.domain.Promotion;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

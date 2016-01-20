@@ -1,13 +1,14 @@
 package com.hotpot.service.impl;
 
+import com.hotpot.dao.StoreTableMapper;
+import com.hotpot.domain.Owner;
+import com.hotpot.service.StoreService;
 import com.hotpot.dao.OwnerMapper;
 import com.hotpot.dao.StaffMapper;
 import com.hotpot.dao.StoreMapper;
-import com.hotpot.dao.StoreTableMapper;
 import com.hotpot.domain.Staff;
 import com.hotpot.domain.Store;
 import com.hotpot.domain.StoreTable;
-import com.hotpot.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,7 @@ import java.util.Map;
  * Created by zoupeng on 15/12/30.
  */
 @Service
-public class StoreServiceImpl implements StoreService{
+public class StoreServiceImpl implements StoreService {
     @Autowired
     StoreMapper storeMapper;
     @Autowired
@@ -52,15 +53,6 @@ public class StoreServiceImpl implements StoreService{
                 .forEach((store)->
             results.putIfAbsent(store.getId(),store.getStoreName())
         );
-
-//        Map<Integer,String> results = MyMaps.transform(stores, new FunctionForListToMap<Integer, String>() {
-//            @Override
-//            public Pair<Integer, String> transfomr(Object obj) {
-//                Store store = (Store)obj;
-//                Pair<Integer,String> pair = ImmutablePair.of(store.getId(),store.getStoreName());
-//                return pair;
-//            }
-//        });
         return results;
     }
 
@@ -72,6 +64,12 @@ public class StoreServiceImpl implements StoreService{
     @Override
     public boolean login(String loginName, String loginPassword) {
         return ownerMapper.login(loginName,loginPassword) > 0;
+    }
+
+    @Override
+    public List<Store> getStoreByLoginInfo(String loginName, String loginPassword){
+        Owner owner = ownerMapper.getOwner(loginName, loginPassword);
+        return storeMapper.getStoresByOwnerId(owner.getId());
     }
 
     @Override

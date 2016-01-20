@@ -121,7 +121,7 @@
     </bean>
 
     <mvc:interceptors>
-        <bean class="com.hotpot.interceptor.LayoutInterceptor"/>
+        <bean class="com.hotpot.store.interceptor.LayoutInterceptor"/>
     </mvc:interceptors>
 
     <!-- set locale in session level -->

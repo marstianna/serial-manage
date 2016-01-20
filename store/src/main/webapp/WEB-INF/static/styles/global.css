@@ -1,0 +1,183 @@
+@charset "utf-8";
+/* CSS Document */
+/**
+ * "Yet Another Multicolumn Layout" - (X)HTML/CSS Framework
+ * @Date		2012-04-16 10:28 AM $
+ * @purpose     main styles including base, global, pulic and so on.
+**/
+
+
+
+/******************************** 
+	base css styles
+*********************************/
+body,div,ul,li,lo,p,span,form,input,h1,h2,h3,h4,h5,h6,img,a,table,tr,td,br,fieldset,dl,dt,dd{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+body{
+	background-color: #d7e4ec; /* light blue */
+	font: 12px Arial, Verdana, "宋体";
+	color: #005aa0; /* dark blue */
+	margin: 0 auto;
+}
+
+img,fieldset{
+	border: 0;
+}
+
+a{
+	color: #1f73a7;
+	text-decoration: none;
+}
+
+a:hover{
+	color: #438fbe;
+}
+
+table{
+	width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+textarea{
+	font-size: 12px;
+	color: #787775;
+}
+
+/******************************** 
+	global css styles
+*********************************/
+
+/* head */
+#header{
+	height: 88px;
+	background: url(../images/header_bg.gif) repeat-x 0 0;
+	-moz-box-shadow: 0px 0px 5px #3d6c8a;
+	-webkit-box-shadow: 0px 0px 5px #3d6c8a;
+	box-shadow: 0px 0px 5px #3d6c8a;
+	filter: progid:DXImageTransform.Microsoft.Shadow(color='#8899a3', Direction=180, Strength=4);
+}
+
+.topBox{
+	height: 66px;
+	margin: 0 100px 0 25px;
+	background: url(../images/header_graph.gif) no-repeat right top;
+}
+
+.logo{
+	width: 351px;
+	height: 63px;
+	background: url(../images/header_logo.gif) no-repeat 0 21px;
+}
+
+.userBar{
+	height: 25px;
+	line-height: 25px;
+	color: #ffffff;
+}
+
+a.logout{
+	margin-left: 10px;
+	color: #8ab8d2;
+	text-decoration: none;
+}
+
+a.logout:hover{
+	color: #ffffff;
+}
+
+/* main */
+#main{
+	background: #ffffff;
+	margin: 14px 9px 0;
+	padding: 6px 9px 20px;
+	min-height: 500px;
+	background: url(../images/lineShadow.gif) no-repeat 220px 0 #ffffff;
+	border-bottom: #69a1c4 4px solid;
+	-moz-box-shadow: 0px 0px 3px #becad0;
+	-webkit-box-shadow: 0px 0px 3px #becad0;
+	box-shadow: 0px 0px 3px #becad0;
+	filter: progid:DXImageTransform.Microsoft.Shadow(color='#8899a3', Direction=180, Strength=4);
+}
+
+/******************************** 
+	public css styles
+*********************************/
+.input_text{
+	width: 233px;
+	height: 23px;
+	line-height: 23px;
+	border: #a9c5d5 1px solid;
+	padding: 0 9px;
+	font-size: 12px;
+	color: #787775;
+}
+
+select{
+	width: 171px;
+	height:25px;
+	line-height: 25px;
+	color: #787775;
+	font-size: 12px;
+}
+
+.grey{
+	color: #787775;
+}
+
+.greyBg{
+	background-color: #e3e9ed;
+}
+
+.blod{
+	font-weight: 700;
+}
+
+.invalid, 
+a.invalid, 
+a.invalid:hover{
+	cursor: text;
+	color: #999999;
+}
+
+.clearBoth{
+	clear: both;
+}
+
+.errorBox{
+	width: 100%;
+	border: #9b3334 1px dotted;
+	background-color: #ffffcd;
+	padding: 3px 8px;
+	margin-top: 5px;
+	color: #9B3334;
+}
+
+.hide{
+	display: none;
+}
+
+.current{
+	color: #e3590d;
+}
+
+.btn{
+	color: #ffffff;
+	font-size: 14px;
+	font-weight: 700;
+	background-color: #1f73a7;
+	padding: 5px 25px;
+	border: 0;
+	cursor: pointer;
+}
+
+/******************************** 
+	修改 在浏览器缩小 下的样式显示 bug
+*********************************/
+body{
+	min-width:1000px;
+}

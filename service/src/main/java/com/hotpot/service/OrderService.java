@@ -14,8 +14,6 @@ public interface OrderService {
 
     List<Order> getOrdersByStoreId(Integer storeId);
 
-    List<Order> getUnsettleOrderByStoreId(Integer storeId);
-
     ValueCard payByCard(Order order, String cardId, String cardUuid);
 
     ValueCard payByPhone(Order order, String phone, String password);

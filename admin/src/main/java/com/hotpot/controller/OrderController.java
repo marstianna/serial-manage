@@ -1,12 +1,10 @@
 package com.hotpot.controller;
 
-import com.hotpot.commons.Const;
 import com.hotpot.commons.framework.BaseController;
 import com.hotpot.commons.pagination.Page;
 import com.hotpot.commons.pagination.annotation.Pagination;
 import com.hotpot.constenum.PayTypeEnum;
 import com.hotpot.domain.Order;
-import com.hotpot.domain.VipInfo;
 import com.hotpot.searcher.OrderSearcher;
 import com.hotpot.service.OrderService;
 import com.hotpot.service.StoreService;
@@ -53,22 +51,4 @@ public class OrderController extends BaseController {
         List<OrderView> views = ordersBySearcher.stream().collect(Collectors.mapping(OrderView::transform,Collectors.toList()));
         return getResultPage((Page<Order>)ordersBySearcher,views);
     }
-
-
-    @RequestMapping("getUnsettleOrders")
-    @ResponseBody
-    @Pagination
-    public List<Order> getUnsettleOrders(){
-        return orderService.getOrdersBySearcher(new OrderSearcher().setSettle(Const.ORDER_UNSETTLE));
-    }
-
-    private OrderView createOrderView(Order order){
-        OrderView orderView = new OrderView();
-        orderView.setOrder(order);
-        orderView.setStoreName(storeService.getStoreByStoreId(order.getStoreId()).getStoreName());
-        VipInfo vipInfo = vipInfoService.getVipInfoById(order.getVipId());
-        orderView.setVipName(vipInfo.getName()+"("+vipInfo.getId()+")");
-        return orderView;
-    }
-
 }
