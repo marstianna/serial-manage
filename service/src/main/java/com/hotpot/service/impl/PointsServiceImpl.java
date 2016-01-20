@@ -1,9 +1,9 @@
 package com.hotpot.service.impl;
 
+import com.hotpot.dao.PointsHistoryMapper;
 import com.hotpot.commons.Const;
 import com.hotpot.commons.DateTool;
 import com.hotpot.dao.PointsGiftMapper;
-import com.hotpot.dao.PointsHistoryMapper;
 import com.hotpot.dao.PointsMapper;
 import com.hotpot.domain.Points;
 import com.hotpot.domain.PointsGift;

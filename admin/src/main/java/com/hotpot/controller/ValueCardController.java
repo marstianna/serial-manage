@@ -3,9 +3,9 @@ package com.hotpot.controller;
 import com.hotpot.commons.framework.BaseController;
 import com.hotpot.commons.pagination.Page;
 import com.hotpot.commons.pagination.annotation.Pagination;
-import com.hotpot.domain.ValueCard;
 import com.hotpot.domain.ValueCardHistory;
 import com.hotpot.searcher.ValueCardHistorySearcher;
+import com.hotpot.domain.ValueCard;
 import com.hotpot.searcher.ValueCardSearcher;
 import com.hotpot.service.StoreService;
 import com.hotpot.service.ValueCardService;
@@ -54,9 +54,6 @@ public class ValueCardController extends BaseController {
     @RequestMapping("getAllCards")
     public Object getAllCards(@ModelAttribute ValueCardSearcher searcher){
         List<ValueCard> allCards = valueCardService.getAllCards(searcher);
-//        List<CardView> results = new ArrayList<>();
-//        allCards.stream().forEach((card) -> results.add(new CardView().transform(card)));
-//        return results;
         List<CardView> collect = allCards.stream().collect(Collectors.mapping(CardView::transform, Collectors.toList()));
         return getResultPage((Page<ValueCard>)allCards,collect);
     }
@@ -73,12 +70,6 @@ public class ValueCardController extends BaseController {
     @RequestMapping("getAllCardHistory")
     public Object getAllCardHistory(@ModelAttribute ValueCardHistorySearcher searcher){
         List<ValueCardHistory> allCardHistory = valueCardService.getAllCardHistory(searcher);
-//        Page<ValueCardHistory> page = (Page<ValueCardHistory>)allCardHistory;
-//        List<CardHistoryView> results = new ArrayList<>();
-//        page.stream().forEach((history)->results.add(new CardHistoryView().transform(history)));
-//        PageInfo pageInfo = new PageInfo(page);
-//        pageInfo.setList(results);
-//        return pageInfo;
         List<CardHistoryView> collect = allCardHistory.stream().collect(Collectors.mapping(CardHistoryView::transform, Collectors.toList()));
         return getResultPage((Page<ValueCardHistory>)allCardHistory,collect);
     }

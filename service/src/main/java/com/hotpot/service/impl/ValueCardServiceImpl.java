@@ -5,12 +5,12 @@ import com.hotpot.commons.Const;
 import com.hotpot.commons.DateTool;
 import com.hotpot.dao.ValueCardHistoryMapper;
 import com.hotpot.dao.ValueCardMapper;
-import com.hotpot.domain.ValueCard;
 import com.hotpot.domain.ValueCardHistory;
 import com.hotpot.domain.VipInfo;
 import com.hotpot.searcher.ValueCardHistorySearcher;
-import com.hotpot.searcher.ValueCardSearcher;
 import com.hotpot.service.ValueCardService;
+import com.hotpot.domain.ValueCard;
+import com.hotpot.searcher.ValueCardSearcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -25,7 +25,7 @@ import java.util.UUID;
  * Created by zoupeng on 15/12/26.
  */
 @Service
-public class ValueCardServiceImpl implements ValueCardService{
+public class ValueCardServiceImpl implements ValueCardService {
     @Autowired
     ValueCardMapper valueCardMapper;
     @Autowired
@@ -42,7 +42,7 @@ public class ValueCardServiceImpl implements ValueCardService{
         card.setVipId(vipId);
         card.setPassword(password);
         valueCardMapper.insertSelective(card);
-        recordHistory(cardId,storeId,Const.OPERATE_ADD,account,money);
+        recordHistory(cardId,storeId, Const.OPERATE_ADD,account,money);
         return cardUuid;
     }
 
@@ -150,7 +150,6 @@ public class ValueCardServiceImpl implements ValueCardService{
 
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     private void recordHistory(String cardId,Integer storeId,Integer operate,Integer account,Integer price){
-//        throw new Exception();
         ValueCardHistory history = new ValueCardHistory();
         history.setCardId(cardId);
         history.setStoreId(storeId);

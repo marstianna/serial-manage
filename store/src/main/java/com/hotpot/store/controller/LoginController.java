@@ -1,10 +1,13 @@
-package com.hotpot.controller;
+package com.hotpot.store.controller;
 
 import com.hotpot.commons.framework.BaseController;
-import com.hotpot.service.AdminService;
+import com.hotpot.domain.Store;
+import com.hotpot.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * Created by zoupeng on 16/1/8.
@@ -13,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/login")
 public class LoginController extends BaseController {
     @Autowired
-    AdminService adminService;
+    StoreService storeService;
 
     @RequestMapping("/turnToLogin")
     public String turnToLogin(){
@@ -22,10 +25,12 @@ public class LoginController extends BaseController {
 
     @RequestMapping({"/login",""})
     public String login(String loginName,String password){
-        boolean login = adminService.login(loginName, password);
+        boolean login = storeService.login(loginName, password);
         String response;
         if(login){
             getRequest().getSession().setAttribute("loginInfo","success");
+            List<Store> store = storeService.getStoreByLoginInfo(loginName, password);
+            getRequest().getSession().setAttribute("storeId",store.get(0).getId());
             response = "order/order";
         }else{
             response = "login/login";
@@ -36,6 +41,7 @@ public class LoginController extends BaseController {
     @RequestMapping("/logout")
     public String logout(){
         getRequest().getSession().removeAttribute("loginInfo");
+        getRequest().getSession().removeAttribute("storeId");
         return "login/login";
     }
 }

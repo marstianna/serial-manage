@@ -1,8 +1,8 @@
 package com.hotpot.service;
 
-import com.hotpot.domain.ValueCard;
 import com.hotpot.domain.ValueCardHistory;
 import com.hotpot.domain.VipInfo;
+import com.hotpot.domain.ValueCard;
 import com.hotpot.searcher.ValueCardHistorySearcher;
 import com.hotpot.searcher.ValueCardSearcher;
 

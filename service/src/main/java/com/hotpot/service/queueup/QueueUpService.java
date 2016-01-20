@@ -10,9 +10,11 @@ import java.util.concurrent.BlockingQueue;
  */
 public interface QueueUpService {
 
-    void queueUp(Integer storeId, String phone, Integer waitingNumber, String weChat);
+    QueueUp queueUp( String phone, Integer waitingNumber, String weChat);
 
     Map<Integer,BlockingQueue<QueueUp>> getAllQueuesByStoreId(Integer storeId);
+
+    QueueUp popup(Integer tableSize, Integer storeId);
 
     QueueUp popup(String tableNumber, Integer storeId);
 }

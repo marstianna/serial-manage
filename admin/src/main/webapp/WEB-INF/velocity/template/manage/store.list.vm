@@ -107,117 +107,70 @@
         $("#list")
                 .jqGrid(
                         {
-                            url: '$ctx/order/getAllOrders',  //?请求地址
+                            url: '$ctx/manage/getAllStores',  //?请求地址
                             datatype: "local",
-                            colNames: ["id", "enough", "discount", "type", "store_id", "start_time", "end_time",
-                                "pay_type", "valid"],
+                            colNames: ["店铺ID", "店铺名", "店铺所有人", "所有人电话", "店铺座机", "创建时间","管理系统登录名","操作" ],
                             colModel: [
                                 {
-                                    name: 'id',
+                                    name: 'store.id',
                                     index: 'id',
                                     align: "center",
                                     width: "45px",
                                     key: true
                                 }, {
-                                    name: 'enough',
-                                    index: 'enough',
+                                    name: 'store.storeName',
+                                    index: 'storeName',
                                     align: "center",
                                     width: "50px",
                                     minWidth: "45px",
 
                                 },
                                 {
-                                    name: 'discount',
-                                    index: 'discount',
+                                    name: 'owner.name',
+                                    index: 'ownerName',
                                     align: "center",
                                     width: "45px",
                                 },
                                 {
-                                    name: 'type',
-                                    index: 'type',
+                                    name: 'owner.mobilephone',
+                                    index: 'ownerMobilephone',
                                     align: "center",
                                     width: "140px",
                                     minWidth: "90px",
-                                    formatter: "select",
-                                    editoptions: {
-                                        value: "1:消费获得积分promotion;2:奖励积分;"
-                                    }
                                 },
                                 {
-                                    name: 'start_time',
-                                    index: 'start_time',
-                                    align: "center",
-                                    width: "100px",
-                                }
-                                {
-                                    name: 'end_time',
-                                    index: 'end_time',
+                                    name: 'store.phone',
+                                    index: 'storePhone',
                                     align: "center",
                                     width: "100px",
                                 },
                                 {
-                                    name: 'pay_type',
-                                    index: 'pay_type',
+                                    name: 'store.createTime',
+                                    index: 'storeCreateTime',
+                                    align: "center",
+                                    width: "100px",
+                                },
+                                {
+                                    name: 'owner.loginName',
+                                    index: 'ownerLoginName',
                                     align: "center",
                                     width: "140px",
                                     minWidth: "90px",
-                                    formatter: "select",
-                                    editoptions: {
-                                        value: "0:储值卡;1:现金;2:支付宝;3:微信;4:团购优惠支付"
-                                    }
                                 },
-
                                 {
-                                    name: 'valid',
-                                    index: 'valid',
+                                    name: 'operate',
+                                    index: 'operate',
                                     align: "center",
-                                    width: "45px",
+                                    width: "140px",
+                                    minWidth: "90px",
+                                    formatter : function(cellval, optss,
+                                                         rowObject, action) {
+                                        var storeId = rowObject['store']['id'];
+                                        return '<a href="javascript:getStoreDetail('
+                                                + storeId
+                                                + ')" class="row_btn">查看</a>';
+                                    }
                                 }
-//                                {
-//                                    name: 'actualPrice',
-//                                    index: 'actualPrice',
-//                                    align: "center",
-//                                    width: "90px",
-//                                },
-//                                {
-//                                    name: 'drinkPrice',
-//                                    index: 'drinkPrice',
-//                                    align: "center",
-//                                    width: "70px"
-//                                },
-//                                {
-//                                    name: 'foodPrice',
-//                                    index: 'foodPrice',
-//                                    align: "center",
-//                                    width: "50px",
-//                                },
-//                                {
-//                                    name: 'createTime',
-//                                    index: 'createTime',
-//                                    align: "center",
-//                                    width: "50px",
-//                                    formatter: "select",
-//                                },
-//                                {
-//                                    name: 'queueUp',
-//                                    index: 'noCod',
-//                                    align: "center",
-//                                    width: "60px",
-//                                    formatter: "select",
-//                                    editoptions: {
-//                                        value: "0:否;1:是"
-//                                    }
-//                                },
-//                                {
-//                                    name: 'settle',
-//                                    index: "freeShipping",
-//                                    align: "center",
-//                                    width: "50px",
-//                                    formatter: "select",
-//                                    editoptions: {
-//                                        value: "0:否;1:是"
-//                                    }
-//                                },
                             ],
                             rowNum: 15,
                             rowList: [15, 30, 50],
@@ -406,6 +359,9 @@
         $("#list").setGridWidth($(window).width()-10);
     }).trigger('resize');
 
+    function getStoreDetail(id){
+
+    }
 </script>
 
 </body>

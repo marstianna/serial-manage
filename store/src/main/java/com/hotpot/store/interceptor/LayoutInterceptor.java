@@ -1,4 +1,4 @@
-package com.hotpot.interceptor;
+package com.hotpot.store.interceptor;
 
 import org.apache.commons.collections.MapUtils;
 import org.springframework.web.bind.ServletRequestUtils;
@@ -39,7 +39,8 @@ public class LayoutInterceptor implements HandlerInterceptor {
             }
             if (queryString.length() > 0) {
                 String result = queryString.substring(0, queryString.length() - 1);
-                request.setAttribute("requestURL", request.getRequestURL() + "?" + result);
+//                request.setAttribute(USE_LAYOUT, false);
+                request.setAttribute("requestURL", request.getRequestURL() + "?" + result+"&useLayout=false");
             }
         }
     }

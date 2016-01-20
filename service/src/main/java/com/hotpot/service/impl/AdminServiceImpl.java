@@ -2,9 +2,9 @@ package com.hotpot.service.impl;
 
 import com.hotpot.commons.DateTool;
 import com.hotpot.dao.AdminMapper;
+import com.hotpot.domain.Owner;
 import com.hotpot.dao.OwnerMapper;
 import com.hotpot.dao.StoreMapper;
-import com.hotpot.domain.Owner;
 import com.hotpot.domain.Store;
 import com.hotpot.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +46,7 @@ public class AdminServiceImpl implements AdminService {
         owner.setMobilephone(mobilephone);
         owner.setLoginPassword(loginPassword);
         owner.setLoginName(loginName);
-        owner.setCreateTime(DateTool.unixTime());
+        owner.setCreateTime(DateTool.getDateTime());
         owner.setIdentity(identity);
         owner.setEmail(email);
         owner.setName(name);
@@ -54,7 +54,7 @@ public class AdminServiceImpl implements AdminService {
 
         Store store = new Store();
         store.setAddress(address);
-        store.setCreateTime(DateTool.unixTime());
+        store.setCreateTime(DateTool.getDateTime());
         store.setOwnerId(owner.getId());
         store.setStoreName(storeName);
         store.setPhone(phone);
@@ -77,5 +77,10 @@ public class AdminServiceImpl implements AdminService {
     public boolean login(String loginName, String loginPassword) {
         Integer count = adminMapper.login(loginName,loginPassword);
         return count > 0;
+    }
+
+    @Override
+    public Owner getOwnerById(Integer ownerId) {
+        return ownerMapper.selectByPrimaryKey(ownerId);
     }
 }

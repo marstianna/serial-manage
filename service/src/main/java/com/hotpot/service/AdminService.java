@@ -16,4 +16,6 @@ public interface AdminService {
     void newOwner(Owner owner);
 
     boolean login(String loginName,String loginPassword);
+
+    Owner getOwnerById(Integer ownerId);
 }
