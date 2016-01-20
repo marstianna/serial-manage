@@ -30,7 +30,7 @@
                     <label>联系电话</label><input type="text" placeholder="phone" class="form-control">
                     <br>
                     <div style="margin-left: 130px;margin-top: 20px;">
-                        <button type="button" id="" class="btn btn-circle">提交</button>
+                        <button type="button" id="" class="btn btn-sm">提交</button>
                     </div>
             </form>
         </div>

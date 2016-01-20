@@ -19,7 +19,7 @@
                     <label>创建时间</label><input type="text" placeholder="create_time" name="creatTime" id="creatTime" class="form-control">
                     <br>
                     <div style="margin-left: 130px;margin-top: 20px;">
-                        <button type="button" id="vipSubmitBtn" class="btn btn-circle btn-sm">提交</button>
+                        <button type="button" id="vipSubmitBtn" class="btn btn-sm">提交</button>
                     </div>
             </form>
         </div>
@@ -43,7 +43,7 @@
     $(function(){
         $("input[name='create_time']").val(currentTime);
 
-
+        $("#vipAdd").validate();
 //        $("input[name='create_time']").datetimepicker({
 //            format: "dd MM yyyy - hh:ii",
 //            autoclose: true,
