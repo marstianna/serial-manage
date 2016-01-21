@@ -33,17 +33,17 @@ public class ValueCardServiceImpl implements ValueCardService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = Exception.class)
-    public String addNewCard(String cardId, Integer storeId, Integer money, Integer account, Integer vipId, String password){
+    public ValueCard addNewCard(String cardId, Integer storeId, Integer money, Integer account, Integer vipId, String password){
         ValueCard card = new ValueCard();
         card.setCardId(cardId);
-        String cardUuid = UUID.nameUUIDFromBytes(cardId.getBytes()).toString();
+        String cardUuid = UUID.nameUUIDFromBytes((cardId+DateTool.getDateTime()).getBytes()).toString();
         card.setCardUuid(cardUuid);
         card.setBalance(account);
         card.setVipId(vipId);
         card.setPassword(password);
         valueCardMapper.insertSelective(card);
         recordHistory(cardId,storeId, Const.OPERATE_ADD,account,money);
-        return cardUuid;
+        return card;
     }
 
     @Override

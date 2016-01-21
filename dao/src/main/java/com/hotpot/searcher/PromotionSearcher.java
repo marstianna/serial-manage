@@ -15,47 +15,53 @@ public class PromotionSearcher {
         return id;
     }
 
-    public void setId(Integer id) {
+    public PromotionSearcher setId(Integer id) {
         this.id = id;
+        return this;
     }
 
     public Integer getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public PromotionSearcher setType(Integer type) {
         this.type = type;
+        return this;
     }
 
     public Integer getStoreId() {
         return storeId;
     }
 
-    public void setStoreId(Integer storeId) {
+    public PromotionSearcher setStoreId(Integer storeId) {
         this.storeId = storeId;
+        return this;
     }
 
     public Integer getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Integer startTime) {
+    public PromotionSearcher setStartTime(Integer startTime) {
         this.startTime = startTime;
+        return this;
     }
 
     public Integer getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Integer endTime) {
+    public PromotionSearcher setEndTime(Integer endTime) {
         this.endTime = endTime;
+        return this;
     }
 
     public Integer getPayType() {
         return payType;
     }
 
-    public void setPayType(Integer payType) {
+    public PromotionSearcher setPayType(Integer payType) {
         this.payType = payType;
+        return this;
     }
 }

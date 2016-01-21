@@ -51,5 +51,7 @@ public class QueueUpServiceTest {
         System.out.println(JSON.toJSONString(queueUpService.popup("B01",1)));
         queueUpService.queueUp("1377777773",13,null);
         System.out.println(JSON.toJSONString(queueUpService.popup("B01",1)));
+        System.out.println(JSON.toJSONString(queueUpService.popup("B01",1)));
+        System.out.println(JSON.toJSONString(queueUpService.popup("B01",1)));
     }
 }

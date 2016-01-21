@@ -24,7 +24,7 @@ public interface ValueCardService {
      * @param password
      * @return  返回一个创建的卡的 uuid,需要记录到储值卡上
      */
-    String addNewCard(String cardId, Integer storeId, Integer money, Integer account, Integer vipId, String password);
+    ValueCard addNewCard(String cardId, Integer storeId, Integer money, Integer account, Integer vipId, String password);
 
     /**
      * 根据卡号获取流水

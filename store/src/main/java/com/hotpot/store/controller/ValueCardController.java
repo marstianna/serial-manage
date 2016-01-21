@@ -44,12 +44,12 @@ public class ValueCardController extends BaseController {
         return "valuecard/valuecard";
     }
 
-    @RequestMapping("topUp")
     @ResponseBody
-    public String topUp(String cardId,String cardUuid,Integer account,Integer price){
+    @RequestMapping("topUp")
+    public Object topUp(String cardId,String cardUuid,Integer account,Integer price){
         Store store = Context.get();
-        ValueCard card = valueCardService.topUp(cardId,cardUuid,store.getId(),account,price);
-        return null;
+        ValueCard card = valueCardService.topUp(cardId, cardUuid, store.getId(), account, price);
+        return card;
     }
 
     @Pagination
@@ -104,8 +104,10 @@ public class ValueCardController extends BaseController {
 
     @RequestMapping("addCard")
     @ResponseBody
-    public Object addCard(@ModelAttribute ValueCard card){
-        return "success";
+    public Object addCard(@ModelAttribute ValueCard card,Integer money){
+        Store store = Context.get();
+
+        return valueCardService.addNewCard(card.getCardId(),store.getId(),money,card.getBalance(),null,card.getPassword());
     }
 
 }

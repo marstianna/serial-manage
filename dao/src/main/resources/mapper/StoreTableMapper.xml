@@ -123,7 +123,7 @@
   <select id="getStoreTable" resultType="com.hotpot.domain.StoreTable">
     select
     <include refid="Base_Column_List" />
-    from store_table where table_code = #{tableCode} and store_id = #{storeId}
+    from store_table where table_code = #{tableCode} and store_id = #{storeId} order by table_code asc;
   </select>
 
   <select id="getTablesByStoreId" resultType="com.hotpot.domain.StoreTable">

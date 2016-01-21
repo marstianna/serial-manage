@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * Created by zoupeng on 16/1/19.
  */
-@RequestMapping("/index/")
+@RequestMapping("/index")
 @Controller
 public class IndexController extends BaseController{
     @Autowired
@@ -29,21 +29,36 @@ public class IndexController extends BaseController{
     @Autowired
     OrderService orderService;
 
-    @RequestMapping("queueUp")
+    @RequestMapping("/turnToInfo")
+    public String turnToInfo(){
+        return "index/info";
+    }
+
+    @RequestMapping("/turnToQueue")
+    public String turnToQueue(){
+        return "index/queue";
+    }
+
+    @RequestMapping("/queueUp")
     @ResponseBody
     public Object queue(String phoneNubmer,Integer countOfPeople,String wechat){
-        Integer storeId = getStoreId();
         return queueUpService.queueUp(phoneNubmer, countOfPeople, wechat);
     }
 
-    @RequestMapping("tableList")
+    @RequestMapping("/nextOne")
+    @ResponseBody
+    public Object nextOne(Integer tableSize){
+        return queueUpService.popup(tableSize,Context.get().getId());
+    }
+
+    @RequestMapping("/tableList")
     @ResponseBody
     public Object tableList(){
         Integer storeId = getStoreId();
-        return storeService.getAllTablesByStoreId(storeId);
+        return storeService.getRuntimeTablesByStoreId(storeId);
     }
 
-    @RequestMapping("checkOut")
+    @RequestMapping("/checkOut")
     @ResponseBody
     public Object checkOut(Integer tableId,@ModelAttribute Order order){
         Store store = Context.get();
@@ -51,14 +66,14 @@ public class IndexController extends BaseController{
         return null;
     }
 
-    @RequestMapping("checkOrder")
+    @RequestMapping("/checkOrder")
     @ResponseBody
     public Object checkOrder(Integer tableId){
         return null;
     }
 
     private Integer getStoreId(){
-        return Integer.parseInt(String.valueOf(getRequest().getAttribute("storeId")));
+        return Integer.parseInt(String.valueOf(getRequest().getSession().getAttribute("storeId")));
     }
 
 }

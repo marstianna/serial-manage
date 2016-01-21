@@ -1,14 +1,8 @@
 package com.hotpot.service.impl;
 
-import com.hotpot.dao.StoreTableMapper;
-import com.hotpot.domain.Owner;
+import com.hotpot.dao.*;
+import com.hotpot.domain.*;
 import com.hotpot.service.StoreService;
-import com.hotpot.dao.OwnerMapper;
-import com.hotpot.dao.StaffMapper;
-import com.hotpot.dao.StoreMapper;
-import com.hotpot.domain.Staff;
-import com.hotpot.domain.Store;
-import com.hotpot.domain.StoreTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +23,8 @@ public class StoreServiceImpl implements StoreService {
     StoreTableMapper storeTableMapper;
     @Autowired
     OwnerMapper ownerMapper;
+    @Autowired
+    RuntimeTableMapper runtimeTableMapper;
 
     @Override
     public void addStaff(Staff staff) {
@@ -59,6 +55,11 @@ public class StoreServiceImpl implements StoreService {
     @Override
     public List<StoreTable> getAllTablesByStoreId(Integer storeId) {
         return storeTableMapper.getTablesByStoreId(storeId);
+    }
+
+    @Override
+    public List<RuntimeTable> getRuntimeTablesByStoreId(Integer storeId){
+        return runtimeTableMapper.getRuntimeTablesByStoreId(storeId);
     }
 
     @Override

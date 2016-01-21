@@ -3,7 +3,8 @@
 <script type="text/javascript">
     var menus = [
         {id: 1, name: "店铺首页", parent: -1, order: 1, path:"" , icon: "fa-laptop"},
-        {id: 11, name: "订单列表", parent: 1, order: 1, path: "$ctx/index", icon: ""},
+        {id: 11, name: "实时详情", parent: 1, order: 1, path: "$ctx/index/turnToInfo", icon: ""},
+        {id: 12, name: "排队详情", parent: 1, order: 2, path: "$ctx/index/turnToQueue", icon: ""},
 
         {id: 2, name: "订单", parent: -1, order: 2, path:"" , icon: "fa-laptop"},
         {id: 21, name: "订单列表", parent: 2, order: 1, path: "$ctx/order/order", icon: ""},

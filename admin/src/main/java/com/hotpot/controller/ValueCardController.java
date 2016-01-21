@@ -94,8 +94,8 @@ public class ValueCardController extends BaseController {
 
     @RequestMapping("addCard")
     @ResponseBody
-    public Object addCard(@ModelAttribute ValueCard card){
-        return "success";
+    public Object addCard(@ModelAttribute ValueCard card,Integer money){
+        return valueCardService.addNewCard(card.getCardId(),0,money,card.getBalance(),null,card.getPassword());
     }
 
 }

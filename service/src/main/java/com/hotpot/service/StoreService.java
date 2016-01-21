@@ -1,5 +1,6 @@
 package com.hotpot.service;
 
+import com.hotpot.domain.RuntimeTable;
 import com.hotpot.domain.Staff;
 import com.hotpot.domain.Store;
 import com.hotpot.domain.StoreTable;
@@ -37,6 +38,8 @@ public interface StoreService {
     Map<Integer,String> getStoreMap();
 
     List<StoreTable> getAllTablesByStoreId(Integer storeId);
+
+    List<RuntimeTable> getRuntimeTablesByStoreId(Integer storeId);
 
     boolean login(String loginName,String loginPassword);
 
