@@ -10,23 +10,24 @@
         <div class="nav-content">
             <form id="valueCardAdd" method="get" action="">
                 <div class="turnToAdd">
-                    <label>id</label><input type="text" placeholder="id" name="id" id="id" class="form-control" required>
+                    <label>id</label><input type="text" placeholder="id" name="id" id="id" class="form-control" readonly>
                     <br>
-                    <label>card_id</label><input type="text" placeholder="card_id" name="cardId" id="cardId" class="form-control" required>
+                    <label>card_id</label><input type="text" placeholder="card_id" name="cardId" id="cardId" class="form-control" readonly>
                     <br>
-                    <label>card_uuid</label><input type="text" placeholder="card_uuid" name="cardUuid" id="cardUuid" class="form-control" required>
+                    <label>card_uuid</label><input type="text" placeholder="card_uuid" name="cardUuid" id="cardUuid" class="form-control" readonly>
                     <br>
                     <label>balance</label><input type="text" placeholder="balance" name="balance" id="balance" class="form-control" required>
                     <br>
-                    <label>vip_id</label><input type="text" placeholder="vip_id" id="vipId" name="vipId" class="form-control" required>
+                    <label>vip_id</label><input type="text" placeholder="vip_id" id="vipId" name="vipId" class="form-control" readonly>
                     <br>
                     <label>创建时间:</label><input type="text" name="create_time" id="createTime" placeholder="yyyy-MM-dd HH:mm:ss" readonly class="form-control">
                     <br>
-                    <label>设置密码:</label><input type="text" placeholder="password" id="password" name="password" class="form-control" required>
+                    <label>设置密码:</label><input type="password" placeholder="password" id="password" name="password" class="form-control" required>
+                    <br>
+                    <label>再次确认密码:</label><input type="password" placeholder="confirm_password" id="confirm_password" name="confirm_password" class="form-control" required>
                     <br>
                     <div style="margin-left: 130px;margin-top: 20px;">
                         <input class="submit btn btn-sm" type="submit" value="提交">
-##                        <button type="button" id="valueCardSubmitBtn" class="btn btn-sm">提交</button>
                     </div>
             </form>
         </div>
@@ -46,76 +47,44 @@ function currentTime(){
     return str
 
 }
-//function abc(){
-////    $("#valueCardAdd").validate();
-//
-//}
-//setInterval(function(){});
 $(function () {
+    // 匹配密码，以字母开头，长度在6-12之间，只能包含字符、数字和下划线。
+    $.validator.addMethod("isPwd", function(value, element) {
+        return this.optional(element) || /^[a-zA-Z]\\w{6,12}$/.test(value);
+    });
     $("#valueCardAdd").validate({
         rules: {
-            id: {
+            balance: {
                 required: true,
                 digits:true
             },
-//            lastname: "required",
-//            username: {
-//                required: true,
-//                minlength: 2
-//            },
-//            password: {
-//                required: true,
-//                minlength: 5
-//            },
-//            confirm_password: {
-//                required: true,
-//                minlength: 5,
-//                equalTo: "#password"
-//            },
-//            email: {
-//                required: true,
-//                email: true
-//            },
-//            topic: {
-//                required: "#newsletter:checked",
-//                minlength: 2
-//            },
-//            agree: "required"
+            password: {
+                required: true,
+                isPwd: true
+            },
+            confirm_password: {
+                required: true,
+                equalTo: "#password"
+            },
         },
         messages: {
-            id: {
-                required: "请输入ID号",
-                digits: "请输入整数"
+            balance: {
+                required: "请输入余额",
+                minlength: "请输入整数,例如:100"
+
             },
-//            lastname: "Please enter your lastname",
-//            username: {
-//                required: "Please enter a username",
-//                minlength: "Your username must consist of at least 2 characters"
-//            },
-//            password: {
-//                required: "Please provide a password",
-//                minlength: "Your password must be at least 5 characters long"
-//            },
-//            confirm_password: {
-//                required: "Please provide a password",
-//                minlength: "Your password must be at least 5 characters long",
-//                equalTo: "Please enter the same password as above"
-//            },
-//            email: "Please enter a valid email address",
-//            agree: "Please accept our policy",
-//            topic: "Please select at least 2 topics"
+            password: {
+                required: "请输入密码",
+                isPwd: "以字母开头，长度在6-12之间，只能包含字符、数字和下划线。",
+
+            },
+            confirm_password: {
+                required: "请输入密码",
+                equalTo: "密码输入不一致"
+            },
         }
     });
-
     $("input[name='create_time']").val(currentTime);
-    $("#valueCardSubmitBtn").click(function () {
-//            验证
-
-
-        $("#valueCardAdd").submit(function () {
-//提交后的函数
-        });
-    })
 
 
 })

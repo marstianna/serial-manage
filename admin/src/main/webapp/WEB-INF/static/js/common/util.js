@@ -450,11 +450,14 @@ $.validator.addMethod("require", function(value, element, regexp) {
 });
 
 
-$.validator.addMethod("isFloat", function(value, element) { 
-    value=parseFloat(value);      
-    return this.optional(element) || value>=0;       
-}, "必须为正数");  
+$.validator.addMethod("isFloat", function(value, element) {
+    value=parseFloat(value);
+    return this.optional(element) || value>=0;
+}, "必须为正数");
 
+//$.validator.addMethod("isPwd", function(value, element) {
+//	return this.optional(element) || /^[a-zA-Z]\\w{6,12}$/.test(value);
+//}, "以字母开头，长度在6-12之间，只能包含字符、数字和下划线。");
 
 jQuery.validator.addMethod("isDate", function(value, element){
 	var ereg = /^(\d{1,4})(-|\/)(\d{1,2})(-|\/)(\d{1,2})$/;
@@ -478,33 +481,32 @@ jQuery.validator.setDefaults({
 	      return $(value).popover("hide");
 	    });
 	    return $.each(errorList, function(index, value) {
-	    	
+
 	    	if ( $(value.element).data('popover') != null) {
 	    		  $(value.element).popover('hide');
 	    		  $(value.element).removeData('popover');
 	    	}
-	    	  
+
 	      var _popover;
-	      _popover = $(value.element).popover({
+			_popover = $(value.element).popover({
 	        trigger: "manual",
-	        placement: "bottom",
+	        placement: "right",
 	        content: value.message,
 	        template: "<div class=\"popover\"><div class=\"arrow\"></div><div class=\"popover-inner\"><div class=\"popover-content\" style=\"min-width:60px\"><p></p></div></div></div>"
 	      });
-//	      $(value.element).data("bs.popover").options.content = value.message;
-	    /*  $(value.element).blur(function(){
-	    	  alert(1);
+	      $(value.element).data("bs.popover").options.content = value.message;
+	    $(value.element).blur(function(){
 	    	  if ( $(value.element).data('popover') != null) {
 	    	  $(value.element).popover("show");
 	    	  }
-	      });*/
-	      
-	     /* $(value.element).focus(function(){
+	      });
+
+	      $(value.element).focus(function(){
 	    	  if ( $(value.element).data('popover') != null) {
 	    	   $(value.element).popover('hide');
 	    	  }
-	      });*/
-	      
+	      });
+
 	      $(value.element).attr('onclick',"hidePopover(this)");
 	      return $(value.element).popover("show");
 	    });
