@@ -36,7 +36,7 @@
                 {
                     url: '$ctx/index/tableList',
                     datatype: "local",
-                    colNames: ["餐桌编号", "就餐人数","就餐时间", "点菜", "结账", "下一位"],
+                    colNames: ["餐桌编号", "就餐人数","就餐时间", "点菜(功能暂未开放)", "结账", "下一位"],
                     colModel: [
                         {
                             name: 'tableCode',
@@ -64,9 +64,10 @@
                             width: "60px",
                             formatter : function(cellval, optss,
                                                  rowObject, action) {
-                                return '<a href="javascript:orderDash()" class="row_btn">点菜</a><br>'
-                                        +'<a href="javascript:deleteDash('+rowObject['tableCode']+')" class="row_btn">删菜</a><br>'
-                                        +'<a href="javascript:checkOrder('+rowObject['tableCode']+')" class="row_btn">查看</a>';
+                                return '点菜<br>删菜<br>查看'
+//                                return '<a href="javascript:orderDash()" class="row_btn">点菜</a><br>'
+//                                        +'<a href="javascript:deleteDash('+rowObject['tableCode']+')" class="row_btn">删菜</a><br>'
+//                                        +'<a href="javascript:checkOrder('+rowObject['tableCode']+')" class="row_btn">查看</a>';
                             }
                         },
                         {
@@ -96,14 +97,15 @@
                             width: "60px",
                             formatter : function(cellval, optss,
                                                  rowObject, action) {
-                                return '<a href="javascript:nextOne('
+                                var count = rowObject['peopleCount']
+                                return (count <= 0) ? '<a href="javascript:nextOne('
                                         + rowObject['tableCode']
-                                        + ')" class="row_btn">下一位</a>';
+                                        + ')" class="row_btn">下一位</a>' : '下一位';
                             }
                         }
                     ],
-                    rowNum: 15,
-                    rowList: [15, 30, 50],
+//                    rowNum: 15,
+//                    rowList: [15, 30, 50],
                     pager: '#pager',
                     height: 'auto',
                     multiselect: true,
@@ -231,7 +233,7 @@
 
     //就坐
     function haveASeat(tableCode){
-
+        $("#list").trigger('reloadGrid');
     }
 
     //生成订单
@@ -241,7 +243,7 @@
 
     //结账
     function checkOut(tableCode){
-
+        $("#list").trigger('reloadGrid');
     }
 
     //下一位

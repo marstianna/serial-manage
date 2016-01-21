@@ -4,6 +4,7 @@ import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Queues;
 import com.google.common.collect.Table;
+import com.hotpot.commons.DateTool;
 import com.hotpot.constenum.TableSizeEnum;
 import com.hotpot.entity.QueueUp;
 import org.springframework.stereotype.Component;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -21,8 +23,13 @@ public class QueueUpCache {
     //table<storeId,number,queueup>;
     private Table<Integer,Integer,Entity> lines =  HashBasedTable.create();
     private Map<Integer,BlockingQueue<QueueUp>> queueUps = new HashMap<>();
+    private static final long DAY_TIME = 60 * 60 * 11;
+    private static long currentTimeLine = 0;
 
     public void queueUp(Integer storeId,QueueUp queueUp){
+        if(currentTimeLine == 0){
+            currentTimeLine = DateTool.unixTime();
+        }
         TableSizeEnum targetTable = (queueUp.getWaitingNumber() > TableSizeEnum.SMALL.getCount()) ? TableSizeEnum.BIG : TableSizeEnum.SMALL;
         if(lines.contains(storeId,targetTable.getCount())){
             Entity tableLine = lines.get(storeId, targetTable.getCount());
@@ -32,6 +39,12 @@ public class QueueUpCache {
             tableLine.push(queueUp,targetTable);
             lines.put(storeId,targetTable.getCount(),tableLine);
         }
+    }
+
+    public BlockingQueue<QueueUp> getAllQueuesByStoreIdAndTableSize(Integer storeId,Integer tableSize){
+
+        Entity entity = lines.get(storeId, tableSize);
+        return entity == null ? new LinkedBlockingQueue<>() : entity.tmp;
     }
 
     public Map<Integer,BlockingQueue<QueueUp>> getAllQueuesByStoreId(Integer id){
@@ -52,7 +65,7 @@ public class QueueUpCache {
             synchronized (tmp) {
                 Integer size = tmp.size();
                 queueUp.setFrontCount(size);
-                if(size == 0){
+                if((DateTool.unixTime() - currentTimeLine ) > DAY_TIME){
                     count.set(1);
                 }
                 queueUp.setLineCode(targetTable.getCode() + count.incrementAndGet());

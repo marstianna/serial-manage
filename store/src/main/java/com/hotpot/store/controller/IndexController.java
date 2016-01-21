@@ -1,6 +1,7 @@
 package com.hotpot.store.controller;
 
 import com.hotpot.commons.framework.BaseController;
+import com.hotpot.constenum.TableSizeEnum;
 import com.hotpot.domain.Order;
 import com.hotpot.domain.Store;
 import com.hotpot.service.Context;
@@ -37,6 +38,15 @@ public class IndexController extends BaseController{
     @RequestMapping("/turnToQueue")
     public String turnToQueue(){
         return "index/queue";
+    }
+
+    @RequestMapping("/queue")
+    @ResponseBody
+    public Object queue(Integer tableSize){
+        if(tableSize == null){
+            tableSize = TableSizeEnum.SMALL.getCount();
+        }
+        return queueUpService.getAllQueuesByStoreId(Context.get().getId(),tableSize);
     }
 
     @RequestMapping("/queueUp")

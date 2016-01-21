@@ -2,7 +2,6 @@ package com.hotpot.service.queueup;
 
 import com.hotpot.entity.QueueUp;
 
-import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 
 /**
@@ -12,7 +11,7 @@ public interface QueueUpService {
 
     QueueUp queueUp( String phone, Integer waitingNumber, String weChat);
 
-    Map<Integer,BlockingQueue<QueueUp>> getAllQueuesByStoreId(Integer storeId);
+    BlockingQueue<QueueUp> getAllQueuesByStoreId(Integer storeId,Integer tableSize);
 
     QueueUp popup(Integer tableSize, Integer storeId);
 

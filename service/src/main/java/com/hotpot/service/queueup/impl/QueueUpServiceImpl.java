@@ -12,7 +12,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 
 /**
@@ -47,8 +46,8 @@ public class QueueUpServiceImpl implements QueueUpService {
     }
 
     @Override
-    public Map<Integer,BlockingQueue<QueueUp>> getAllQueuesByStoreId(Integer storeId){
-        return queueUpCache.getAllQueuesByStoreId(storeId);
+    public BlockingQueue<QueueUp> getAllQueuesByStoreId(Integer storeId, Integer tableSize) {
+        return queueUpCache.getAllQueuesByStoreIdAndTableSize(storeId, tableSize);
     }
 
     @Override
