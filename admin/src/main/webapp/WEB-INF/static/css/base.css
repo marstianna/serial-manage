@@ -431,8 +431,8 @@ h1{ font-size: 20px; line-height:36px;}
 .popover .arrow {
     right: 0px;
     top: 0;
-    background: url('../img/glyphicons-halflings.png') 150px -10px;
-    opacity: 0.3;
+    background: url('../img/glyphicons-halflings.png') 145px -14px;
+    opacity: 1;
     cursor:pointer;
 }
 .popover .arrow:hover{opacity: 0.7;}
