@@ -24,7 +24,7 @@
                     <tr>
                         <td width="150"></td>
                         <td class="searchtd">
-                            <button type="button" id="search_btn" class="btn btn-sm"><i class="icon-search align-top bigger-125"></i>搜索</button>
+                            <button type="button" id="search_btn" class="btn btn-sm"><i class="glyphicon glyphicon-search"></i>搜索</button>
                         </td>
                     </tr>
                 </table>
