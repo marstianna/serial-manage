@@ -77,4 +77,9 @@ public class StoreServiceImpl implements StoreService {
     public Store getStoreByStoreId(Integer storeId) {
         return storeMapper.selectByPrimaryKey(storeId);
     }
+
+    @Override
+    public void takeSeat(String tableCode,Integer storeId,Integer count){
+
+    }
 }

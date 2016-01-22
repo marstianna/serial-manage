@@ -84,23 +84,22 @@
                                         + rowObject['tableCode']
                                         + ')" class="row_btn">结账</a>';
                                 var count = rowObject['peopleCount']
-                                return (count <= 0) ? '<a href="javascript:haveASeat('
+                                return (count <= 0) ? '<a href="javascript:takeSeat('
                                         + rowObject['tableCode']
                                         + ')" class="row_btn">就座</a><br>'
                                         + result : result
                             }
                         },
                         {
-                            name: 'payType',
-                            index: 'payType',
+                            name: 'nextOne',
+                            index: 'nextOne',
                             align: "center",
                             width: "60px",
                             formatter : function(cellval, optss,
                                                  rowObject, action) {
-                                var count = rowObject['peopleCount']
-                                return (count <= 0) ? '<a href="javascript:nextOne('
-                                        + rowObject['tableCode']
-                                        + ')" class="row_btn">下一位</a>' : '下一位';
+                                var count = rowObject['peopleCount'];
+                                var tableCode = rowObject['tableCode'];
+                                return (count <= 0) ? '<button type="button" id="queueUpBtn" onclick="nextCustomerOne(\''+tableCode+'\')"><i class="icon-search align-top bigger-125"></i>下一位</button>' : '下一位';
                             }
                         }
                     ],
@@ -188,29 +187,6 @@
         });
     });
 
-    function settleForCom() {
-        var selectedIds = $("#list").jqGrid("getGridParam", "selarrrow");
-        if (!selectedIds || selectedIds.length == 0) {
-            showError('当前没有选择！');
-            return;
-        }
-        //TODO:cj,这里需要验证操作类型是否为充值,才允许继续下一步
-        if(confirm('确定对一下订单进行结账:'+selectedIds.join(","))) {
-            var bar = ProgressBar();
-            bar.show();
-            $.post("$ctx/valuecard/settleForCom", {
-                rids: selectedIds.join(",")
-            }, function (res) {
-                bar.hide();
-                if (res.success) {
-                    $("#list").trigger('reloadGrid');
-                    showInfo('批量发布成功');
-                } else {
-                    showError('数据发生异常:' + res.message);
-                }
-            }, "json");
-        }
-    }
 
     $(window).bind('resize', function() {
         $("#list").setGridWidth($(window).width()-10);
@@ -232,7 +208,8 @@
     }
 
     //就坐
-    function haveASeat(tableCode){
+    function takeSeat(tableCode){
+        alert("testtestset")
         $("#list").trigger('reloadGrid');
     }
 
@@ -246,8 +223,19 @@
         $("#list").trigger('reloadGrid');
     }
 
-    //下一位
-    function nextOne(tableCode){
-
+    //下一位∂
+    function nextCustomerOne(tableCode){
+        var code = tableCode;
+        $.post("$ctx/index/nextOne", {
+            tableCode: code
+        }, function (res) {
+            if(res == null){
+                showInfo("当前没有排队的人!");
+                return
+            }
+            alert('编号:'+res['lineCode']+",电话:"+res['phone'])
+            //TODO,调用打印js
+            $("#list").trigger('reloadGrid');
+        }, "json");
     }
 </script>

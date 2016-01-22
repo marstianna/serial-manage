@@ -46,4 +46,6 @@ public interface StoreService {
     List<Store> getStoreByLoginInfo(String loginName, String loginPassword);
 
     Store getStoreByStoreId(Integer storeId);
+
+    void takeSeat(String tableCode, Integer storeId, Integer count);
 }

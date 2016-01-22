@@ -314,9 +314,6 @@
         $("#list").setGridWidth($(window).width()-10);
     }).trigger('resize');
 
-    function getStoreDetail(id){
-
-    }
 
     function queueUp(){
         var count = $("input[name=countOfPeople]").val();
@@ -326,13 +323,14 @@
             showError('请输入就餐人数');
         }
 
-            $.post("$ctx/index/queueUp", {
-                countOfPeople: count,
-                phoneNumber: phoneNumber
-            }, function (res) {
-                //TODO,调用打印js
-                $("#list").trigger('reloadGrid');
-            }, "json");
+        $.post("$ctx/index/queueUp", {
+            countOfPeople: count,
+            phoneNumber: phoneNumber
+        }, function (res) {
+//               alert(res['datetime'])
+               //TODO,调用打印js
+            $("#list").trigger('reloadGrid');
+        }, "json");
     }
 </script>
 

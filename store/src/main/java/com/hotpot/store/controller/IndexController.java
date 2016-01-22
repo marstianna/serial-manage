@@ -2,7 +2,6 @@ package com.hotpot.store.controller;
 
 import com.hotpot.commons.framework.BaseController;
 import com.hotpot.constenum.TableSizeEnum;
-import com.hotpot.domain.Order;
 import com.hotpot.domain.Store;
 import com.hotpot.service.Context;
 import com.hotpot.service.OrderService;
@@ -11,9 +10,10 @@ import com.hotpot.service.ValueCardService;
 import com.hotpot.service.queueup.QueueUpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Map;
 
 /**
  * Created by zoupeng on 16/1/19.
@@ -70,9 +70,19 @@ public class IndexController extends BaseController{
 
     @RequestMapping("/checkOut")
     @ResponseBody
-    public Object checkOut(Integer tableId,@ModelAttribute Order order){
+    public Object checkOut(Map<String,Object> params){
         Store store = Context.get();
-        orderService.pay(order);
+        params.get("payType");
+        params.get("drinkPrice");
+        params.get("foodPrice");
+//        orderService.pay(order);
+        return null;
+    }
+
+    @RequestMapping("takeSeat")
+    @ResponseBody
+    public String takeSeat(String tableCode,Integer count){
+//        storeService.
         return null;
     }
 
