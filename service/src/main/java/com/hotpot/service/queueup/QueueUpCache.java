@@ -54,7 +54,11 @@ public class QueueUpCache {
     }
 
     public QueueUp popup(Integer storeId,Integer number){
-        return lines.get(storeId,number).tmp.poll();
+        Entity entity = lines.get(storeId, number);
+        if(entity == null || entity.tmp == null || entity.tmp.isEmpty()){
+            return null;
+        }
+        return entity.tmp.poll();
     }
 
     static class Entity{

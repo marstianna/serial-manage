@@ -1,8 +1,10 @@
 package com.hotpot.store.controller;
 
+import com.google.common.collect.ImmutableMap;
 import com.hotpot.commons.framework.BaseController;
 import com.hotpot.constenum.TableSizeEnum;
 import com.hotpot.domain.Store;
+import com.hotpot.entity.QueueUp;
 import com.hotpot.service.Context;
 import com.hotpot.service.OrderService;
 import com.hotpot.service.StoreService;
@@ -57,8 +59,14 @@ public class IndexController extends BaseController{
 
     @RequestMapping("/nextOne")
     @ResponseBody
-    public Object nextOne(Integer tableSize){
-        return queueUpService.popup(tableSize,Context.get().getId());
+    public Object nextOne(String tableCode){
+        QueueUp popup = queueUpService.popup(tableCode, Context.get().getId());
+        String key = "success";
+        if(popup == null){
+            key = "false";
+            popup = new QueueUp();
+        }
+        return ImmutableMap.of("success",key,"result",popup);
     }
 
     @RequestMapping("/tableList")

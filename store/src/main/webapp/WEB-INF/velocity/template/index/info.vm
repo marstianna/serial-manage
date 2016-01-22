@@ -229,12 +229,14 @@
         $.post("$ctx/index/nextOne", {
             tableCode: code
         }, function (res) {
-            if(res == null){
+            if(res['success'] == "false"){
                 showInfo("当前没有排队的人!");
                 return
             }
-            alert('编号:'+res['lineCode']+",电话:"+res['phone'])
-            //TODO,调用打印js
+            //这里弹出一个选择框,两个按钮(下一位和就座)
+            // 下一位,继续调用这个func
+            // 就座,
+            alert('编号:'+res['result']['lineCode']+",电话:"+res['result']['phone'])
             $("#list").trigger('reloadGrid');
         }, "json");
     }
