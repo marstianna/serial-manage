@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"server"
+	"wsr-reader/server"
 )
 
 func main() {

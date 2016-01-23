@@ -5,7 +5,7 @@ import (
 	"io"
 	"net/http"
 
-	"wsr"
+	"wsr-reader/wsr"
 )
 
 func Run(addr string) error {
