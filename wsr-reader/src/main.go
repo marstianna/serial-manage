@@ -1,11 +1,15 @@
 package main
 
 import (
-//	"fmt"
-//	"wsr"
+	"fmt"
+	"server"
 )
 
 func main() {
+	if err := server.Run(":8088"); err != nil {
+		fmt.Println("server failed to start, error:", err)
+	}
+
 	//	wsr, err := wsr.NewWsr()
 	//	if err != nil {
 	//		fmt.Println("init failed, error:", err)

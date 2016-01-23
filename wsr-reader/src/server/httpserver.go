@@ -50,6 +50,14 @@ func readCard(w http.ResponseWriter, req *http.Request) {
 		fmt.Println("beep failed, error:", err)
 	}
 
+	//load password
+	if err := wsr.LoadPsw("\xFF\xFF\xFF\xFF\xFF\xFF", 0); err != nil {
+		fmt.Println("load passwd failed, error:", err)
+		io.WriteString(w, newReplyFail(err).toJsonString())
+		return
+	}
+	fmt.Println("load passwd succ")
+
 	//read card no
 	cardNo, err := wsr.GetCardNo()
 	if err != nil {
@@ -110,6 +118,14 @@ func writeCard(w http.ResponseWriter, req *http.Request) {
 	if err := wsr.Beep(); err != nil {
 		fmt.Println("beep failed, error:", err)
 	}
+
+	//load password
+	if err := wsr.LoadPsw("\xFF\xFF\xFF\xFF\xFF\xFF", 0); err != nil {
+		fmt.Println("load passwd failed, error:", err)
+		io.WriteString(w, newReplyFail(err).toJsonString())
+		return
+	}
+	fmt.Println("load passwd succ")
 
 	if err := wsr.WriteUuid(uuidList[0]); err != nil {
 		fmt.Println("write uuid failed, err:", err)

@@ -100,7 +100,16 @@ func (this *Wsr) GetCardNo() (string, error) {
 	cardNo := make([]byte, 11)
 	r1, _, _ := syscall.Syscall(uintptr(proc), 2, this.port, uintptr(unsafe.Pointer(&cardNo[0])), 0)
 	if int32(r1) >= 0 {
-		return string(cardNo), nil
+		//找到最后的'\0'，然后截断
+		idx := 0
+		for i := len(cardNo) - 1; i >= 0; i-- {
+			if cardNo[i] != 0 {
+				idx = i + 1
+				break
+			}
+		}
+
+		return string(cardNo[:idx]), nil
 	}
 
 	return "", newWsrError(int32(r1))
