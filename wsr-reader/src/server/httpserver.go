@@ -25,6 +25,7 @@ func defaultPage(w http.ResponseWriter, req *http.Request) {
 
 //读取卡号和uuid
 func readCard(w http.ResponseWriter, req *http.Request) {
+	fmt.Println("\r\n收到读卡请求")
 	wsr, err := wsr.NewWsr()
 	if err != nil {
 		fmt.Println("init failed, error:", err)
@@ -82,6 +83,8 @@ func readCard(w http.ResponseWriter, req *http.Request) {
 }
 
 func writeCard(w http.ResponseWriter, req *http.Request) {
+	fmt.Println("\r\n收到写卡请求")
+
 	req.ParseForm()
 	if req.Method != "POST" {
 		io.WriteString(w, newReplyFailWithString("请求方法错误").toJsonString())
