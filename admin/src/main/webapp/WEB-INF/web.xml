@@ -12,14 +12,14 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
-    <!--<filter>-->
-        <!--<filter-name>loginFilter</filter-name>-->
-        <!--<filter-class>com.hotpot.filter.AuthFilter</filter-class>-->
-    <!--</filter>-->
-    <!--<filter-mapping>-->
-        <!--<filter-name>loginFilter</filter-name>-->
-        <!--<servlet-name>hotpot</servlet-name>-->
-    <!--</filter-mapping>-->
+    <filter>
+        <filter-name>loginFilter</filter-name>
+        <filter-class>com.hotpot.filter.AuthFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>loginFilter</filter-name>
+        <servlet-name>hotpot</servlet-name>
+    </filter-mapping>
 
     <filter>
         <filter-name>charsetFilter</filter-name>

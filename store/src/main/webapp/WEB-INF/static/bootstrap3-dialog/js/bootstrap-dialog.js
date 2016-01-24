@@ -966,9 +966,9 @@
      * @param {type} callback
      * @returns the created dialog instance
      */
-    BootstrapDialog.confirm = function(message, callback) {
+    BootstrapDialog.confirm = function(title,message, callback) {
         return new BootstrapDialog({
-            title: 'Confirmation',
+            title: title,
             message: message,
             closable: false,
             data: {
