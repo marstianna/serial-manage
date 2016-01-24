@@ -77,16 +77,16 @@
                             width: "60px",
                             formatter : function(cellval, optss,
                                                  rowObject, action) {
-                                var result = '<a href="javascript:createOrder('
+                                var result = '<a href="javascript:createOrder(\''
                                         + rowObject['tableCode']
-                                        + ')" class="row_btn">生成订单</a><br>'
-                                        + '<a href="javascript:checkOut('
+                                        + '\')" class="row_btn">生成订单</a><br>'
+                                        + '<a href="javascript:checkOut(\''
                                         + rowObject['tableCode']
-                                        + ')" class="row_btn">结账</a>';
+                                        + '\')" class="row_btn">结账</a>';
                                 var count = rowObject['peopleCount']
-                                return (count <= 0) ? '<a href="javascript:takeSeat('
+                                return (count <= 0) ? '<a href="javascript:takeSeat(\''
                                         + rowObject['tableCode']
-                                        + ')" class="row_btn">就座</a><br>'
+                                        + '\')" class="row_btn">就座</a><br>'
                                         + result : result
                             }
                         },
