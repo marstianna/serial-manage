@@ -48,4 +48,6 @@ public interface StoreService {
     Store getStoreByStoreId(Integer storeId);
 
     void takeSeat(String tableCode, Integer storeId, Integer count);
+
+    void createOrderForRuntimeTable(String tableCode,Integer orderId);
 }

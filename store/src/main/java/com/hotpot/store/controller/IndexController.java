@@ -1,8 +1,11 @@
 package com.hotpot.store.controller;
 
 import com.google.common.collect.ImmutableMap;
+import com.hotpot.commons.DateTool;
 import com.hotpot.commons.framework.BaseController;
+import com.hotpot.constenum.PayTypeEnum;
 import com.hotpot.constenum.TableSizeEnum;
+import com.hotpot.domain.Order;
 import com.hotpot.domain.Store;
 import com.hotpot.entity.QueueUp;
 import com.hotpot.service.Context;
@@ -80,9 +83,15 @@ public class IndexController extends BaseController{
     @ResponseBody
     public Object checkOut(Map<String,Object> params){
         Store store = Context.get();
-        params.get("payType");
+        Integer payType = Integer.parseInt(String.valueOf(params.get("payType")));
         params.get("drinkPrice");
         params.get("foodPrice");
+        params.get("receive");
+        if(PayTypeEnum.VALUE_CARD.getKey() == payType.intValue()){
+            params.get("cardId");
+            params.get("cardUuid");
+        }
+
 //        orderService.pay(order);
         return null;
     }
@@ -90,7 +99,8 @@ public class IndexController extends BaseController{
     @RequestMapping("takeSeat")
     @ResponseBody
     public String takeSeat(String tableCode,Integer count){
-//        storeService.
+        Store store = Context.get();
+        storeService.takeSeat(tableCode,store.getId(),count);
         return null;
     }
 
@@ -98,6 +108,18 @@ public class IndexController extends BaseController{
     @ResponseBody
     public Object checkOrder(Integer tableId){
         return null;
+    }
+
+    @RequestMapping("/createOrder")
+    public void createOrder(String tableCode,Integer foodPrice,Integer drinkPrice){
+        Order order = new Order();
+        order.setFoodPrice(foodPrice);
+        order.setDrinkPrice(drinkPrice);
+        order.setPaperPrice(foodPrice+drinkPrice);
+        order.setCreateTime(DateTool.getDateTime());
+        order.setStoreId(Context.get().getId());
+        order.setTableCode(tableCode);
+        orderService.createOrder(order);
     }
 
     private Integer getStoreId(){

@@ -6,6 +6,7 @@ import com.hotpot.domain.ValueCard;
 import com.hotpot.searcher.OrderSearcher;
 import com.hotpot.service.OrderService;
 import com.hotpot.service.PromotionService;
+import com.hotpot.service.StoreService;
 import com.hotpot.service.ValueCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,11 +26,14 @@ public class OrderServiceImpl implements OrderService {
     ValueCardService valueCardService;
     @Autowired
     OrderMapper orderMapper;
+    @Autowired
+    StoreService storeService;
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public void createOrder(Order order) {
         orderMapper.insertSelective(order);
+        storeService.createOrderForRuntimeTable(order.getTableCode(),order.getId());
     }
 
     @Override

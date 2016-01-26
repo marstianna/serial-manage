@@ -58,6 +58,12 @@
                             width: "45px",
                         },
                         {
+                            name: 'orderId',
+                            index: 'orderId',
+                            align: "center",
+                            width: "45px",
+                        },
+                        {
                             name: 'order',
                             index: 'order',
                             align: "center",

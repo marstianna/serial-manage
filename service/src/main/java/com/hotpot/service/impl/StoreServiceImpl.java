@@ -1,7 +1,9 @@
 package com.hotpot.service.impl;
 
+import com.hotpot.commons.DateTool;
 import com.hotpot.dao.*;
 import com.hotpot.domain.*;
+import com.hotpot.service.Context;
 import com.hotpot.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -80,6 +82,20 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     public void takeSeat(String tableCode,Integer storeId,Integer count){
+        RuntimeTable runtimeTable = new RuntimeTable();
+        runtimeTable.setStoreId(storeId);
+        runtimeTable.setCreateTime(DateTool.getDateTime());
+        runtimeTable.setPeopleCount(count);
+        runtimeTable.setTableCode(tableCode);
+        runtimeTableMapper.haveASeat(runtimeTable);
+    }
 
+    @Override
+    public void createOrderForRuntimeTable(String tableCode, Integer orderId) {
+        Integer storeId = Context.get().getId();
+        Integer count = runtimeTableMapper.updateOrderId(orderId,tableCode,storeId);
+        if(count == 0){
+            throw new RuntimeException("更新餐桌的订单号失败,有可能是当前餐桌已经结账");
+        }
     }
 }
