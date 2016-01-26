@@ -215,17 +215,32 @@
 
     //就坐
     function takeSeat(tableCode){
-        alert("testtestset")
+        var message = '<form><label>入座人数:</label><input type="text" class="form-control" placeholder="入座人数"></form>';
+        var title = " 入座"
+        BootstrapDialog.confirm(title,message, function(){
+//方法里面写什么,我不太明白呢
+        });
         $("#list").trigger('reloadGrid');
     }
 
     //生成订单
     function createOrder(tableCode){
-
+//        我不知道内容
+        var message = '<form><label>生成订单:</label><input type="text" class="form-control" placeholder="生成订单"></form>';
+        var title = " 生成订单"
+        BootstrapDialog.confirm(title,message, function(){
+//
+        });
     }
 
     //结账
     function checkOut(tableCode){
+//        我不知道内容
+        var message = '<form><label>消费总金额:</label><input type="text" class="form-control" placeholder="输入金额"></form>';
+        var title = " 结账"
+        BootstrapDialog.confirm(title,message, function(){
+//
+        });
         $("#list").trigger('reloadGrid');
     }
 

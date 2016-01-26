@@ -22,9 +22,9 @@
                     <br>
                     <label>创建时间:</label><input type="text" name="create_time" id="createTime" placeholder="yyyy-MM-dd HH:mm:ss" readonly class="form-control">
                     <br>
-                    <label>设置密码:</label><input type="password" placeholder="password" id="password" name="password" class="form-control" required>
+                    <label>设置密码:</label><input type="text" placeholder="password" id="password" name="password" class="form-control" required>
                     <br>
-                    <label>再次确认密码:</label><input type="password" placeholder="confirm_password" id="confirm_password" name="confirm_password" class="form-control" required>
+                    <label>再次确认密码:</label><input type="text" placeholder="confirm_password" id="confirm_password" name="confirm_password" class="form-control" required>
                     <br>
                     <div style="margin-left: 130px;margin-top: 20px;">
                         <input class="submit btn btn-sm" type="submit" value="提交">
@@ -48,10 +48,7 @@ function currentTime(){
 
 }
 $(function () {
-    // 匹配密码，以字母开头，长度在6-12之间，只能包含字符、数字和下划线。
-    $.validator.addMethod("isPwd", function(value, element) {
-        return this.optional(element) || /^[a-zA-Z]\\w{6,12}$/.test(value);
-    });
+
     $("#valueCardAdd").validate({
         rules: {
             balance: {
@@ -84,6 +81,7 @@ $(function () {
             },
         }
     });
+
     $("input[name='create_time']").val(currentTime);
 
 

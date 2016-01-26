@@ -455,9 +455,10 @@ $.validator.addMethod("isFloat", function(value, element) {
     return this.optional(element) || value>=0;
 }, "必须为正数");
 
-//$.validator.addMethod("isPwd", function(value, element) {
-//	return this.optional(element) || /^[a-zA-Z]\\w{6,12}$/.test(value);
-//}, "以字母开头，长度在6-12之间，只能包含字符、数字和下划线。");
+// 匹配密码，以字母开头，长度在6-12之间，只能包含字符、数字和下划线。
+$.validator.addMethod("isPwd", function(value, element) {
+	return this.optional(element) || /^[a-zA-Z]\\w{6,12}$/.test(value);
+});
 
 jQuery.validator.addMethod("isDate", function(value, element){
 	var ereg = /^(\d{1,4})(-|\/)(\d{1,2})(-|\/)(\d{1,2})$/;
