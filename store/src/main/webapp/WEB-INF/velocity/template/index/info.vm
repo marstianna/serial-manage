@@ -36,7 +36,7 @@
                 {
                     url: '$ctx/index/tableList',
                     datatype: "local",
-                    colNames: ["餐桌编号", "就餐人数","就餐时间", "点菜(功能暂未开放)", "结账", "下一位"],
+                    colNames: ["餐桌编号", "就餐人数","就餐时间","订单号", "点菜(功能暂未开放)", "结账", "下一位"],
                     colModel: [
                         {
                             name: 'tableCode',
@@ -226,11 +226,21 @@
     //生成订单
     function createOrder(tableCode){
 //        我不知道内容
-        var message = '<form><label>生成订单:</label><input type="text" class="form-control" placeholder="生成订单"></form>';
+        var message = '<form id="createOrder"><label>菜品消费金额:</label><input type="text" class="form-control" name="foodPrice"><br><label>酒水消费金额:</label><input type="text" class="form-control" name="drinkPrice"></form>';
         var title = " 生成订单"
         BootstrapDialog.confirm(title,message, function(){
-//
-        });
+            $.post("$ctx/index/createOrder", {
+                    tableCode: tableCode,
+                    foodPrice: $("input[name='foodPrice']").val(),
+                    drinkPrice: $("input[name='drinkPrice']").val()
+            }, function (res) {
+                    if(res['success'] == "success"){
+                        showInfo("生成订单成功");
+                        return
+                    }
+                    $("#list").trigger('reloadGrid');
+                }, "json");
+            });
     }
 
     //结账
@@ -238,8 +248,7 @@
 //        我不知道内容
         var message = '<form><label>消费总金额:</label><input type="text" class="form-control" placeholder="输入金额"></form>';
         var title = " 结账"
-        BootstrapDialog.confirm(title,message, function(){
-//
+        BootstrapDialog.confirm(title,message, function() {
         });
         $("#list").trigger('reloadGrid');
     }

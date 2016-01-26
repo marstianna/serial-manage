@@ -111,7 +111,8 @@ public class IndexController extends BaseController{
     }
 
     @RequestMapping("/createOrder")
-    public void createOrder(String tableCode,Integer foodPrice,Integer drinkPrice){
+    @ResponseBody
+    public Object createOrder(String tableCode,Integer foodPrice,Integer drinkPrice){
         Order order = new Order();
         order.setFoodPrice(foodPrice);
         order.setDrinkPrice(drinkPrice);
@@ -120,6 +121,7 @@ public class IndexController extends BaseController{
         order.setStoreId(Context.get().getId());
         order.setTableCode(tableCode);
         orderService.createOrder(order);
+        return ImmutableMap.of("success","success");
     }
 
     private Integer getStoreId(){
