@@ -21,8 +21,10 @@ body {font-family:"Microsoft YaHei",微软雅黑,"Microsoft JhengHei",华文细�
 
 
 .nav-content table tr{margin: 10px 0;display: inline-block}
-.turnToAdd label { width: 130px;text-align: right;padding-right: 10px;margin-top: 10px;}
-.turnToAdd input { margin-top: 10px;}
-.turnToAdd select { margin-top: 10px;}
+.turnToAdd label { width: 130px;text-align: right;padding-right: 10px;margin-top: 20px;}
+.turnToAdd input { margin-top: 20px;}
+.turnToAdd select { margin-top: 20px;}
 .login label{width: 90px;text-align: right;padding-right: 10px;margin-top: 15px;}
 .login input{margin-top: 15px;}
+.rightcollapse {padding-left: 20px;}
+.menutext {font-size: 14px;}
