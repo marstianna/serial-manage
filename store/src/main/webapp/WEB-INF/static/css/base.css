@@ -62,14 +62,14 @@ body,html{ height: 100%;  font-size: 12px; background: none;}
 /*.left-nav .on ul li a:hover{ color: #2abf9e;}*/
 .left-nav .on ul li a:hover{ color: #212121;}
 .left-nav li>a {
-    /*border-left: 6px solid #333333;*/
+    /*border-left: 6px solid #212121;*/
 }
 .left-nav  a.hovera, .left-nav li a:hover {
     /*color: #2abf9e;*/
     color: #212121;
 }
 .left-nav .hoverli >a {
-    /*border-left: 6px solid #727272;*/
+    border-left: 6px solid #212121;
 }
 .left-nav li a {
     display: block;
