@@ -2,27 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hotpot.dao.RuntimeTableMapper" >
     <sql id="Base_Column_List">
-        r.id,r.store_id storeId,r.table_code tableCode,r.people_count peopleCount,FROM_UNIXTIME(r.create_time,'%Y-%m-%d %H:%i:%S') createTime
+        r.id,r.store_id storeId,r.table_code tableCode,r.people_count peopleCount,FROM_UNIXTIME(r.create_time,'%Y-%m-%d %H:%i:%S') createTime,order_id orderId
     </sql>
     <sql id="fromTable">
       runtime_table r
     </sql>
 
     <insert id="haveASeat" useGeneratedKeys="true" keyProperty="id" parameterType="com.hotpot.domain.RuntimeTable">
-        insert into setting(store_id,table_code,people_count,create_time) VALUES (#{storeId},#{tableCode},#{peopleCount},UNIX_TIMESTAMP(#{createTime,jdbcType=VARCHAR}))
+        insert into runtime_table(store_id,table_code,people_count,create_time,order_id) VALUES (#{storeId},#{tableCode},#{peopleCount},UNIX_TIMESTAMP(#{createTime,jdbcType=VARCHAR}),#{orderId})
     </insert>
 
     <select id="getRuntimeTablesByStoreId" resultType="com.hotpot.domain.RuntimeTable">
         SELECT
-        r.id,s.store_id storeid,s.table_code tableCode,r.people_count peopleCount,FROM_UNIXTIME(r.create_time,'%Y-%m-%d %H:%i:%S') createTime
+        r.id,s.store_id storeId,s.table_code tableCode,r.people_count peopleCount,FROM_UNIXTIME(r.create_time,'%Y-%m-%d %H:%i:%S') createTime,r.order_id orderId
         from
-        runtime_table r right join store_table s on r.store_id = s.id and r.table_code = s.table_code where s.store_id = #{storeId};
+        runtime_table r
+        right join store_table s on r.table_code = s.table_code and r.store_id = s.store_id and s.store_id =#{storeId};
     </select>
 
-    <select id="blurredQuery" resultType="com.hotpot.domain.Setting">
-        SELECT
-        <include refid="Base_Column_List" />
-        from setting where `key` like CONCAT('%','${key}','%' )
-    </select>
+    <update id="updateOrderId">
+        update runtime_table set order_id = #{orderId} where table_code = #{tableCode} and store_id = #{storeId}
+    </update>
 
 </mapper>

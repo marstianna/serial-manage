@@ -1,6 +1,7 @@
 package com.hotpot.dao;
 
 import com.hotpot.domain.RuntimeTable;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -16,5 +17,5 @@ public interface RuntimeTableMapper {
 
     Integer delete(String tableCode,Integer storeId);
 
-    Integer updateOrderId(Integer orderId,String tableCode,Integer storeId);
+    Integer updateOrderId(@Param("orderId")Integer orderId,@Param("tableCode")String tableCode,@Param("storeId")Integer storeId);
 }

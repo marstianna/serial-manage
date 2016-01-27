@@ -215,10 +215,19 @@
 
     //就坐
     function takeSeat(tableCode){
-        var message = '<form><label>入座人数:</label><input type="text" class="form-control" placeholder="入座人数"></form>';
+        var message = '<form><label>入座人数:</label><input type="text" class="form-control" placeholder="入座人数" name="countOfPeople"></form>';
         var title = " 入座"
         BootstrapDialog.confirm(title,message, function(){
-//方法里面写什么,我不太明白呢
+            $.post("$ctx/index/takeSeat", {
+                tableCode: tableCode,
+                count: $("input[name='countOfPeople']").val()
+            }, function (res) {
+                if(res['success'] == "success"){
+                    showInfo("成功");
+                    return
+                }
+                $("#list").trigger('reloadGrid');
+            }, "json");
         });
         $("#list").trigger('reloadGrid');
     }
@@ -236,9 +245,9 @@
             }, function (res) {
                     if(res['success'] == "success"){
                         showInfo("生成订单成功");
+                        $("#list").trigger('reloadGrid');
                         return
                     }
-                    $("#list").trigger('reloadGrid');
                 }, "json");
             });
     }

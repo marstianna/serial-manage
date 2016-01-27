@@ -98,4 +98,9 @@ public class StoreServiceImpl implements StoreService {
             throw new RuntimeException("更新餐桌的订单号失败,有可能是当前餐桌已经结账");
         }
     }
+
+    @Override
+    public RuntimeTable getRuntimeTable(Integer storeId, String tableCode) {
+        return null;
+    }
 }

@@ -7,7 +7,7 @@ public class RuntimeTable {
     private Integer id;
     private Integer storeId;
     private String tableCode;
-    private Integer orderId;
+    private Integer orderId = 0;
     private Integer peopleCount = 0;
     private String createTime;
 

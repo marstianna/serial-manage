@@ -50,4 +50,6 @@ public interface StoreService {
     void takeSeat(String tableCode, Integer storeId, Integer count);
 
     void createOrderForRuntimeTable(String tableCode,Integer orderId);
+
+    RuntimeTable getRuntimeTable(Integer storeId,String tableCode);
 }
