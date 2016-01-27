@@ -6,7 +6,7 @@ body,input, button, select, textarea,.ui-widget {
 .clearfix{*zoom:1;}
 .left-nav a:hover{ text-decoration: none;}
 
-.head{ padding:0 15px;height:50px; background: #43484c; position: fixed; top: 0px; left: 0px; right: 0px; z-index: 10;}
+.head{ padding:0 15px;height:50px; background: #00796B; position: fixed; top: 0px; left: 0px; right: 0px; z-index: 10;}
 .head a:hover,.head a{ text-decoration: none;}
 .head a:hover{ color: #999; }
 .head h1 a{ float: left; color: #fff;line-height: 50px; text-shadow: 0 -1px 0 rgba(0,0,0,0.25);}
@@ -55,19 +55,21 @@ body,html{ height: 100%;  font-size: 12px; background: none;}
 
 .navicon{display:none;}
 
-.left-nav{ font-size: 12px;  margin: 0px; width:182px;  position: fixed; left: 0px; top: 50px; bottom: 0px;height:100%;background:#333; }
+.left-nav{ font-size: 12px;  margin: 0px; width:182px;  position: fixed; left: 0px; top: 50px; bottom: 0px;height:100%;background:#009688; }
 .skinpink .left-nav,.skinblue .left-nav{background:#fff;color: #333; margin-top: 1px;}
 .left-nav{transition: all 0.35s ease 0s; }
 .left-nav .on ul li a{ color: #333;}
-.left-nav .on ul li a:hover{ color: #2abf9e;}
+/*.left-nav .on ul li a:hover{ color: #2abf9e;}*/
+.left-nav .on ul li a:hover{ color: #212121;}
 .left-nav li>a {
-    border-left: 6px solid #333333;
+    /*border-left: 6px solid #333333;*/
 }
 .left-nav  a.hovera, .left-nav li a:hover {
-    color: #2abf9e;
+    /*color: #2abf9e;*/
+    color: #212121;
 }
 .left-nav .hoverli >a {
-    border-left: 6px solid #2abf9e;
+    /*border-left: 6px solid #727272;*/
 }
 .left-nav li a {
     display: block;
@@ -79,7 +81,8 @@ body,html{ height: 100%;  font-size: 12px; background: none;}
     color: #fff;
 }
 .left-nav .on >a {
-    border-left: 6px solid #2abf9e;
+    /*border-left: 6px solid #2abf9e;*/
+    border-left: 6px solid #212121;
 }
 .skinpink .left-nav li a,.skinblue .left-nav li a{  display: block; position: relative; font-size: 14px; color: #333; text-align: center;
     padding: 1px 7px 0px 7px;  line-height: 20px;  height: 23px;}
@@ -99,9 +102,10 @@ body,html{ height: 100%;  font-size: 12px; background: none;}
     border-left:none;
 }
 .wrap-in{
-    padding-left: 192px;padding-top: 50px;
+    padding-left: 192px;padding-top: 70px;
     transition: padding-left 0.35s ease 0s;
     background: #EAEAEA;
+    height: 100%;
 }
 .skinpink .wrap-in,.skinblue .wrap-in{
     padding-left:98px;
@@ -128,9 +132,12 @@ body,html{ height: 100%;  font-size: 12px; background: none;}
     transition: margin-left 0.35s ease 0s;
 }
 .left-nav a span{ position: absolute; right: 20px; top: 20px;}
-.left-nav .hoverli>a,.left-nav li a:hover{ color: #2abf9e;}
+.left-nav .hoverli>a,.left-nav li a:hover{
+    color: #212121;
+}
 .left-nav .hoverli span,.left-nav  a:hover span,.left-nav  a.hovera span{
-    border-color: transparent transparent transparent #2abf9e;
+    /*border-color: transparent transparent transparent #2abf9e;*/
+    border-color: transparent transparent transparent #212121;
     overflow:hidden;_border-color:tomato tomato tomato #2abf9e;_filter:chroma(color=tomato); }
 .left-nav .on >a{ }
 .left-nav li  ul li a{ line-height: 30px; height: 30px;}
@@ -142,7 +149,8 @@ body,html{ height: 100%;  font-size: 12px; background: none;}
     position: relative;
     top: -2px;
 }
-.skinpink .hovera .menutext,.skinblue .hovera .menutext{color: #2abf9e;}
+/*.skinpink .hovera .menutext,.skinblue .hovera .menutext{color: #2abf9e;}*/
+.skinpink .hovera .menutext,.skinblue .hovera .menutext{color: #212121;}
 
 .skinpink .navicon,.skinblue .navicon{
     width: 40px;
@@ -621,7 +629,7 @@ th.ui-th-column div{
     _filter: chroma(color=tomato);
 }
 .skin2 .left-nav .on span,.skin2 .left-nav a:hover span {
-    border-color: transparent transparent transparent #6ccac9;
+    border-color: transparent transparent transparent #212121;
     overflow: hidden;
     _border-color: tomato tomato tomato #6ccac9;
     _filter: chroma(color=tomato);
@@ -722,7 +730,8 @@ th.ui-th-column div{
     color: #fff;
 }
 .nav-pills li a{background:#eee;color:#333;}
-.nav-pills li.active a{background:#2abf9e;}
+/*.nav-pills li.active a{background:#2abf9e;}*/
+.nav-pills li.active a{background:#212121;}
 .skinpink .nav-pills li.active a{background:#fd5384;}
 .skinpink .onlinestatus {
     background: #FFEFEF;
