@@ -249,11 +249,34 @@
                         return
                     }
                 }, "json");
-            });
+            }
+        );
     }
 
     //结账
     function checkOut(tableCode){
+        var result;
+        $.ajax({
+            url: '$ctx/index/checkOrder',
+            type: 'post',
+            data: {
+                tableCode: tableCode
+            },
+            async: false,
+            dataType: 'json',
+            success: function (data) {
+                result = data;
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                result = XMLHttpRequest.responseText;
+            }
+        });
+        if(result['success']=='false'){
+            //创建订单并直接结账
+        }else{
+
+        }
+
 //        我不知道内容
         var message = '<form><label>消费总金额:</label><input type="text" class="form-control" placeholder="输入金额"></form>';
         var title = " 结账"

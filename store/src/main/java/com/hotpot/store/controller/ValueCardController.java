@@ -1,11 +1,13 @@
 package com.hotpot.store.controller;
 
+import com.hotpot.commons.DateTool;
 import com.hotpot.commons.framework.BaseController;
 import com.hotpot.commons.pagination.Page;
 import com.hotpot.commons.pagination.annotation.Pagination;
 import com.hotpot.domain.Store;
 import com.hotpot.domain.ValueCard;
 import com.hotpot.domain.ValueCardHistory;
+import com.hotpot.domain.VipInfo;
 import com.hotpot.searcher.ValueCardHistorySearcher;
 import com.hotpot.searcher.ValueCardSearcher;
 import com.hotpot.service.Context;
@@ -14,6 +16,7 @@ import com.hotpot.service.ValueCardService;
 import com.hotpot.service.VipInfoService;
 import com.hotpot.store.view.CardHistoryView;
 import com.hotpot.store.view.CardView;
+import com.hotpot.store.vo.NewCardVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -104,10 +107,18 @@ public class ValueCardController extends BaseController {
 
     @RequestMapping("addCard")
     @ResponseBody
-    public Object addCard(@ModelAttribute ValueCard card,Integer money){
+    public Object addCard(@ModelAttribute NewCardVo card){
         Store store = Context.get();
-
-        return valueCardService.addNewCard(card.getCardId(),store.getId(),money,card.getBalance(),null,card.getPassword());
+        VipInfo vipInfo = vipInfoService.getVipInfoByMobilephone(card.getPhone());
+        if(vipInfo == null){
+            vipInfo = new VipInfo();
+            vipInfo.setName(card.getName());
+            vipInfo.setStoreId(store.getId());
+            vipInfo.setCreateTime(DateTool.getDateTime());
+            vipInfo.setMobilephone(card.getPhone());
+            vipInfoService.addVip(vipInfo);
+        }
+        return valueCardService.addNewCard(card.getCardId(), store.getId(), card.getMoney(), card.getBalance(), vipInfo.getId(), card.getPassword());
     }
 
 }

@@ -8,47 +8,29 @@
 <div class="nav-top">
     <div class="">
         <div class="nav-content">
-            <form id="valueCardAdd" method="get" action="">
+            <form id="valueCardAdd">
                 <div class="turnToAdd">
-                    <label>id</label><input type="text" placeholder="id" name="id" id="id" class="form-control" readonly>
+                    <label>卡号</label><input type="text"  name="cardId" id="cardId" class="form-control">
+                    <button type="button" name="getCardId" id="getCardId" onclick="getCardId()">检测卡片</button>
                     <br>
-                    <label>card_id</label><input type="text" placeholder="card_id" name="cardId" id="cardId" class="form-control" readonly>
+                    <label>充值金额</label><input type="text"  name="balance" id="balance" class="form-control">
                     <br>
-                    <label>card_uuid</label><input type="text" placeholder="card_uuid" name="cardUuid" id="cardUuid" class="form-control" readonly>
+                    <label>支付金额</label><input type="text"  name="money" id="money" class="form-control">
                     <br>
-                    <label>balance</label><input type="text" placeholder="balance" name="balance" id="balance" class="form-control" required>
+                    <label>姓名</label><input type="text" id="name" name="name" class="form-control">
                     <br>
-                    <label>vip_id</label><input type="text" placeholder="vip_id" id="vipId" name="vipId" class="form-control" readonly>
+                    <label>电话</label><input type="text"  id="phone" name="phone" class="form-control">
                     <br>
-                    <label>创建时间:</label><input type="text" name="create_time" id="createTime" placeholder="yyyy-MM-dd HH:mm:ss" readonly class="form-control">
-                    <br>
-                    <label>设置密码:</label><input type="text" placeholder="password" id="password" name="password" class="form-control" required>
-                    <br>
-                    <label>再次确认密码:</label><input type="text" placeholder="confirm_password" id="confirm_password" name="confirm_password" class="form-control" required>
+                    <label>设置密码:</label><input type="text" placeholder="password" id="password" name="password" class="form-control">
                     <br>
                     <div style="margin-left: 130px;margin-top: 20px;">
-                        <input class="submit btn btn-sm" type="submit" value="提交">
+                        <button type="button" id="submit" onclick="createNewCard()" class="btn btn-circle btn-sm">提交</button>
                     </div>
             </form>
         </div>
     </div>
 </div>
 <script>
-##
-function currentTime(){
-    var d = new Date(),str = '';
-    str += d.getFullYear()+'-';
-    str += d.getMonth() + 1+'-';
-    str += d.getDate();
-    str += "   ";
-    str += d.getHours()+':';
-    str += d.getMinutes()+':';
-    str += d.getSeconds()+'';
-    return str
-
-}
-$(function () {
-
     $("#valueCardAdd").validate({
         rules: {
             balance: {
@@ -84,6 +66,51 @@ $(function () {
 
     $("input[name='create_time']").val(currentTime);
 
+    function getCardId(){
+        $.ajax({
+            url : '127.0.0.1:8086/readCardId',
+            type : 'post',
+            dataType : 'json',
+            success : function(data){
+                $("#cardId").val(JSON.stringify(data));
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown){
+                alert(XMLHttpRequest.responseText);
+            }
+        }
+    }
 
-})
+    function createNewCard(){
+        $.ajax({
+            url : '$ctx/valuecard/addCard',
+            type : 'post',
+            data : $("#valueCardAdd").serialize(),
+            dataType : 'json',
+            async: false,
+            success : function(data){
+                writeUuidIntoCard(data['result']['cardUuid'])
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown){
+                $("#cardId").html(XMLHttpRequest.responseText);
+            }
+        }
+    }
+
+    function writeUuidIntoCard(uuid){
+        $.ajax({
+            url : '127.0.0.1:8086/writeCardUuid',
+            type : 'post',
+            data : {
+                cardUuid : uuid
+            }
+            dataType : 'json',
+            async: false,
+            success : function(data){
+                $("#cardId").html(JSON.stringify(data));
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown){
+                $("#cardId").html(XMLHttpRequest.responseText);
+            }
+        }
+    }
 </script>

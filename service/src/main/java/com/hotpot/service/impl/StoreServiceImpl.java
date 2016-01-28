@@ -1,5 +1,6 @@
 package com.hotpot.service.impl;
 
+import com.google.common.base.Preconditions;
 import com.hotpot.commons.DateTool;
 import com.hotpot.dao.*;
 import com.hotpot.domain.*;
@@ -7,6 +8,8 @@ import com.hotpot.service.Context;
 import com.hotpot.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -102,5 +105,21 @@ public class StoreServiceImpl implements StoreService {
     @Override
     public RuntimeTable getRuntimeTable(Integer storeId, String tableCode) {
         return null;
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
+    public Integer createTables(Integer from, Integer to, String code, Integer countOfPeople) {
+        Preconditions.checkArgument(from < to, "输入参数不合法,From,应该小于To");
+        Integer storeId = Context.get().getId();
+        int result = 0;
+        for(int i = from;i<=to;i++,result++){
+            StoreTable table = new StoreTable();
+            table.setStoreId(storeId);
+            table.setTableCode(code+i);
+            table.setDefaultNumber(countOfPeople);
+            storeTableMapper.insertSelective(table);
+        }
+        return result;
     }
 }

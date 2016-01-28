@@ -52,4 +52,6 @@ public interface StoreService {
     void createOrderForRuntimeTable(String tableCode,Integer orderId);
 
     RuntimeTable getRuntimeTable(Integer storeId,String tableCode);
+
+    Integer createTables(Integer from ,Integer to ,String code,Integer countOfPeople);
 }
