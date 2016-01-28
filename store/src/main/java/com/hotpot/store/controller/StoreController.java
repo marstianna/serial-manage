@@ -8,6 +8,7 @@ import com.hotpot.service.Context;
 import com.hotpot.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -22,12 +23,16 @@ public class StoreController {
     @Autowired
     AdminService adminService;
 
-    @RequestMapping("storeInfo")
-    @ResponseBody
-    public Object getStoreInfo(){
+    @RequestMapping("turnToStoreInfo")
+    public String turnToStoreInfo(Model model){
         Store store = storeService.getStoreByStoreId(Context.get().getId());
         Owner owner = adminService.getOwnerById(store.getOwnerId());
-        return ImmutableMap.of("store",store,"owner",owner);
+
+        model.addAttribute("store",store);
+        model.addAttribute("owner",owner);
+
+        return "store/storeInfo";
+
     }
 
     @RequestMapping("createNewTables")
