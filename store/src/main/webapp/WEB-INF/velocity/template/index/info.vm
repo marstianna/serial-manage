@@ -262,21 +262,86 @@
         $("#list").trigger('reloadGrid');
     }
 
+
+    function getQueueAjax(tableCode) {
+        $.ajax({
+            url: '$ctx/index/nextOne',
+            type: 'post',
+            data: {
+                tableCode: tableCode
+            },
+            dataType: 'json',
+            success: function (data) {
+                if(data['success'] == "false"){
+                    $("#priceresult7").html("当前没有排队的人!");
+                }else {
+                    $("#priceresult7").html('编号:' + data['result']['lineCode'] + ",电话:" + data['result']['phone']);
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                $("#priceresult7").html(XMLHttpRequest.responseText);
+            }
+        });
+    }
+
+    function getQueueSync(tableCode){
+        var result;
+        $.ajax({
+            url: '$ctx/index/nextOne',
+            type: 'post',
+            data: {
+                tableCode: tableCode
+            },
+            async: false,
+            dataType: 'json',
+            success: function (data) {
+                result = data;
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                result = XMLHttpRequest.responseText;
+            }
+        });
+        return result;
+    }
+
     //下一位∂
     function nextCustomerOne(tableCode){
-        var code = tableCode;
-        $.post("$ctx/index/nextOne", {
-            tableCode: code
-        }, function (res) {
-            if(res['success'] == "false"){
-                showInfo("当前没有排队的人!");
-                return
-            }
-            //这里弹出一个选择框,两个按钮(下一位和就座)
-            // 下一位,继续调用这个func
-            // 就座,
-            alert('编号:'+res['result']['lineCode']+",电话:"+res['result']['phone'])
-            $("#list").trigger('reloadGrid');
-        }, "json");
+        var res = getQueueSync(tableCode);
+        if(res['success'] == "false"){
+            showInfo("当前没有排队的人!");
+            return
+        }else{
+            var message = '<h1>获取被限购的身份证数据</h1>'
+                    +'<div class="nav-content">'
+                    +'<form id="form7" method="post">'
+                    +'<table cellpadding="0" cellspacing="0">'
+                    +'<tr>'
+                    +'<td>'
+                    +'<input type="text" name="tableCode" value="\''+tableCode+'\'">'
+                    +'</td>'
+                    +'<td>'
+                    +'<input type="button" onclick="getQueueAjax(\''+tableCode+'\')" id="getLimitedIdentity" class="btn btn-success" value="提交" style="padding: 4px 62px; margin-left: 5px;" />'
+                    +'</td>'
+                    +'</tr>'
+                    +'</tr>'
+                    +'</table>'
+                    +'</form>'
+                    +'</div>'
+                    +'<h1>返回结果</h1>'
+                    +'<div id="priceresult7" class="nav-content">'+'编号:' + res['result']['lineCode'] + ",电话:" + res['result']['phone']+'</div>';
+            var title = "下一位"
+            BootstrapDialog.confirm(title,message, function() {
+                $.post("$ctx/index/takeSeat", {
+                    tableCode: tableCode,
+                    count: res['result']['waitingNumber']
+                }, function (res) {
+                    if(res['success'] == "success"){
+                        showInfo("成功");
+                        $("#list").trigger('reloadGrid');
+                        return
+                    }
+                }, "json");
+            });
+        }
     }
 </script>
