@@ -10,60 +10,107 @@
         <div class="nav-content">
             <form id="valueCardAdd">
                 <div class="turnToAdd">
-                    <label>id</label><input type="text" placeholder="id" name="id" id="id" class="form-control">
+                    <label>卡号</label><input type="text"  name="cardId" id="cardId" class="form-control">
+                    <button type="button" name="getCardId" id="getCardId" onclick="getCardId()">检测卡片</button>
                     <br>
-                    <label>card_id</label><input type="text" placeholder="card_id" name="cardId" id="cardId" class="form-control">
+                    <label>充值金额</label><input type="text"  name="balance" id="balance" class="form-control">
                     <br>
-                    <label>card_uuid</label><input type="text" placeholder="card_uuid" name="cardUuid" id="cardUuid" class="form-control">
+                    <label>支付金额</label><input type="text"  name="money" id="money" class="form-control">
                     <br>
-                    <label>balance</label><input type="text" placeholder="balance" name="balance" id="balance" class="form-control">
+                    <label>姓名</label><input type="text" id="name" name="name" class="form-control">
                     <br>
-                    <label>vip_id</label><input type="text" placeholder="vip_id" id="vipId" name="vipId" class="form-control">
-                    <br>
-                    <label>创建时间:</label><input type="text" name="create_time" id="createTime" placeholder="yyyy-MM-dd HH:mm:ss" readonly class="form-control">
+                    <label>电话</label><input type="text"  id="phone" name="phone" class="form-control">
                     <br>
                     <label>设置密码:</label><input type="text" placeholder="password" id="password" name="password" class="form-control">
                     <br>
                     <div style="margin-left: 130px;margin-top: 20px;">
-                        <button type="button" id="submit" class="btn btn-circle btn-sm">提交</button>
+                        <button type="button" id="submit" onclick="createNewCard()" class="btn btn-circle btn-sm">提交</button>
                     </div>
             </form>
         </div>
     </div>
 </div>
 <script>
-##
-function currentTime(){
-    var d = new Date(),str = '';
-    str += d.getFullYear()+'-';
-    str += d.getMonth() + 1+'-';
-    str += d.getDate();
-    str += "   ";
-    str += d.getHours()+':';
-    str += d.getMinutes()+':';
-    str += d.getSeconds()+'';
-    return str
+    $("#valueCardAdd").validate({
+        rules: {
+            balance: {
+                required: true,
+                digits:true
+            },
+            password: {
+                required: true,
+                isPwd: true
+            },
+            confirm_password: {
+                required: true,
+                equalTo: "#password"
+            },
+        },
+        messages: {
+            balance: {
+                required: "请输入余额",
+                minlength: "请输入整数,例如:100"
 
-}
-//setInterval(function(){});
-    $(function(){
+            },
+            password: {
+                required: "请输入密码",
+                isPwd: "以字母开头，长度在6-12之间，只能包含字符、数字和下划线。",
+
+            },
+            confirm_password: {
+                required: "请输入密码",
+                equalTo: "密码输入不一致"
+            },
+        }
+    });
+
     $("input[name='create_time']").val(currentTime);
 
+    function getCardId(){
+        $.ajax({
+            url : '127.0.0.1:8086/readCardId',
+            type : 'post',
+            dataType : 'json',
+            success : function(data){
+                $("#cardId").val(JSON.stringify(data));
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown){
+                alert(XMLHttpRequest.responseText);
+            }
+        }
+    }
 
-//        $("input[name='create_time']").datetimepicker({
-//            format: "dd MM yyyy - hh:ii",
-//            autoclose: true,
-//            pickerPosition: "bottom-left"
-//        });
-        $("#valueCardSubmitBtn").click(function(){
-//            验证
+    function createNewCard(){
+        $.ajax({
+            url : '$ctx/valuecard/addCard',
+            type : 'post',
+            data : $("#valueCardAdd").serialize(),
+            dataType : 'json',
+            async: false,
+            success : function(data){
+                writeUuidIntoCard(data['result']['cardUuid'])
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown){
+                $("#cardId").html(XMLHttpRequest.responseText);
+            }
+        }
+    }
 
-            $("#valueCardAdd").submit(function(){
-//提交后的函数
-            });
-        })
-
-
-
-    })
+    function writeUuidIntoCard(uuid){
+        $.ajax({
+            url : '127.0.0.1:8086/writeCardUuid',
+            type : 'post',
+            data : {
+                cardUuid : uuid
+            }
+            dataType : 'json',
+            async: false,
+            success : function(data){
+                $("#cardId").html(JSON.stringify(data));
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown){
+                $("#cardId").html(XMLHttpRequest.responseText);
+            }
+        }
+    }
 </script>

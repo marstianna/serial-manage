@@ -9,7 +9,6 @@ import com.hotpot.constenum.TableSizeEnum;
 import com.hotpot.entity.QueueUp;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -22,7 +21,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class QueueUpCache {
     //table<storeId,number,queueup>;
     private Table<Integer,Integer,Entity> lines =  HashBasedTable.create();
-    private Map<Integer,BlockingQueue<QueueUp>> queueUps = new HashMap<>();
     private static final long DAY_TIME = 60 * 60 * 11;
     private static long currentTimeLine = 0;
 
