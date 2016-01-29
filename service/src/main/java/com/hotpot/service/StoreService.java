@@ -47,7 +47,7 @@ public interface StoreService {
 
     Store getStoreByStoreId(Integer storeId);
 
-    void takeSeat(String tableCode, Integer storeId, Integer count);
+    void takeSeat(String tableCode, Integer storeId, Integer count,Integer isQueueUp);
 
     void createOrderForRuntimeTable(String tableCode,Integer orderId);
 

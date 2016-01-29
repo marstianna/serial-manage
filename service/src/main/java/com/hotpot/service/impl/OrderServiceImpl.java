@@ -33,7 +33,6 @@ public class OrderServiceImpl implements OrderService {
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public void createOrder(Order order) {
         orderMapper.insertSelective(order);
-        storeService.createOrderForRuntimeTable(order.getTableCode(),order.getId());
     }
 
     @Override
@@ -45,8 +44,15 @@ public class OrderServiceImpl implements OrderService {
     @Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = Exception.class)
     public ValueCard payByCard(Order order, String cardId, String cardUuid) {
         promotionService.promotion(order);
+        ValueCard card = valueCardService.getCardBalanceByCardUniqueKey(cardId,cardUuid);
+        if (card == null){
+            throw new RuntimeException("不存在对应的卡号");
+        }
+        if(card.getBalance() < order.getActualPrice()){
+            throw new RuntimeException("余额不足,请充值");
+        }
+        order.setCardId(card.getCardId());
         createOrder(order);
-//        throw new Exception();
         return valueCardService.payment(cardId, cardUuid, order.getStoreId(), order.getActualPrice(), order.getPaperPrice());
     }
 
@@ -67,6 +73,14 @@ public class OrderServiceImpl implements OrderService {
     @Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = Exception.class)
     public ValueCard payByPhone(Order order, String phone, String password) {
         promotionService.promotion(order);
+        ValueCard card = valueCardService.getCardByPhoneAndPassword(phone,password);
+        if (card == null){
+            throw new RuntimeException("不存在对应的卡号");
+        }
+        if(card.getBalance() < order.getActualPrice()){
+            throw new RuntimeException("余额不足,请充值");
+        }
+        order.setCardId(card.getCardId());
         createOrder(order);
         return valueCardService.paymentWithPassword(phone, password, order.getStoreId(), order.getActualPrice(), order.getPaperPrice());
     }

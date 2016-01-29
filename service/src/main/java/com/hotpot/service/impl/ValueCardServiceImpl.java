@@ -68,6 +68,11 @@ public class ValueCardServiceImpl implements ValueCardService {
     }
 
     @Override
+    public ValueCard getCardByPhoneAndPassword(String phone, String password) {
+        return valueCardMapper.getValueCardInfoByPhoneAndPassword(phone,password);
+    }
+
+    @Override
     public  List<ValueCard> getCardBalanceByVipInfo(VipInfo vipInfo) {
         return valueCardMapper.getValueCardInfoByVip(vipInfo);
     }

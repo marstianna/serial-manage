@@ -2,7 +2,6 @@ package com.hotpot.store.view;
 
 import com.hotpot.commons.ApplicationContextUtil;
 import com.hotpot.domain.Order;
-import com.hotpot.domain.VipInfo;
 import com.hotpot.service.StoreService;
 import com.hotpot.service.VipInfoService;
 import com.hotpot.service.impl.StoreServiceImpl;
@@ -47,8 +46,6 @@ public class OrderView {
         OrderView orderView = new OrderView();
         orderView.setOrder(order);
         orderView.setStoreName(storeService.getStoreByStoreId(order.getStoreId()).getStoreName());
-        VipInfo vipInfo = vipInfoService.getVipInfoById(order.getVipId());
-        orderView.setVipName(vipInfo.getName()+"("+vipInfo.getId()+")");
         return orderView;
     }
 }

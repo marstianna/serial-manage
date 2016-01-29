@@ -10,6 +10,7 @@ public class RuntimeTable {
     private Integer orderId = 0;
     private Integer peopleCount = 0;
     private String createTime;
+    private Integer isQueueUp;
 
     public Integer getId() {
         return id;
@@ -57,5 +58,13 @@ public class RuntimeTable {
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
+    }
+
+    public Integer getIsQueueUp() {
+        return isQueueUp;
+    }
+
+    public void setIsQueueUp(Integer isQueueUp) {
+        this.isQueueUp = isQueueUp;
     }
 }

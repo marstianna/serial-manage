@@ -83,10 +83,7 @@
                             width: "60px",
                             formatter : function(cellval, optss,
                                                  rowObject, action) {
-                                var result = '<a href="javascript:createOrder(\''
-                                        + rowObject['tableCode']
-                                        + '\')" class="row_btn">生成订单</a><br>'
-                                        + '<a href="javascript:checkOut(\''
+                                var result = '<a href="javascript:checkOut(\''
                                         + rowObject['tableCode']
                                         + '\')" class="row_btn">结账</a>';
                                 var count = rowObject['peopleCount']
@@ -220,7 +217,8 @@
         BootstrapDialog.confirm(title,message, function(){
             $.post("$ctx/index/takeSeat", {
                 tableCode: tableCode,
-                count: $("input[name='countOfPeople']").val()
+                count: $("input[name='countOfPeople']").val(),
+                isQueueUp : 0
             }, function (res) {
                 if(res['success'] == "success"){
                     showInfo("成功");
@@ -271,13 +269,12 @@
                 result = XMLHttpRequest.responseText;
             }
         });
+        var message = ''
         if(result['success']=='false'){
             //创建订单并直接结账
         }else{
 
         }
-
-//        我不知道内容
         var message = '<form><label>消费总金额:</label><input type="text" class="form-control" placeholder="输入金额"></form>';
         var title = " 结账"
         BootstrapDialog.confirm(title,message, function() {
@@ -356,7 +353,8 @@
             BootstrapDialog.confirm(title,message, function() {
                 $.post("$ctx/index/takeSeat", {
                     tableCode: tableCode,
-                    count: res['result']['waitingNumber']
+                    count: res['result']['waitingNumber'],
+                    isQueueUp : 1
                 }, function (res) {
                     if(res['success'] == "success"){
                         showInfo("成功");
