@@ -5,21 +5,18 @@ import com.hotpot.commons.Const;
 import com.hotpot.commons.DateTool;
 import com.hotpot.dao.ValueCardHistoryMapper;
 import com.hotpot.dao.ValueCardMapper;
+import com.hotpot.domain.ValueCard;
 import com.hotpot.domain.ValueCardHistory;
 import com.hotpot.domain.VipInfo;
 import com.hotpot.searcher.ValueCardHistorySearcher;
-import com.hotpot.service.ValueCardService;
-import com.hotpot.domain.ValueCard;
 import com.hotpot.searcher.ValueCardSearcher;
+import com.hotpot.service.ValueCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by zoupeng on 15/12/26.
@@ -36,7 +33,7 @@ public class ValueCardServiceImpl implements ValueCardService {
     public ValueCard addNewCard(String cardId, Integer storeId, Integer money, Integer account, Integer vipId, String password){
         ValueCard card = new ValueCard();
         card.setCardId(cardId);
-        String cardUuid = UUID.nameUUIDFromBytes((cardId+DateTool.getDateTime()).getBytes()).toString();
+        String cardUuid = UUID.nameUUIDFromBytes((cardId+DateTool.getDateTime()).getBytes()).toString()+"-"+new Random().nextInt(1000);
         card.setCardUuid(cardUuid);
         card.setBalance(account);
         card.setVipId(vipId);
@@ -186,5 +183,9 @@ public class ValueCardServiceImpl implements ValueCardService {
         history.setPrice(price);
         history.setCreateTime(DateTool.getDateTime());
         valueCardHistoryMapper.insertSelective(history);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(new Random().nextInt(1000));
     }
 }

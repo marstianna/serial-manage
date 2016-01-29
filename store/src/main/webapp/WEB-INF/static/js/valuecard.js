@@ -1,10 +1,12 @@
 function getCardId(){
     $.ajax({
-        url : '127.0.0.1:8086/readCardId',
+        url : 'http://192.168.1.10:8080/readCard',
         type : 'post',
         dataType : 'json',
         success : function(data){
-            $("#cardId").val(JSON.stringify(data));
+            var cardId = data['data']['cardId'];
+            $('#cardId').attr('value',cardId);
+            $('#cardId').val(cardId)
         },
         error : function(XMLHttpRequest, textStatus, errorThrown){
             alert(XMLHttpRequest.responseText);
@@ -12,25 +14,9 @@ function getCardId(){
     })
 }
 
-function createNewCard(){
-    $.ajax({
-        url : '$ctx/valuecard/addCard',
-        type : 'post',
-        data : $("#valueCardAdd").serialize(),
-        dataType : 'json',
-        async: false,
-        success : function(data){
-            writeUuidIntoCard(data['result']['cardUuid'])
-        },
-        error : function(XMLHttpRequest, textStatus, errorThrown){
-            $("#cardId").html(XMLHttpRequest.responseText);
-        }
-    })
-}
-
 function writeUuidIntoCard(uuid){
     $.ajax({
-        url : '127.0.0.1:8086/writeCardUuid',
+        url : 'http://192.168.1.10:8080/writeCard',
         type : 'post',
         data : {
             cardUuid : uuid
@@ -49,18 +35,18 @@ function writeUuidIntoCard(uuid){
 function getCardInfoFromCard(){
     var result;
     $.ajax({
-        url : 'http://localhost:8080/test/getCardInfo',
+        url : 'http://192.168.1.10:8080/readCard',
         type : 'post',
         dataType : 'json',
         async: false,
         success : function(data){
-            alert(data['cardUuid']);
+            alert(data['data']['cardUuid']);
             result = data;
         },
         error : function(XMLHttpRequest, textStatus, errorThrown){
             result = XMLHttpRequest.responseText;
         }
     });
-    $('#cardId').attr('value',result['cardId']);
-    $('#cardUuid').attr('value',result['cardUuid']);
+    $('#cardId').attr('value',result['data']['cardId']);
+    $('#cardUuid').attr('value',result['data']['cardUuid']);
 }
