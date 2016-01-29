@@ -11,7 +11,7 @@
             <form id="valueCardAdd">
                 <div class="turnToAdd">
                     <label>卡号</label><input type="text"  name="cardId" id="cardId" class="form-control">
-                    <button type="button" name="getCardId" id="getCardId" onclick="getCardId()">检测卡片</button>
+                    <button type="button" name="getCard" id="getCard" onclick="getCardId()">检测卡片</button>
                     <br>
                     <label>充值金额</label><input type="text"  name="balance" id="balance" class="form-control">
                     <br>
@@ -32,40 +32,52 @@
 </div>
 <script src="$jsPath/valuecard.js" type="text/javascript"></script>
 <script>
-    $("#valueCardAdd").validate({
-        rules: {
-            balance: {
-                required: true,
-                digits:true
-            },
-            password: {
-                required: true,
-                isPwd: true
-            },
-            confirm_password: {
-                required: true,
-                equalTo: "#password"
-            },
-        },
-        messages: {
-            balance: {
-                required: "请输入余额",
-                minlength: "请输入整数,例如:100"
+//    $("#valueCardAdd").validate({
+//        rules: {
+//            balance: {
+//                required: true,
+//                digits:true
+//            },
+//            password: {
+//                required: true,
+//                isPwd: true
+//            },
+//            confirm_password: {
+//                required: true,
+//                equalTo: "#password"
+//            },
+//        },
+//        messages: {
+//            balance: {
+//                required: "请输入余额",
+//                minlength: "请输入整数,例如:100"
+//
+//            },
+//            password: {
+//                required: "请输入密码",
+//                isPwd: "以字母开头，长度在6-12之间，只能包含字符、数字和下划线。",
+//
+//            },
+//            confirm_password: {
+//                required: "请输入密码",
+//                equalTo: "密码输入不一致"
+//            },
+//        }
+//    });
 
+    function createNewCard(){
+        $.ajax({
+            url : '$ctx/valuecard/addCard',
+            type : 'post',
+            data : $("#valueCardAdd").serialize(),
+            dataType : 'json',
+            async: false,
+            success : function(data){
+                writeUuidIntoCard(data['cardUuid'])
             },
-            password: {
-                required: "请输入密码",
-                isPwd: "以字母开头，长度在6-12之间，只能包含字符、数字和下划线。",
-
-            },
-            confirm_password: {
-                required: "请输入密码",
-                equalTo: "密码输入不一致"
-            },
-        }
-    });
-
-    $("input[name='create_time']").val(currentTime);
-
-
+            error : function(XMLHttpRequest, textStatus, errorThrown){
+                $("#cardId").html(XMLHttpRequest.responseText);
+            }
+        })
+    }
 </script>
