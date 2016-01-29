@@ -7,7 +7,6 @@ public class RuntimeTable {
     private Integer id;
     private Integer storeId;
     private String tableCode;
-    private Integer orderId = 0;
     private Integer peopleCount = 0;
     private String createTime;
     private Integer isQueueUp;
@@ -18,14 +17,6 @@ public class RuntimeTable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(Integer orderId) {
-        this.orderId = orderId;
     }
 
     public Integer getStoreId() {

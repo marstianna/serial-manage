@@ -10,7 +10,6 @@ import com.hotpot.domain.RuntimeTable;
 import com.hotpot.domain.Store;
 import com.hotpot.domain.ValueCard;
 import com.hotpot.entity.QueueUp;
-import com.hotpot.searcher.OrderSearcher;
 import com.hotpot.service.Context;
 import com.hotpot.service.OrderService;
 import com.hotpot.service.StoreService;
@@ -23,6 +22,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by zoupeng on 16/1/19.
@@ -128,17 +130,6 @@ public class IndexController extends BaseController{
         return ImmutableMap.of("success","success");
     }
 
-    @RequestMapping("/checkOrder")
-    @ResponseBody
-    public Object checkOrder(String tableCode){
-        RuntimeTable runtimeTable = storeService.getRuntimeTable(Context.get().getId(),tableCode);
-        if(runtimeTable.getOrderId() == null && runtimeTable.getOrderId() == 0){
-            return ImmutableMap.of("success","fail");
-        }
-        Order order = orderService.getOrdersBySearcher(new OrderSearcher().setId(runtimeTable.getOrderId())).get(0);
-        return ImmutableMap.of("success","success","result",order);
-    }
-
     @RequestMapping("/createOrder")
     @ResponseBody
     public Object createOrder(String tableCode,Integer foodPrice,Integer drinkPrice){
@@ -151,6 +142,12 @@ public class IndexController extends BaseController{
         order.setTableCode(tableCode);
         orderService.createOrder(order);
         return ImmutableMap.of("success","success");
+    }
+
+    @RequestMapping("/testCheckOut")
+    public String testCheckOut(HttpServletRequest request,HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin","*");
+        return "index/checkout";
     }
 
     private Integer getStoreId(){

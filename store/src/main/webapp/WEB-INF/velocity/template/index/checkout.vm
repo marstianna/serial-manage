@@ -5,3 +5,59 @@
 ##如果选择储值卡支付,则有两种方法使用储值卡支付
 ##1.直接刷卡
 ##2.提供注册储值卡时填写的手机和密码
+#parse( "./include/variable.vm" )
+<form id="checkOut" method="post">
+##    owner
+    <div class="turnToAdd">
+        <label>桌号</label><input type="text" name="tableCode" id="tableCode" value="A01" disabled="disabled" class="form-control">
+        <br>
+        <label>菜品消费金额</label><input type="text" name="foodPrice" id="foodPrice" class="form-control">
+        <br>
+        <label>酒水消费金额</label><input type="text" name="drinkPrice" id="drinkPrice" class="form-control">
+        <br>
+        <label>其他消费金额</label><input type="text" name="otherPrice" id="otherPrice" class="form-control">
+        <br>
+        <label>支付类型</label>
+        <label>储值卡</label><input type="radio" id="payType" name="payType" value="0" checked="checked" onclick="payTypeDefail();">
+        <label>现金</label><input type="radio" id="payType" name="payType" value="1" onclick="payTypeDefail();">
+        <label>支付宝</label><input type="radio" id="payType" name="payType" value="2" onclick="payTypeDefail();">
+        <label>微信</label><input type="radio" id="payType" name="payType" value="3" onclick="payTypeDefail();">
+        <label>团购优惠支付</label><input type="radio" id="payType" name="payType" value="4" onclick="payTypeDefail();">
+        <br>
+        <div class="PayByCard">
+            请将储值卡放在读卡器后,点击
+            <button type="button" name="verifyCard" onclick="getCardInfoFromCard()">检测卡片</button><br>
+            <input type="text" id="cardId" name="cardId" disabled="disabled"/>
+            <input type="text" id="cardUuid" name="cardUuid" disabled="disabled"/>
+        </div>
+        <div class="PayByOtherWay">
+            实收金额:<input type="text" id="received" name="received" />
+        </div>
+    </div>
+</form>
+<script src="$jsPath/valuecard.js" type="text/javascript"></script>
+<script>
+    $(function(){
+        if($('#payType:checked').val() == 0){
+            $(".PayByOtherWay").hide();
+            $(".PayByCard").show();
+        }
+    })
+
+    function testGetCardInfo(){
+        $('#cardId').attr('value',"1231231")
+        $('#cardUuid').attr('value',"dsfdsfs")
+    }
+    function payTypeDefail(){
+        if($('#payType:checked').val() == 0){
+            $(".PayByOtherWay").hide();
+            $(".PayByCard").show();
+        }else if($('#payType:checked').val() == 1){
+            $(".PayByOtherWay").show();
+            $(".PayByCard").hide();
+        }else{
+            $(".PayByOtherWay").hide();
+            $(".PayByCard").hide();
+        }
+    }
+</script>

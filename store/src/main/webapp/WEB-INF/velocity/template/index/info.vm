@@ -5,7 +5,7 @@
     <table id="list" style="width: 95%;" form="search_form"></table>
     <div id="pager"></div>
 </div>
-
+<script src="$jsPath/valuecard.js" type="text/javascript"></script>
 <script>
     $(function () {
         $("#startTime").datetimepicker({
@@ -36,7 +36,7 @@
                 {
                     url: '$ctx/index/tableList',
                     datatype: "local",
-                    colNames: ["餐桌编号", "就餐人数","就餐时间","订单号", "点菜(功能暂未开放)", "结账", "下一位"],
+                    colNames: ["餐桌编号", "就餐人数","就餐时间", "点菜(功能暂未开放)", "结账", "下一位"],
                     colModel: [
                         {
                             name: 'tableCode',
@@ -54,12 +54,6 @@
                         {
                             name: 'createTime',
                             index: 'createTime',
-                            align: "center",
-                            width: "45px",
-                        },
-                        {
-                            name: 'orderId',
-                            index: 'orderId',
                             align: "center",
                             width: "45px",
                         },
@@ -363,6 +357,16 @@
                     }
                 }, "json");
             });
+        }
+    }
+
+    function payTypeDefail(){
+        if($('#payType:checked').val() == 0){
+            $(".PayByOtherWay").hide();
+            $(".PayByCard").show();
+        }else{
+            $(".PayByOtherWay").show();
+            $(".PayByCard").hide();
         }
     }
 </script>

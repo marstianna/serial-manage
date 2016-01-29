@@ -30,6 +30,7 @@
         </div>
     </div>
 </div>
+<script src="$jsPath/valuecard.js" type="text/javascript"></script>
 <script>
     $("#valueCardAdd").validate({
         rules: {
@@ -66,51 +67,5 @@
 
     $("input[name='create_time']").val(currentTime);
 
-    function getCardId(){
-        $.ajax({
-            url : '127.0.0.1:8086/readCardId',
-            type : 'post',
-            dataType : 'json',
-            success : function(data){
-                $("#cardId").val(JSON.stringify(data));
-            },
-            error : function(XMLHttpRequest, textStatus, errorThrown){
-                alert(XMLHttpRequest.responseText);
-            }
-        }
-    }
 
-    function createNewCard(){
-        $.ajax({
-            url : '$ctx/valuecard/addCard',
-            type : 'post',
-            data : $("#valueCardAdd").serialize(),
-            dataType : 'json',
-            async: false,
-            success : function(data){
-                writeUuidIntoCard(data['result']['cardUuid'])
-            },
-            error : function(XMLHttpRequest, textStatus, errorThrown){
-                $("#cardId").html(XMLHttpRequest.responseText);
-            }
-        }
-    }
-
-    function writeUuidIntoCard(uuid){
-        $.ajax({
-            url : '127.0.0.1:8086/writeCardUuid',
-            type : 'post',
-            data : {
-                cardUuid : uuid
-            }
-            dataType : 'json',
-            async: false,
-            success : function(data){
-                $("#cardId").html(JSON.stringify(data));
-            },
-            error : function(XMLHttpRequest, textStatus, errorThrown){
-                $("#cardId").html(XMLHttpRequest.responseText);
-            }
-        }
-    }
 </script>

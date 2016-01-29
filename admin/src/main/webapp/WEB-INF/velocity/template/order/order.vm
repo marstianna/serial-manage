@@ -95,8 +95,8 @@
                         {
                             url: '$ctx/order/getAllOrders',
                             datatype: "local",
-                            colNames: ["id", "会员ID", "店铺ID", "支付方式", "储值卡编号", "订单原价", "实际支付金额",
-                                "酒水价格", "菜品金额", "创建时间", "是否排队"],
+                            colNames: ["id", "店铺ID", "支付方式", "储值卡编号", "订单原价", "实际支付金额",
+                                "酒水价格", "菜品金额","其他金额", "创建时间", "是否排队"],
                             colModel: [
                                 {
                                     name: 'order.id',
@@ -104,13 +104,6 @@
                                     align: "center",
                                     width: "45px",
                                     key: true
-                                }, {
-                                    name: 'vipName',
-                                    index: 'vipName',
-                                    align: "center",
-                                    width: "50px",
-                                    minWidth: "45px",
-
                                 },
                                 {
                                     name: 'storeName',
@@ -161,6 +154,18 @@
                                     width: "50px",
                                 },
                                 {
+                                    name: 'order.otherPrice',
+                                    index: 'order.otherPrice',
+                                    align: "center",
+                                    width: "50px",
+                                },
+                                {
+                                    name: 'order.countOfPeople',
+                                    index: 'order.countOfPeople',
+                                    align: "center",
+                                    width: "50px",
+                                },
+                                {
                                     name: 'order.createTime',
                                     index: 'order.createTime',
                                     align: "center",
@@ -184,15 +189,15 @@
                             multiselect: true,
                             viewrecords: true,
 //                            rownumbers: true,
-                            sortorder: "desc",
-                            mtype: "POST",
-                            deleteKeys: ["id"],
-                            width: "85%",
-                            shrinkToFit: true,
-                            autowidth: true,
+                    sortorder: "desc",
+                    mtype: "POST",
+                    deleteKeys: ["id"],
+                    width: "85%",
+                    shrinkToFit: true,
+                    autowidth: true,
 //			caption : "政策列表",
-                            editurl: "add",
-                        });
+                    editurl: "add",
+                });
 
         $("#list").jqGrid('navGrid', '#pager', {
             edit: false,
