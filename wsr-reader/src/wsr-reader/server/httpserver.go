@@ -10,8 +10,8 @@ import (
 
 func Run(addr string) error {
 	http.HandleFunc("/", defaultPage)
-	http.HandleFunc("/read_card", readCard)
-	http.HandleFunc("/write_card", writeCard)
+	http.HandleFunc("/readCard", readCard)
+	http.HandleFunc("/writeCard", writeCard)
 	if err := http.ListenAndServe(addr, nil); err != nil {
 		return err
 	}
@@ -25,6 +25,7 @@ func defaultPage(w http.ResponseWriter, req *http.Request) {
 
 //读取卡号和uuid
 func readCard(w http.ResponseWriter, req *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	fmt.Println("\r\n收到读卡请求")
 	wsr, err := wsr.NewWsr()
 	if err != nil {
@@ -76,13 +77,14 @@ func readCard(w http.ResponseWriter, req *http.Request) {
 	}
 
 	succReply := newReplySucc()
-	succReply.addData("cardno", cardNo)
-	succReply.addData("uuid", uuid)
+	succReply.addData("cardId", cardNo)
+	succReply.addData("cardUuid", uuid)
 
 	io.WriteString(w, succReply.toJsonString())
 }
 
 func writeCard(w http.ResponseWriter, req *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	fmt.Println("\r\n收到写卡请求")
 
 	req.ParseForm()
@@ -91,7 +93,7 @@ func writeCard(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	uuidList := req.PostForm["uuid"]
+	uuidList := req.PostForm["cardUuid"]
 	if len(uuidList) != 1 || len(uuidList[0]) == 0 {
 		io.WriteString(w, newReplyFailWithString("请求参数错误").toJsonString())
 		return
