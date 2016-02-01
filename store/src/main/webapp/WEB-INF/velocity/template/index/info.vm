@@ -1,9 +1,14 @@
 #parse( "./include/variable.vm" )
-
-<div class="table-jqgrid">
-    <!--这里放jqgrid-->
-    <table id="list" style="width: 95%;" form="search_form"></table>
-    <div id="pager"></div>
+<div class="nav-top">
+    <div class="">
+        <div class="nav-content">
+            <div class="table-jqgrid">
+                <!--这里放jqgrid-->
+                <table id="list" style="width: 95%;" form="search_form"></table>
+                <div id="pager"></div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>

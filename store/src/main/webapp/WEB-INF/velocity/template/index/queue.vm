@@ -6,16 +6,16 @@
             <form id="queue_up">
                 <table cellpadding="0" cellspacing="0" class="searchinfotable">
                     <tr>
-                        <td width="200">
-                            电话:<input id="phoneNumber" name="phoneNumber" type="text">
+                        <td width="">
+                            <label>电话:</label><input id="phoneNumber" name="phoneNumber" class="form-control" type="text">
                             <br>
-                            就餐人数:<input id="countOfPeople" name="countOfPeople" type="text">
+                            <label>就餐人数:</label><input id="countOfPeople" name="countOfPeople" class="form-control" type="text">
                         </td>
                     </tr>
-                    <tr>
+                    <tr style="clear: both;">
                         <td width="150"></td>
                         <td class="searchtd">
-                            <button type="button" id="queueUpBtn" onclick="queueUp()"><i class="icon-search align-top bigger-125"></i>排队</button>
+                            <button type="button" class="btn btn-sm" id="queueUpBtn" onclick="queueUp()"><i class="align-top bigger-125"></i>排队</button>
                         </td>
                     </tr>
                 </table>
@@ -33,7 +33,7 @@
                     <tr>
                         <td width="150"></td>
                         <td class="searchtd">
-                            <button type="button" id="search_btn" class="btn btn-search"><i class="icon-search align-top bigger-125"></i>搜索</button>
+                            <button type="button" id="search_btn" class="btn btn-sm"><i class="icon-search align-top bigger-125"></i>搜索</button>
                         </td>
                     </tr>
                 </table>
