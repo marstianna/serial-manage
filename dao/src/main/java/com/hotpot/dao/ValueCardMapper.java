@@ -69,6 +69,8 @@ public interface ValueCardMapper {
 
     ValueCard getValueCardInfo(@Param("cardId") String cardId,@Param("cardUuid") String cardUuid);
 
+    ValueCard getValueCardInfoByPhoneAndPassword(@Param("phone") String phone,@Param("password") String password);
+
     List<ValueCard> getAllCards();
 
     List<ValueCard> getCardHistoryBySearcher(ValueCardSearcher searcher);

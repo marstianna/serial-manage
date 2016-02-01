@@ -11,7 +11,7 @@ import java.io.IOException;
  * Created by zoupeng on 16/1/8.
  */
 public class AuthFilter implements Filter{
-    private static final String[] WHITE_URL = {"/**/static/**","/**/login/**"};
+    private static final String[] WHITE_URL = {"/**/static/**","/**/login/**","/**/test/**"};
 
     private static AntPathMatcher matcher	= new AntPathMatcher();
 
@@ -23,6 +23,7 @@ public class AuthFilter implements Filter{
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse rep = (HttpServletResponse) response;
         String url = req.getServletPath();

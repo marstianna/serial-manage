@@ -54,6 +54,8 @@ public interface ValueCardService {
      */
     ValueCard getCardBalanceByCardUniqueKey(String cardId,String cardUuid);
 
+    ValueCard getCardByPhoneAndPassword(String phone,String password);
+
     /**
      * 根据会员信息获取其明显的所有会员卡余额信息
      * @param vipInfo

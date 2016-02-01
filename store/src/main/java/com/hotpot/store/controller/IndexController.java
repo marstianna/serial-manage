@@ -8,19 +8,23 @@ import com.hotpot.constenum.TableSizeEnum;
 import com.hotpot.domain.Order;
 import com.hotpot.domain.RuntimeTable;
 import com.hotpot.domain.Store;
+import com.hotpot.domain.ValueCard;
 import com.hotpot.entity.QueueUp;
-import com.hotpot.searcher.OrderSearcher;
 import com.hotpot.service.Context;
 import com.hotpot.service.OrderService;
 import com.hotpot.service.StoreService;
 import com.hotpot.service.ValueCardService;
 import com.hotpot.service.queueup.QueueUpService;
+import com.hotpot.store.vo.CheckOutVo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by zoupeng on 16/1/19.
@@ -83,38 +87,47 @@ public class IndexController extends BaseController{
 
     @RequestMapping("/checkOut")
     @ResponseBody
-    public Object checkOut(Map<String,Object> params){
+    public Object checkOut(@ModelAttribute CheckOutVo checkOutVo){
         Store store = Context.get();
-        Integer payType = Integer.parseInt(String.valueOf(params.get("payType")));
-        params.get("drinkPrice");
-        params.get("foodPrice");
-        params.get("receive");
-        if(PayTypeEnum.VALUE_CARD.getKey() == payType.intValue()){
-            params.get("cardId");
-            params.get("cardUuid");
+        Order order = checkOutVo.getOrder();
+        RuntimeTable runtimeTable = storeService.getRuntimeTable(Context.get().getId(),checkOutVo.getTableCode());
+        ValueCard card = null;
+
+        if(checkOutVo.getPayType().intValue() == PayTypeEnum.VALUE_CARD.getKey()){
+
+            order.setQueueUp(runtimeTable.getIsQueueUp());
+            order.setStoreId(store.getId());
+            order.setCountOfPeople(runtimeTable.getPeopleCount());
+
+            if(!StringUtils.isBlank(checkOutVo.getPhone()) && !StringUtils.isBlank(checkOutVo.getPassword())){
+                card = orderService.payByPhone(order, checkOutVo.getPhone(), checkOutVo.getPassword());
+            }else{
+                card = orderService.payByCard(order,checkOutVo.getCardId(),checkOutVo.getCardUuid());
+            }
+        }else{
+            orderService.pay(order);
         }
 
 //        orderService.pay(order);
+        if(card != null) {
+            return ImmutableMap.of("order", order, "card",card);
+        }else{
+            return ImmutableMap.of("order",order,"card","null");
+        }
+    }
+
+    @RequestMapping("/createOrderAndCheckOut")
+    @ResponseBody
+    public Object createOrderAndCheckOut(){
         return null;
     }
 
     @RequestMapping("takeSeat")
     @ResponseBody
-    public Object takeSeat(String tableCode,Integer count){
+    public Object takeSeat(String tableCode,Integer count,Integer isQueueUp){
         Store store = Context.get();
-        storeService.takeSeat(tableCode,store.getId(),count);
+        storeService.takeSeat(tableCode,store.getId(),count,isQueueUp);
         return ImmutableMap.of("success","success");
-    }
-
-    @RequestMapping("/checkOrder")
-    @ResponseBody
-    public Object checkOrder(String tableCode){
-        RuntimeTable runtimeTable = storeService.getRuntimeTable(Context.get().getId(),tableCode);
-        if(runtimeTable.getOrderId() == null && runtimeTable.getOrderId() == 0){
-            return ImmutableMap.of("success","fail");
-        }
-        Order order = orderService.getOrdersBySearcher(new OrderSearcher().setId(runtimeTable.getOrderId())).get(0);
-        return ImmutableMap.of("success","success","result",order);
     }
 
     @RequestMapping("/createOrder")
@@ -129,6 +142,12 @@ public class IndexController extends BaseController{
         order.setTableCode(tableCode);
         orderService.createOrder(order);
         return ImmutableMap.of("success","success");
+    }
+
+    @RequestMapping("/testCheckOut")
+    public String testCheckOut(HttpServletRequest request,HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin","*");
+        return "index/checkout";
     }
 
     private Integer getStoreId(){

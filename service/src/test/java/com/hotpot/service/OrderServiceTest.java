@@ -40,7 +40,7 @@ public class OrderServiceTest {
         order.setStoreId(1);
         order.setDrinkPrice(50);
         order.setFoodPrice(100);
-        order.setVipId(1);
+//        order.setVipId(1);
         order.setCardId("No.000001");
         order.setStoreId(1);
         try {

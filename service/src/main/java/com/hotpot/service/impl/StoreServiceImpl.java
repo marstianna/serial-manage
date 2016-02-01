@@ -84,12 +84,13 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
-    public void takeSeat(String tableCode,Integer storeId,Integer count){
+    public void takeSeat(String tableCode,Integer storeId,Integer count,Integer isQueueUp){
         RuntimeTable runtimeTable = new RuntimeTable();
         runtimeTable.setStoreId(storeId);
         runtimeTable.setCreateTime(DateTool.getDateTime());
         runtimeTable.setPeopleCount(count);
         runtimeTable.setTableCode(tableCode);
+        runtimeTable.setIsQueueUp(isQueueUp);
         runtimeTableMapper.haveASeat(runtimeTable);
     }
 

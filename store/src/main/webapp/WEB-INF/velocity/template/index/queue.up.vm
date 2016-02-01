@@ -1,0 +1,8 @@
+##private Integer waitingNumber;
+##private String phone;
+##private String weChat;
+##private String lineCode;            //排队编号
+##private Integer frontCount;
+##private String datetime;
+##private String storeName;
+##private String storePhone;

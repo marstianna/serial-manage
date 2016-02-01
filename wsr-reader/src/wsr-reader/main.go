@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	if err := server.Run(":8088"); err != nil {
+	if err := server.Run(":8080"); err != nil {
 		fmt.Println("server failed to start, error:", err)
 	}
 
