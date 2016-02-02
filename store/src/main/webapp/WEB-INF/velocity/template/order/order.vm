@@ -84,7 +84,7 @@
                             url: '$ctx/order/getAllOrders',
                             datatype: "local",
                             colNames: ["id", "店铺ID", "支付方式", "储值卡编号", "订单原价", "实际支付金额",
-                                "酒水价格", "菜品金额","其他金额", "创建时间", "是否排队"],
+                                "酒水价格", "菜品金额","其他金额","就餐人数", "创建时间", "是否排队"],
                             colModel: [
                                 {
                                     name: 'order.id',

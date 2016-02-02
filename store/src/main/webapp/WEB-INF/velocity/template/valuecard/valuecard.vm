@@ -26,8 +26,16 @@
                         <td class="searchtd">
                             <button type="button" id="search_btn" class="btn btn-sm"><i class="icon-search align-top bigger-125"></i>搜索</button>
                         </td>
+                        <td>
+                            <button type="button" id="download" onclick="downloadCardReader('out-source.zip')" class="btn btn-sm"><i class="icon-search align-top bigger-125"></i>下载读卡器</button>
+                        </td>
                     </tr>
                 </table>
+            </form>
+            <form id="downloadForm">
+                <td>
+                    <button type="button" id="download" onclick="downloadCardReader('out-source.zip')" class="btn btn-sm"><i class="icon-search align-top bigger-125"></i>下载读卡器</button>
+                </td>
             </form>
         </div>
     </div>
@@ -220,6 +228,10 @@
         var url = '$ctx/valuecard/getCardHistoryByCardId?cardId='+cardId;
         //TODO:cj,这里需要一个弹出层展现所有的历史记录
     }
+
+    function downloadCardReader(filename){
+        $("#downloadForm").attr('action', '$ctx/index/downloadCardReader').attr(
+                'method', 'post').submit();    }
 </script>
 
 </body>

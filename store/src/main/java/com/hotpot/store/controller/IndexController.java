@@ -16,15 +16,18 @@ import com.hotpot.service.StoreService;
 import com.hotpot.service.ValueCardService;
 import com.hotpot.service.queueup.QueueUpService;
 import com.hotpot.store.vo.CheckOutVo;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 
 /**
  * Created by zoupeng on 16/1/19.
@@ -148,6 +151,24 @@ public class IndexController extends BaseController{
     public String testCheckOut(HttpServletRequest request,HttpServletResponse response){
         response.setHeader("Access-Control-Allow-Origin","*");
         return "index/checkout";
+    }
+
+    @RequestMapping("downloadCardReader")
+    public StreamingResponseBody downloadCardReader(final String filename){
+        return (outputStream)->{
+            String path = "/Users/zoupeng/Downloads/";
+            String filePath = path + filename;
+            outputStream.write(FileUtils.readFileToByteArray(new File(filePath)));
+            outputStream.close();
+        };
+//       return new StreamingResponseBody() {
+//           @Override
+//           public void writeTo(OutputStream outputStream) throws IOException {
+//               String path = "/Users/zoupeng/Downloads/";
+//               String filePath = path + filename;
+//               outputStream.write(FileUtils.readFileToByteArray(new File(filePath)));
+//           }
+//       };
     }
 
     private Integer getStoreId(){

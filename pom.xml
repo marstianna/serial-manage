@@ -18,7 +18,8 @@
 
 
     <properties>
-        <dep.spring.version>3.2.13.RELEASE</dep.spring.version>
+        <!--<dep.spring.version>3.2.13.RELEASE</dep.spring.version>-->
+        <dep.spring.version>4.2.4.RELEASE</dep.spring.version>
     </properties>
 
     <dependencyManagement>
