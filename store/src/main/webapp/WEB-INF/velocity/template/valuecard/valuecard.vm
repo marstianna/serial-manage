@@ -2,7 +2,7 @@
 
 <div class="nav-top">
     <div class="">
-        <div class="nav-content">
+        <div class="nav-content order-content">
             <form id="search_form" method="post">
                 <table cellpadding="0" cellspacing="0" class="searchinfotable">
                     <tr>
@@ -27,8 +27,6 @@
                             <button type="button" id="search_btn" class="btn btn-sm"><i class="icon-search align-top bigger-125"></i>搜索</button>
                             <button type="button" id="download" onclick="downloadCardReader('out-source.zip')" class="btn btn-sm"><i class="icon-search align-top bigger-125"></i>下载读卡器</button>
                         </td>
-##                        <td>
-##                        </td>
                         </td>
                     </tr>
                 </table>
