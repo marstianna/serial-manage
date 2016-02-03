@@ -37,11 +37,11 @@
                     <tr>
                         <td class="text-right" width="150">开始时间：</td>
                         <td width="200">
-                            <input class="form-control" size="16" type="text" value="" id="startTime" name="startTime" readonly>
+                            <input class="form-control" size="16" type="text" onFocus="WdatePicker({startDate: '%y-%M-%d 10:00:00',dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'#F{$dp.$D(\'endTime\')}'})" id="startTime" name="startTime" readonly>
                         </td>
                         <td class="text-right" width="150">结束时间：</td>
                         <td width="200">
-                            <input class="form-control" size="16" type="text" value="" id="endTime" name="endTime" readonly>
+                            <input class="form-control" size="16" type="text" onFocus="WdatePicker({startDate: '%y-%M-%d 09:59:59',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'startTime\')}'})" id="endTime" name="endTime" readonly>
                         </td>
                     </tr>
                     <tr>
@@ -65,21 +65,7 @@
 
 <script>
     $(function () {
-        $("#startTime").datetimepicker({
-            format: "dd MM yyyy - hh:ii",
-            autoclose: true,
-            pickerPosition: "bottom-left"
-        }).on("click",function(ev){
-            $("#startTime").datetimepicker("setEndDate", $("#endTime").val());
-        });
 
-        $("#endTime").datetimepicker({
-            format: "dd MM yyyy - hh:ii",
-            autoclose: true,
-            pickerPosition: "bottom-left"
-        }).on("click",function(ev){
-            $("#endTime").datetimepicker("setStartDate", $("#startTime").val());
-        });
         setTimeout(function () {
             var topWin = window.top.document;
             var bodyclass = $(topWin).find("body").attr("class");
