@@ -20,7 +20,7 @@ body {font-family:"Microsoft YaHei",微软雅黑,"Microsoft JhengHei",华文细�
 
 
 
-.order-content table tr{margin: 10px 0;display: inline-block}
+.order-content table tr{margin: 5px 0;display: inline-block}
 .turnToAdd label { width: 130px;text-align: right;padding-right: 10px;margin-top: 20px;}
 .turnToAdd input { margin-top: 20px;}
 .turnToAdd select { margin-top: 20px;}
