@@ -167,4 +167,23 @@
     <include refid="Base_Column_List" />
     from vip_info where mobilephone = #{mobilephone}
   </select>
+  <select id="getVipsBySearcher" parameterType="com.hotpot.searcher.VipSearcher" resultType="com.hotpot.domain.VipInfo">
+    SELECT
+    <include refid="Base_Column_List" />
+    from vip_info
+    <where>
+      <if test=" phone!=null and phone != ''">
+        AND mobilephone = #{phone}
+      </if>
+      <if test="storeId != null and storeId != -1">
+        AND store_id = #{storeId}
+      </if>
+      <if test="startTime != null and startTime != ''">
+        AND <![CDATA[ create_time >= UNIX_TIMESTAMP(#{startTime,jdbcType=VARCHAR}) ]]>
+      </if>
+      <if test="endTime != null and endTime != ''">
+        AND <![CDATA[ create_time <= UNIX_TIMESTAMP(#{endTime,jdbcType=VARCHAR}) ]]>
+      </if>
+    </where>
+  </select>
 </mapper>

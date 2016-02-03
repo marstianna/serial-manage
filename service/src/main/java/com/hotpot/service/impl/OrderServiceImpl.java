@@ -41,7 +41,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = Exception.class)
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public ValueCard payByCard(Order order, String cardId, String cardUuid) {
         promotionService.promotion(order);
         ValueCard card = valueCardService.getCardBalanceByCardUniqueKey(cardId,cardUuid);
@@ -58,7 +58,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = Exception.class)
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public Order pay(Order order){
         promotionService.promotion(order);
         createOrder(order);
@@ -72,7 +72,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = Exception.class)
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public ValueCard payByPhone(Order order, String phone, String password) {
         promotionService.promotion(order);
         ValueCard card = valueCardService.getCardByPhoneAndPassword(phone,password);

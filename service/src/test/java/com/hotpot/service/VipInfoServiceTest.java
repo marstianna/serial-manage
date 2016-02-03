@@ -2,6 +2,7 @@ package com.hotpot.service;
 
 import com.hotpot.commons.DateTool;
 import com.hotpot.domain.VipInfo;
+import com.hotpot.searcher.VipSearcher;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,7 +34,7 @@ public class VipInfoServiceTest {
 
     @Test
     public void testGetAllVips() throws Exception {
-        List<VipInfo> vips = vipInfoService.getAllVips();
+        List<VipInfo> vips = vipInfoService.getAllVips(new VipSearcher());
         Assert.assertTrue(vips.size() == 1);
     }
 

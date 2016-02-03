@@ -233,10 +233,10 @@
       <if test="cardId != null and cardId != ''">
         AND card_id = #{cardId}
       </if>
-      <if test="startTime != null">
+      <if test="startTime != null and startTime != ''">
         AND <![CDATA[ create_time >= UNIX_TIMESTAMP(#{startTime,jdbcType=VARCHAR}) ]]>
       </if>
-      <if test="endTime != null">
+      <if test="endTime != null and endTime != ''">
         AND <![CDATA[ create_time <= UNIX_TIMESTAMP(#{endTime,jdbcType=VARCHAR}) ]]>
       </if>
     </where>

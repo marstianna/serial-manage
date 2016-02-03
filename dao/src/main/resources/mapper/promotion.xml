@@ -41,10 +41,10 @@
             <if test="storeId != null">
                 AND store_id = #{storeId}
             </if>
-            <if test="startTime != null">
+            <if test="startTime != null and startTime != ''">
                 AND <![CDATA[ start_time >= UNIX_TIMESTAMP(#{startTime,jdbcType=VARCHAR}) ]]>
             </if>
-            <if test="endTime != null">
+            <if test="endTime != null and startTime != ''">
                 AND <![CDATA[ end_time <= UNIX_TIMESTAMP(#{endTime,jdbcType=VARCHAR}) ]]>
             </if>
         </where>

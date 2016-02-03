@@ -10,6 +10,8 @@ public class ValueCardSearcher {
     private Integer endTimeForCreate;
     private Integer startTimeForModified;
     private Integer endTimeForModified;
+    private String startTime;
+    private String endTime;
 
     public String getCardId() {
         return cardId;
@@ -57,5 +59,21 @@ public class ValueCardSearcher {
 
     public void setEndTimeForModified(Integer endTimeForModified) {
         this.endTimeForModified = endTimeForModified;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 }

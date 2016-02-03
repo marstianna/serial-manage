@@ -1,6 +1,7 @@
 package com.hotpot.service;
 
 import com.hotpot.domain.VipInfo;
+import com.hotpot.searcher.VipSearcher;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public interface VipInfoService {
      * 获取所有 vip 信息
      * @return
      */
-    List<VipInfo> getAllVips();
+    List<VipInfo> getAllVips(VipSearcher searcher);
 
     /**
      * 根据门店 id 获取该门店下创建的所有VIP 信息
