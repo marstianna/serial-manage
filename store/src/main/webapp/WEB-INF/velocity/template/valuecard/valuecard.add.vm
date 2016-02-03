@@ -74,9 +74,10 @@
             async: false,
             success : function(data){
                 writeUuidIntoCard(data['cardUuid'])
+                showInfo("新建储值卡成功");
             },
             error : function(XMLHttpRequest, textStatus, errorThrown){
-                $("#cardId").html(XMLHttpRequest.responseText);
+                showError("添加储值卡失败,请重试");
             }
         })
     }

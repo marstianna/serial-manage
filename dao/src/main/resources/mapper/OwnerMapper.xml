@@ -183,4 +183,8 @@
     <include refid="Base_Column_List"/>
     from owner where login_name = #{loginName} and login_password = #{loginPassword}
   </select>
+
+  <update id="changePassword">
+    update owner set login_password = #{newPwd} where id = #{ownerId} and login_password = #{oldPwd}
+  </update>
 </mapper>

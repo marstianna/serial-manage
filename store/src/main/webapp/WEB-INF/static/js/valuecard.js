@@ -1,6 +1,6 @@
 function getCardId(){
     $.ajax({
-        url : 'http://192.168.1.10:8080/readCard',
+        url : 'http://120.24.7.81:8080/super-admin/test/readCard',
         type : 'post',
         dataType : 'json',
         success : function(data){
@@ -16,7 +16,7 @@ function getCardId(){
 
 function writeUuidIntoCard(uuid){
     $.ajax({
-        url : 'http://192.168.1.10:8080/writeCard',
+        url : 'http://120.24.7.81:8080/super-admin/test/writeCard',
         type : 'post',
         data : {
             cardUuid : uuid
@@ -35,7 +35,7 @@ function writeUuidIntoCard(uuid){
 function getCardInfoFromCard(){
     var result;
     $.ajax({
-        url : 'http://192.168.1.10:8080/readCard',
+        url : 'http://120.24.7.81:8080/super-admin/test/readCard',
         type : 'post',
         dataType : 'json',
         async: false,

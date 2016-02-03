@@ -2,6 +2,7 @@ package com.hotpot.dao;
 
 
 import com.hotpot.domain.VipInfo;
+import com.hotpot.searcher.VipSearcher;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -61,4 +62,6 @@ public interface VipInfoMapper {
     List<VipInfo> getVipsByStoreId(Integer storeId);
 
     VipInfo getVipByMobilephone(String mobilephone);
+
+    List<VipInfo> getVipsBySearcher(VipSearcher searcher);
 }

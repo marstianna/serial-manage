@@ -106,13 +106,13 @@
         #{vipId,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
-        #{createTime,jdbcType=INTEGER},
+        UNIX_TIMESTAMP(#{createTime,jdbcType=VARCHAR}),
       </if>
       <if test="password != null" >
         #{password,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
-        UNIX_TIMESTAMP(#{createTime,jdbcType=VARCHAR})
+        UNIX_TIMESTAMP(#{createTime,jdbcType=VARCHAR}),
       </if>
     </trim>
   </insert>
@@ -210,6 +210,12 @@
       </if>
       <if test="endTimeForModified != null and endTimeForModified != ''">
         AND <![CDATA[ create_time <= UNIX_TIMESTAMP(#{endTimeForModified,jdbcType=VARCHAR}) ]]>
+      </if>
+      <if test="startTime != null and startTime != ''">
+        AND <![CDATA[ create_time >= UNIX_TIMESTAMP(#{startTime,jdbcType=VARCHAR}) ]]>
+      </if>
+      <if test="endTime != null and endTime != ''">
+        AND <![CDATA[ create_time <= UNIX_TIMESTAMP(#{endTime,jdbcType=VARCHAR}) ]]>
       </if>
     </where>
     order by create_time desc

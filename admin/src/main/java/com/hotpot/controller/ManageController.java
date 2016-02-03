@@ -42,6 +42,7 @@ public class ManageController extends BaseController {
 
     @RequestMapping("index")
     public String index(){
+        setRequestAttribute("storeList",storeService.getStoreMap());
         return "manage/store.list";
     }
 

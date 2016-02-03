@@ -39,11 +39,11 @@
                     <tr>
                         <td class="text-right" width="150">开始时间：</td>
                         <td width="200">
-                            <input type="text" class="form-control" placeholder="yyyy-MM-dd HH:mm:ss" name="startTime" id="startTime" before="endTime" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'#F{$dp.$D(\'endTime\')}'})" readonly/>
+                            <input class="form-control" size="16" type="text" onFocus="WdatePicker({startDate: '%y-%M-%d 10:00:00',dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'#F{$dp.$D(\'endTime\')}'})" id="startTime" name="startTime" readonly>
                         </td>
                         <td class="text-right" width="150">结束时间：</td>
                         <td width="200">
-                            <input type="text" class="form-control" placeholder="yyyy-MM-dd HH:mm:ss" id="endTime" name="endTime" after="startTime"  onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'startTime\')}'})" readonly/>
+                            <input class="form-control" size="16" type="text" onFocus="WdatePicker({startDate: '%y-%M-%d 09:59:59',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'startTime\')}'})" id="endTime" name="endTime" readonly>
                         </td>
                     </tr>
                     <tr>
@@ -59,28 +59,13 @@
 </div>
 <div class="table-jqgrid">
     <!--这里放jqgrid-->
-    <button class="btn btn-sm" onclick="settleForCom()">结账</button>
     <table id="list" style="width: 95%;" form="search_form"></table>
     <div id="pager"></div>
 </div>
 
 <script>
     $(function () {
-        $("#startTime").datetimepicker({
-            format: "dd MM yyyy - hh:ii",
-            autoclose: true,
-            pickerPosition: "bottom-left"
-        }).on("click",function(ev){
-            $("#startTime").datetimepicker("setEndDate", $("#endTime").val());
-        });
 
-        $("#endTime").datetimepicker({
-            format: "dd MM yyyy - hh:ii",
-            autoclose: true,
-            pickerPosition: "bottom-left"
-        }).on("click",function(ev){
-            $("#endTime").datetimepicker("setStartDate", $("#startTime").val());
-        });
         setTimeout(function () {
             var topWin = window.top.document;
             var bodyclass = $(topWin).find("body").attr("class");
@@ -248,29 +233,6 @@
         });
     });
 
-    function settleForCom() {
-        var selectedIds = $("#list").jqGrid("getGridParam", "selarrrow");
-        if (!selectedIds || selectedIds.length == 0) {
-            showError('当前没有选择！');
-            return;
-        }
-        //TODO:cj,这里需要验证操作类型是否为充值,才允许继续下一步
-        if(confirm('确定对一下订单进行结账:'+selectedIds.join(","))) {
-            var bar = ProgressBar();
-            bar.show();
-            $.post("$ctx/valuecard/settleForCom", {
-                rids: selectedIds.join(",")
-            }, function (res) {
-                bar.hide();
-                if (res.success) {
-                    $("#list").trigger('reloadGrid');
-                    showInfo('批量发布成功');
-                } else {
-                    showError('数据发生异常:' + res.message);
-                }
-            }, "json");
-        }
-    }
 
     $(window).bind('resize', function() {
         $("#list").setGridWidth($(window).width()-10);

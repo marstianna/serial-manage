@@ -52,9 +52,7 @@ public class OrderServiceTest {
 
     @Test
     public void testGetOrdersBySearcher() throws Exception {
-        List<Order> orders = orderService.getOrdersBySearcher(new OrderSearcher().setEndTime(1451657874l)
-                                                                                .setStartTime(1451657224l)
-                                                                                .setStoreId(1));
+        List<Order> orders = orderService.getOrdersBySearcher(new OrderSearcher().setEndTime(DateTool.getDateTime()));
         System.out.println(orders.size());
     }
 

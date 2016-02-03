@@ -38,7 +38,9 @@ public class CardView {
     public static CardView transform(ValueCard valueCard) {
         CardView cardView = new CardView(valueCard);
         VipInfo vipInfo = vipInfoService.getVipInfoById(valueCard.getVipId());
-        cardView.setVipName(vipInfo.getName() + "(" + vipInfo.getId() + ")");
+        if(vipInfo != null) {
+            cardView.setVipName(vipInfo.getName() + "(" + vipInfo.getId() + ")");
+        }
         return cardView;
     }
 }

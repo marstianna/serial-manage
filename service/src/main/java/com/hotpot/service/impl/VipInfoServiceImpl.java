@@ -2,6 +2,7 @@ package com.hotpot.service.impl;
 
 import com.hotpot.dao.VipInfoMapper;
 import com.hotpot.domain.VipInfo;
+import com.hotpot.searcher.VipSearcher;
 import com.hotpot.service.VipInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,8 +23,8 @@ public class VipInfoServiceImpl implements VipInfoService {
     }
 
     @Override
-    public List<VipInfo> getAllVips() {
-        return vipInfoMapper.getAllVips();
+    public List<VipInfo> getAllVips(VipSearcher searcher) {
+        return vipInfoMapper.getVipsBySearcher(searcher);
     }
 
     @Override

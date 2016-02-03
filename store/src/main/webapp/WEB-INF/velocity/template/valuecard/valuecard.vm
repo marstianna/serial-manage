@@ -14,11 +14,11 @@
                     <tr>
                         <td class="text-right" width="150">开始时间：</td>
                         <td width="200">
-                            <input type="text" class="form-control" placeholder="yyyy-MM-dd HH:mm:ss" name="startTime" id="startTime" before="endTime" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'#F{$dp.$D(\'endTime\')}'})"  readonly/>
+                            <input class="form-control" size="16" type="text" onFocus="WdatePicker({startDate: '%y-%M-%d 10:00:00',dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'#F{$dp.$D(\'endTime\')}'})" id="startTime" name="startTime" readonly>
                         </td>
                         <td class="text-right" width="150">结束时间：</td>
                         <td width="200">
-                            <input type="text" class="form-control" placeholder="yyyy-MM-dd HH:mm:ss" id="endTime" name="endTime" after="startTime"  onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'startTime\')}'})"  readonly/>
+                            <input class="form-control" size="16" type="text" onFocus="WdatePicker({startDate: '%y-%M-%d 09:59:59',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'startTime\')}'})" id="endTime" name="endTime" readonly>
                         </td>
                     </tr>
                     <tr>
@@ -29,6 +29,7 @@
                         </td>
 ##                        <td>
 ##                        </td>
+                        </td>
                     </tr>
                 </table>
             </form>
@@ -48,21 +49,6 @@
 
 <script>
     $(function () {
-        $("#startTime").datetimepicker({
-            format: "dd MM yyyy - hh:ii",
-            autoclose: true,
-            pickerPosition: "bottom-left"
-        }).on("click",function(ev){
-            $("#startTime").datetimepicker("setEndDate", $("#endTime").val());
-        });
-
-        $("#endTime").datetimepicker({
-            format: "dd MM yyyy - hh:ii",
-            autoclose: true,
-            pickerPosition: "bottom-left"
-        }).on("click",function(ev){
-            $("#endTime").datetimepicker("setStartDate", $("#startTime").val());
-        });
         setTimeout(function () {
             var topWin = window.top.document;
             var bodyclass = $(topWin).find("body").attr("class");
@@ -76,7 +62,7 @@
                         {
                             url: '$ctx/valuecard/getAllCards',
                             datatype: "local",
-                            colNames: ["id", "储值卡编号", "会员ID", "创建时间", "最后修改时间", "余额", "查看流水"],
+                            colNames: ["id", "储值卡编号", "会员姓名(ID)", "创建时间", "最后修改时间", "余额", "查看流水"],
                             colModel: [
                                 {
                                     name: 'card.id',

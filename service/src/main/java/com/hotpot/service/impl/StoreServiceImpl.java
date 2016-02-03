@@ -105,7 +105,7 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     public RuntimeTable getRuntimeTable(Integer storeId, String tableCode) {
-        return null;
+        return runtimeTableMapper.getRuntimeTableInfo(storeId, tableCode);
     }
 
     @Override
@@ -122,5 +122,16 @@ public class StoreServiceImpl implements StoreService {
             storeTableMapper.insertSelective(table);
         }
         return result;
+    }
+
+    @Override
+    public Integer changePassword(Integer ownerId, String oldPwd, String newPwd) {
+        return ownerMapper.changePassword(ownerId, oldPwd, newPwd);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
+    public Integer clearTable(Integer storeId, String tableCode){
+        return runtimeTableMapper.delete(tableCode,storeId);
     }
 }
