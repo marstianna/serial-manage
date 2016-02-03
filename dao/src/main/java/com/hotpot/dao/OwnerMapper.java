@@ -58,4 +58,6 @@ public interface OwnerMapper {
     Integer login(@Param("loginName") String loginName , @Param("loginPassword") String loginPassword);
 
     Owner getOwner(@Param("loginName") String loginName , @Param("loginPassword") String loginPassword);
+
+    Integer changePassword(@Param("ownerId")Integer ownerId,@Param("oldPwd")String oldPwd,@Param("newPwd")String newPwd);
 }

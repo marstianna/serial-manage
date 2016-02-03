@@ -24,4 +24,14 @@
         update runtime_table set order_id = #{orderId} where table_code = #{tableCode} and store_id = #{storeId}
     </update>
 
+    <select id="getRuntimeTableInfo" resultType="com.hotpot.domain.RuntimeTable">
+        select
+        <include refid="Base_Column_List" />
+        from runtime_table r where table_code = #{tableCode} and store_id = #{storeId}
+    </select>
+
+    <delete id="delete">
+        delete from runtime_table where table_code = #{tableCode} and store_id = #{storeId}
+    </delete>
+
 </mapper>

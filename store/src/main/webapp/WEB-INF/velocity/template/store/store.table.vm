@@ -5,47 +5,16 @@
 <div class="nav-top">
     <div class="">
         <div class="nav-content">
-            <form id="promotionAdd" action="$ctx/promotion/addPromotion" method="post">
+            <form id="storeAdd" action="$ctx/store/createNewTables" method="post">
             ##    owner
                 <div class="turnToAdd">
-                    <label>满足金额</label><input type="text" name="enough" placeholder="enough" id="enough" class="form-control">
+                    <label>餐桌编号</label><input type="text" name="code" id="code" class="form-control">
                     <br>
-                    <label>促销类型</label>
-                    <select class="form-control" name="type" id="type">
-                        #foreach($param in ${promotionTypeList.keySet()})
-                            <option value="$param">${promotionTypeList.get($param)}</option>
-                        #end
-                    </select>
+                    <label>从</label><input type="text" name="from" id="from" class="form-control">
+                    <label>到</label><input type="text" name="to" id="to" class="form-control">
                     <br>
-                    当促销类型为满减时,实际账单金额-减免金额
-                    <br>
-                    当促销类型为满折时,实际账单金额*减免金额
-                    <br>
-                    <label>减免金额</label><input type="text" name="discount" id="discount" placeholder="discount"
-                                              class="form-control">
-                    <br>
-                    <label>店铺</label>
-                    <select name="storeId" class="form-control">
-                        <option value="0" selected="selected">所有店铺</option>
-                        #foreach($param in ${storeList.keySet()})
-                            <option value="$param">${storeList.get($param)}</option>
-                        #end
-                    </select>
-                    <br>
-                    <label>促销起始时间</label><input type="text" name="startTime" placeholder="start_time" id="startTime"
-                                                class="form-control">
-                    <br>
-                    <label>促销结束时间</label><input type="text" name="endTime" placeholder="end_time" id="endTime"
-                                                class="form-control">
-                    <br>
-                    <label>支付类型</label>
-                    <select name="payType" class="form-control">
-                        <option value="-1" selected="selected">全部</option>
-                        #foreach($param in ${payTypeList.keySet()})
-                            <option value="$param">${payTypeList.get($param)}</option>
-                        #end
-                    </select>
-                    <br>
+                    <label>就餐人数</label><input type="text" name="to" id="to" class="form-control">
+
                 </div>
                 <div style="margin-left: 130px;margin-top: 20px;">
                 ##                    <button type="button" id="promotionSubmitBtn" name="submit" class="btn btn-default" onclick="submitForm()">提交</button>

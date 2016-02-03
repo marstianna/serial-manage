@@ -59,7 +59,6 @@
 </div>
 <div class="table-jqgrid">
     <!--这里放jqgrid-->
-    <button class="btn btn-sm" onclick="settleForCom()">结账</button>
     <table id="list" style="width: 95%;" form="search_form"></table>
     <div id="pager"></div>
 </div>
@@ -248,29 +247,6 @@
         });
     });
 
-    function settleForCom() {
-        var selectedIds = $("#list").jqGrid("getGridParam", "selarrrow");
-        if (!selectedIds || selectedIds.length == 0) {
-            showError('当前没有选择！');
-            return;
-        }
-        //TODO:cj,这里需要验证操作类型是否为充值,才允许继续下一步
-        if(confirm('确定对一下订单进行结账:'+selectedIds.join(","))) {
-            var bar = ProgressBar();
-            bar.show();
-            $.post("$ctx/valuecard/settleForCom", {
-                rids: selectedIds.join(",")
-            }, function (res) {
-                bar.hide();
-                if (res.success) {
-                    $("#list").trigger('reloadGrid');
-                    showInfo('批量发布成功');
-                } else {
-                    showError('数据发生异常:' + res.message);
-                }
-            }, "json");
-        }
-    }
 
     $(window).bind('resize', function() {
         $("#list").setGridWidth($(window).width()-10);

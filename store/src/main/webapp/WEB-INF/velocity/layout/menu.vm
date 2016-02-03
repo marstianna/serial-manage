@@ -23,8 +23,8 @@
 
         {id: 6, name: "店铺管理", parent: -1, order: 6, path: "", icon: ""},
         {id: 61, name: "店铺信息", parent: 6, order: 1, path: "$ctx/store/turnToStoreInfo", icon: ""},
-        {id: 62, name: "店铺员工管理", parent: 6, order: 2, path: "$ctx/store/staff", icon: ""},
-        {id: 63, name: "店铺餐桌管理", parent: 6, order: 3, path: "$ctx/store/table", icon: ""},
+##        {id: 62, name: "店铺员工管理", parent: 6, order: 2, path: "$ctx/store/staff", icon: ""},
+        {id: 63, name: "店铺餐桌管理", parent: 6, order: 3, path: "$ctx/store/turnToStoreTable", icon: ""},
     ];
 
 

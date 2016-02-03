@@ -106,13 +106,13 @@
         #{vipId,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
-        #{createTime,jdbcType=INTEGER},
+        UNIX_TIMESTAMP(#{createTime,jdbcType=VARCHAR}),
       </if>
       <if test="password != null" >
         #{password,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
-        UNIX_TIMESTAMP(#{createTime,jdbcType=VARCHAR})
+        UNIX_TIMESTAMP(#{createTime,jdbcType=VARCHAR}),
       </if>
     </trim>
   </insert>

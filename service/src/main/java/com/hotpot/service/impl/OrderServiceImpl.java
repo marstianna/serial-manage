@@ -53,6 +53,7 @@ public class OrderServiceImpl implements OrderService {
         }
         order.setCardId(card.getCardId());
         createOrder(order);
+        storeService.clearTable(order.getStoreId(),order.getTableCode());
         return valueCardService.payment(cardId, cardUuid, order.getStoreId(), order.getActualPrice(), order.getPaperPrice());
     }
 
@@ -61,6 +62,7 @@ public class OrderServiceImpl implements OrderService {
     public Order pay(Order order){
         promotionService.promotion(order);
         createOrder(order);
+        storeService.clearTable(order.getStoreId(),order.getTableCode());
         return order;
     }
 
@@ -82,6 +84,7 @@ public class OrderServiceImpl implements OrderService {
         }
         order.setCardId(card.getCardId());
         createOrder(order);
+        storeService.clearTable(order.getStoreId(),order.getTableCode());
         return valueCardService.paymentWithPassword(phone, password, order.getStoreId(), order.getActualPrice(), order.getPaperPrice());
     }
 }

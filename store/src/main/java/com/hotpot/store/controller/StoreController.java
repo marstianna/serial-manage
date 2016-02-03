@@ -31,8 +31,13 @@ public class StoreController {
         model.addAttribute("store",store);
         model.addAttribute("owner",owner);
 
-        return "store/storeInfo";
+        return "store/store.info";
 
+    }
+
+    @RequestMapping("turnToStoreTable")
+    public String turnToStoreTable(Model model){
+        return "store/store.table";
     }
 
     @RequestMapping("createNewTables")
@@ -43,5 +48,18 @@ public class StoreController {
             return ImmutableMap.of("success","success","result",countOfSuccss);
         }
         return ImmutableMap.of("success","false");
+    }
+
+    @RequestMapping("changePassword")
+    @ResponseBody
+    public Object changePassword(String oldPassword,String newPassword){
+        Integer count = storeService.changePassword(Context.get().getOwnerId(),oldPassword,newPassword);
+        String success;
+        if(count != 0){
+            success = "success";
+        }else{
+            success = "false";
+        }
+        return ImmutableMap.of("success",success);
     }
 }

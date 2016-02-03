@@ -9,7 +9,7 @@
 <form id="checkOut" method="post">
 ##    owner
     <div class="turnToAdd">
-        <label>桌号</label><input type="text" name="tableCode" id="tableCode" value="A01" disabled="disabled" class="form-control">
+        <label>桌号</label><input type="text" name="tableCode" id="tableCode" value="A01" class="form-control" readonly>
         <br>
         <label>菜品消费金额</label><input type="text" name="foodPrice" id="foodPrice" class="form-control">
         <br>
@@ -27,8 +27,8 @@
         <div class="PayByCard">
             请将储值卡放在读卡器后,点击
             <button type="button" name="verifyCard" onclick="getCardInfoFromCard()">检测卡片</button><br>
-            <input type="text" id="cardId" name="cardId" disabled="disabled"/>
-            <input type="text" id="cardUuid" name="cardUuid" disabled="disabled"/>
+            <input type="text" id="cardId" name="cardId" readonly/>
+            <input type="text" id="cardUuid" name="cardUuid" readonly/>
         </div>
         <div class="PayByOtherWay">
             实收金额:<input type="text" id="received" name="received" />

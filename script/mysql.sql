@@ -8,19 +8,22 @@ CREATE TABLE `admin` (
 
 CREATE TABLE `order` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `vip_id` int(11) NOT NULL DEFAULT '0',
   `store_id` int(11) NOT NULL DEFAULT '0',
-  `pay_type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0储值卡,1现金,2支付宝,3微信,4团购优惠支付',
-  `card_id` int(11) NOT NULL DEFAULT '0',
+  `pay_type` tinyint(4) NOT NULL DEFAULT '0',
+  `card_id` varchar(45) NOT NULL DEFAULT '0',
   `paper_price` int(11) NOT NULL DEFAULT '0',
   `actual_price` int(11) NOT NULL DEFAULT '0',
   `drink_price` int(11) NOT NULL DEFAULT '0',
   `food_price` int(11) NOT NULL DEFAULT '0',
+  `other_price` int(11) NOT NULL DEFAULT '0',
   `create_time` int(11) NOT NULL DEFAULT '0',
   `queue_up` tinyint(4) NOT NULL DEFAULT '0',
-  `settle` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否已付款,0未付款,1已付款',
+  `table_code` varchar(45) NOT NULL DEFAULT '',
+  `received` int(11) NOT NULL DEFAULT '0',
+  `count_of_people` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
 
 CREATE TABLE `points` (
   `vip_id` int(11) NOT NULL,

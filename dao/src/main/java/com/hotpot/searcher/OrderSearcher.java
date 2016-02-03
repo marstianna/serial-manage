@@ -8,7 +8,7 @@ public class OrderSearcher {
     private Integer vipId;  //会员 ID
     private Integer payType;//支付方式
     private Integer storeId;//店铺 ID
-    private Integer cardId; //储值卡编号
+    private String cardId; //储值卡编号
     private Long startTime; //查询起始时间
     private Long endTime;   //查询结束时间
 
@@ -48,11 +48,11 @@ public class OrderSearcher {
         return this;
     }
 
-    public Integer getCardId() {
+    public String getCardId() {
         return cardId;
     }
 
-    public OrderSearcher setCardId(Integer cardId) {
+    public OrderSearcher setCardId(String cardId) {
         this.cardId = cardId;
         return this;
     }

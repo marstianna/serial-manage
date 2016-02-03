@@ -121,9 +121,6 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="vipId != null" >
-        #{vipId,jdbcType=INTEGER},
-      </if>
       <if test="storeId != null" >
         #{storeId,jdbcType=INTEGER},
       </if>
@@ -173,9 +170,6 @@
     -->
     update `order`
     <set >
-      <if test="vipId != null" >
-        vip_id = #{vipId,jdbcType=INTEGER},
-      </if>
       <if test="storeId != null" >
         store_id = #{storeId,jdbcType=INTEGER},
       </if>
@@ -236,7 +230,7 @@
       <if test="storeId != null and storeId != -1">
         AND store_id = #{storeId}
       </if>
-      <if test="cardId != null">
+      <if test="cardId != null and cardId != ''">
         AND card_id = #{cardId}
       </if>
       <if test="startTime != null">

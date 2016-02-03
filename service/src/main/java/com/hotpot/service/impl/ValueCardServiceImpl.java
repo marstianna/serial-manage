@@ -38,6 +38,7 @@ public class ValueCardServiceImpl implements ValueCardService {
         card.setBalance(account);
         card.setVipId(vipId);
         card.setPassword(password);
+        card.setCreateTime(DateTool.getDateTime());
         valueCardMapper.insertSelective(card);
         recordHistory(cardId,storeId, Const.OPERATE_ADD,account,money);
         return card;

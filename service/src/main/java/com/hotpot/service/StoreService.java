@@ -54,4 +54,8 @@ public interface StoreService {
     RuntimeTable getRuntimeTable(Integer storeId,String tableCode);
 
     Integer createTables(Integer from ,Integer to ,String code,Integer countOfPeople);
+
+    Integer changePassword(Integer ownerId,String oldPwd,String newPwd);
+
+    Integer clearTable(Integer storeId, String tableCode);
 }
