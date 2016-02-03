@@ -29,4 +29,8 @@ body {font-family:"Microsoft YaHei",微软雅黑,"Microsoft JhengHei",华文细�
 .rightcollapse {padding-left: 20px;}
 .menutext {font-size: 14px;}
 .searchinfotable label{width: 150px;text-align: right;float: left;margin-right: 5px;margin-top: 15px;line-height: 32px;}
-.searchinfotable input{float: left;margin-top: 15px;}
+/*.searchinfotable input{float: left;margin-top: 15px;}*/
+.queue_up label{width: 90px;text-align: right;padding-right: 10px;margin-top: 15px;}
+.queue_up input{margin-top: 15px;}
+.queue_up select{margin-top: 15px;}
+input[type=radio] {margin-top: 0}

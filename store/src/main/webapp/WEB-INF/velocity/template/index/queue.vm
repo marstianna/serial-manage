@@ -4,39 +4,22 @@
     <div class="">
         <div class="nav-content">
             <form id="queue_up">
-                <table cellpadding="0" cellspacing="0" class="searchinfotable">
-                    <tr>
-                        <td width="">
-                            <label>电话:</label><input id="phoneNumber" name="phoneNumber" class="form-control" type="text">
-                            <br>
-                            <label>就餐人数:</label><input id="countOfPeople" name="countOfPeople" class="form-control" type="text">
-                        </td>
-                    </tr>
-                    <tr style="clear: both;">
-                        <td width="150"></td>
-                        <td class="searchtd">
-                            <button type="button" class="btn btn-sm" id="queueUpBtn" onclick="queueUp()"><i class="align-top bigger-125"></i>排队</button>
-                        </td>
-                    </tr>
-                </table>
+                <div class="queue_up">
+                    <label>电话:</label><input id="phoneNumber" name="phoneNumber" class="form-control" type="text">
+                    <label>就餐人数:</label><input id="countOfPeople" name="countOfPeople" class="form-control" type="text">
+                    <br>
+                    <label></label><input type="button" class="btn btn-sm" id="queueUpBtn" onclick="queueUp()" value="添加">
+                </div>
             </form>
             <form id="search_form" method="post">
-                <table cellpadding="0" cellspacing="0" class="searchinfotable">
-                    <tr>
-                        <td width="200">
-                            <select name="tableSize" class="form-control">
-                                <option value="4" selected="selected">小桌</option>
-                                <option value="8">大桌</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="150"></td>
-                        <td class="searchtd">
-                            <button type="button" id="search_btn" class="btn btn-sm"><i class="icon-search align-top bigger-125"></i>搜索</button>
-                        </td>
-                    </tr>
-                </table>
+                <div class="queue_up">
+                    <label></label><select name="tableSize" class="form-control">
+                        <option value="4" selected="selected">小桌</option>
+                        <option value="8">大桌</option>
+                    </select>
+                    <br>
+                    <label></label><input type="button" id="search_btn" class="btn btn-sm" value="搜索">
+                </div>
             </form>
         </div>
     </div>
