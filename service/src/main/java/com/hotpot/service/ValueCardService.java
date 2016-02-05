@@ -5,6 +5,7 @@ import com.hotpot.domain.VipInfo;
 import com.hotpot.domain.ValueCard;
 import com.hotpot.searcher.ValueCardHistorySearcher;
 import com.hotpot.searcher.ValueCardSearcher;
+import javafx.util.Pair;
 
 import java.util.List;
 import java.util.Map;
@@ -24,7 +25,7 @@ public interface ValueCardService {
      * @param password
      * @return  返回一个创建的卡的 uuid,需要记录到储值卡上
      */
-    ValueCard addNewCard(String cardId, Integer storeId, Integer money, Integer account, Integer vipId, String password);
+    ValueCard addNewCard(String cardId, Integer storeId, Integer money, Integer account, Integer vipId, String password,String phone);
 
     /**
      * 根据卡号获取流水
@@ -66,13 +67,12 @@ public interface ValueCardService {
     /**
      * 给指定储值卡充值
      * @param cardId
-     * @param cardUuid
      * @param storeId
      * @param account   储值卡充值金额
      * @param money     实际支付金额
      * @return
      */
-    ValueCard topUp(String cardId, String cardUuid, Integer storeId, Integer account, Integer money);
+    ValueCard topUp(String cardId, Integer storeId, Integer account, Integer money);
 
     /**
      * 使用指定会员卡消费
@@ -103,8 +103,8 @@ public interface ValueCardService {
      */
     List<ValueCard> getAllCards(ValueCardSearcher searcher);
 
-    Map<String,List<Integer>> settleOrdersForCom(List<Integer> orderIds);
-    Map<String,List<Integer>> settleForStore(List<Integer> orderIds);
+    Map<String,List<Pair<Integer,Integer>>> settleOrdersForCom(List<Integer> orderIds);
+    Map<String,List<Pair<Integer,Integer>>> settleForStore(List<Integer> orderIds);
 
     List<ValueCardHistory> getAllCardHistory(ValueCardHistorySearcher searcher);
 }

@@ -11,6 +11,7 @@ import com.hotpot.service.VipInfoService;
 import com.hotpot.store.view.VipInfoView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -46,5 +47,12 @@ public class VipController extends BaseController {
         return getResultPage((Page<VipInfo>)vips,results);
     }
 
+    @RequestMapping("turnToEditVipInfo")
+    public Object turnToEditVipInfo(Integer id,Model model){
+        VipInfo vipInfoById = vipInfoService.getVipInfoById(id);
+        model.addAttribute("vip", vipInfoById);
+        model.addAttribute("card",valueCardService.getCardBalanceByVipInfo(vipInfoById));
 
+        return "vip/vip.info";
+    }
 }

@@ -15,7 +15,7 @@ public interface RuntimeTableMapper {
 
     Integer haveASeat(RuntimeTable runtimeTable);
 
-    Integer delete(String tableCode,Integer storeId);
+    Integer delete(@Param("tableCode")String tableCode,@Param("storeId")Integer storeId);
 
     Integer updateOrderId(@Param("orderId")Integer orderId,@Param("tableCode")String tableCode,@Param("storeId")Integer storeId);
 

@@ -7,9 +7,9 @@ import com.hotpot.domain.Order;
  * Created by zoupeng on 16/1/29.
  */
 public class CheckOutVo {
-    private Integer foodPrice;
-    private Integer drinkPrice;
-    private Integer otherPrice;
+    private Integer foodPrice = 0;
+    private Integer drinkPrice = 0;
+    private Integer otherPrice = 0;
     private String tableCode;
     private Integer payType;
     private String cardId;

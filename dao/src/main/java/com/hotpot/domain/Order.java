@@ -16,6 +16,7 @@ public class Order {
     private String tableCode;
     private Integer received;
     private Integer countOfPeople;
+    private Integer payBack;
 
     public Integer getId() {
         return id;
@@ -127,5 +128,13 @@ public class Order {
 
     public void setCountOfPeople(Integer countOfPeople) {
         this.countOfPeople = countOfPeople;
+    }
+
+    public Integer getPayBack() {
+        return payBack;
+    }
+
+    public void setPayBack(Integer payBack) {
+        this.payBack = payBack;
     }
 }

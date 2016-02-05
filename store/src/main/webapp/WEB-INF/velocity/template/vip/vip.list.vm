@@ -320,9 +320,7 @@
     }
 
     function modifyVipInfo(id){
-        $.get("$ctx/vip/modifyVipInfo?id="+id,function(res){
-            //TODO 弹出框现实 Vip信息,可以修改
-        });
+        $.unionTab.addRootTab({url:"$ctx/vip/modifyVipInfo?id="+id,title:'编辑VIP['+cardId+']的信息'})
     }
 </script>
 

@@ -243,32 +243,37 @@
     function checkOut(tableCode){
         var message = '<form id="checkOut" method="post">'
                 +'<div class="turnToAdd">'
-        +'<label>桌号</label><input type="text" name="tableCode" id="tableCode" value="'+tableCode+'" class="form-control" readonly>'
-        +'<br>'
-        +'<label>菜品消费金额</label><input type="text" name="foodPrice" id="foodPrice" class="form-control">'
-        +'<br>'
-        +'<label>酒水消费金额</label><input type="text" name="drinkPrice" id="drinkPrice" class="form-control">'
-        +'<br>'
-        +'<label>其他消费金额</label><input type="text" name="otherPrice" id="otherPrice" class="form-control">'
-        +'<br>'
-        +'<label>支付类型</label>'
-        +'<input type="radio" id="payType" name="payType" value="0" checked="checked" onclick="payTypeDefail();"><span>储值卡</span>&nbsp;&nbsp;&nbsp;&nbsp;'
-        +'<input type="radio" id="payType" name="payType" value="1" onclick="payTypeDefail();"><span>现金</span>&nbsp;&nbsp;&nbsp;&nbsp;'
-        +'<input type="radio" id="payType" name="payType" value="2" onclick="payTypeDefail();"><span>支付宝</span>&nbsp;&nbsp;&nbsp;&nbsp;'
-        +'<input type="radio" id="payType" name="payType" value="3" onclick="payTypeDefail();"><span>微信</span>&nbsp;&nbsp;&nbsp;&nbsp;'
-        +'<input type="radio" id="payType" name="payType" value="4" onclick="payTypeDefail();"><span>团购优惠支付</span>&nbsp;&nbsp;&nbsp;&nbsp;'
-        +'<br>'
-        +'<div class="PayByCard">'
-        +'<label></label><span style="line-height: 32px;">请将储值卡放在读卡器后,点击&nbsp;&nbsp;&nbsp;</span>'
-        +'<input style="margin-top: 0;" type="button" class="btn btn-sm" name="verifyCard" onclick="getCardInfoFromCard()" value="检测卡片"><br>'
-        +'<label>卡号</label><input type="text" id="cardId" name="cardId" readonly/>'
-        +'<input type="text" id="cardUuid" name="cardUuid" hidden="hidden" readonly/>'
-        +'</div>'
-        +'<div class="PayByOtherWay" hidden="hidden">'
-        +'<label>实收金额:</label><input type="text" id="received" class="form-control" name="received" />'
-        +'</div>'
-        +'</div>'
-        +'</form>';
+                +'<label>桌号</label><input type="text" name="tableCode" id="tableCode" value="'+tableCode+'" class="form-control" readonly>'
+                +'<br>'
+                +'<label>菜品消费金额</label><input type="text" name="foodPrice" id="foodPrice" class="form-control">'
+                +'<br>'
+                +'<label>酒水消费金额</label><input type="text" name="drinkPrice" id="drinkPrice" class="form-control">'
+                +'<br>'
+                +'<label>其他消费金额</label><input type="text" name="otherPrice" id="otherPrice" class="form-control">'
+                +'<br>'
+                +'<label>支付类型</label>'
+                +'<input type="radio" id="payType" name="payType" value="0" checked="checked" onclick="payTypeDefail();"><span>储值卡</span>&nbsp;&nbsp;&nbsp;&nbsp;'
+                +'<input type="radio" id="payType" name="payType" value="-1" onclick="payTypeDefail();"><span>密码支付</span>&nbsp;&nbsp;&nbsp;&nbsp;'
+                +'<input type="radio" id="payType" name="payType" value="1" onclick="payTypeDefail();"><span>现金</span>&nbsp;&nbsp;&nbsp;&nbsp;'
+                +'<input type="radio" id="payType" name="payType" value="2" onclick="payTypeDefail();"><span>支付宝</span>&nbsp;&nbsp;&nbsp;&nbsp;'
+                +'<input type="radio" id="payType" name="payType" value="3" onclick="payTypeDefail();"><span>微信</span>&nbsp;&nbsp;&nbsp;&nbsp;'
+                +'<input type="radio" id="payType" name="payType" value="4" onclick="payTypeDefail();"><span>团购优惠支付</span>&nbsp;&nbsp;&nbsp;&nbsp;'
+                +'<br>'
+                +'<div class="PayByCard">'
+                +'<label></label><span style="line-height: 32px;">请将储值卡放在读卡器后,点击&nbsp;&nbsp;&nbsp;</span>'
+                +'<input style="margin-top: 0;" type="button" class="btn btn-sm" name="verifyCard" onclick="getCardInfoFromCard()" value="检测卡片"><br>'
+                +'<label>卡号</label><input type="text" id="cardId" name="cardId" readonly/>'
+                +'<input type="text" id="cardUuid" name="cardUuid" hidden="hidden" readonly/>'
+                +'</div>'
+                +'<div class="PayByOtherWay" hidden="hidden">'
+                +'实收金额:<input type="text" id="received" class="form-control" name="received" />'
+                +'</div>'
+                +'<div class="PayByPassword" hidden="hidden">'
+                +'电话号码:<input type="text" id="received" class="form-control" name="phone" />'
+                +'支付密码:<input type="password" id="received" class="form-control" name="password" />'
+                +'</div>'
+                +'</div>'
+                +'</form>';
         var title = "结账"
         BootstrapDialog.confirm(title,message, function() {
             $.ajax({
@@ -279,7 +284,7 @@
                     foodPrice: $("input[name='foodPrice']").val(),
                     drinkPrice: $("input[name='drinkPrice']").val(),
                     otherPrice: $("input[name='otherPrice']").val(),
-                    payType: $('#payType:checked').val(),
+                    payType: $('#payType:checked').val() == -1 ? 0 : $('#payType:checked').val(),
                     cardId: $("input[name='cardId']").val(),
                     cardUuid: $("input[name='cardUuid']").val(),
                     phone: $("input[name='phone']").val(),
@@ -289,17 +294,20 @@
                 dataType: 'json',
                 success: function (data) {
                     var payType = $('#payType:checked').val();
-                    if(data['success'] == "false"){
-                        $("#priceresult7").html("支付失败,请重试");
+                    if(data['success'] == false){
+                        showError(data['message']);
                     }else {
-                        if(payType == 0){
-                            showInfo(data['card']['balance'])
+                        var payType = data['order']['payType'];
+                        if(payType == 0 || payType == -1){
+                            showInfo("当次消费:"+data['order']['actualPrice']+",卡中余额为:"+data['card']['balance'])
                             //打印返回的储值卡信息
                         }else if(payType == 1){
                             //需要找回的现金
+                            showInfo("订单生成成功,共消费"+data['order']['actualPrice']+",找回现金:"+data['order']['payBack'])
                         }else{
-
+                            showInfo("订单生成成功,共消费"+data['order']['actualPrice']);
                         }
+                        $("#list").trigger('reloadGrid');
                     }
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -307,7 +315,6 @@
                 }
             });
         });
-        $("#list").trigger('reloadGrid');
     }
 
 
@@ -405,12 +412,19 @@
         if($('#payType:checked').val() == 0){
             $(".PayByOtherWay").hide();
             $(".PayByCard").show();
+            $(".PayByPassword").hide();
         }else if($('#payType:checked').val() == 1){
             $(".PayByOtherWay").show();
             $(".PayByCard").hide();
+            $(".PayByPassword").hide();
+        }else if($('#payType:checked').val() == -1){
+            $(".PayByOtherWay").hide();
+            $(".PayByCard").hide();
+            $(".PayByPassword").show();
         }else{
             $(".PayByOtherWay").hide();
             $(".PayByCard").hide();
+            $(".PayByPassword").hide();
         }
     }
 </script>

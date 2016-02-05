@@ -1,0 +1,82 @@
+#parse( "./include/variable.vm" )
+<div class="nav-top">
+    <div class="">
+        <div class="nav-content">
+            <form id="topUp"  method="post">
+            ##    owner
+                <div class="turnToAdd">
+                    <label>满足金额</label><input type="text" name="cardId" id="cardId" value="${card.cardId}" class="form-control" readonly>
+                    <br>
+                    <label>充值金额</label><input type="text" name="account" id="account" class="form-control">
+                    <br>
+                    <label>实收金额</label><input type="text" name="price" placeholder="price" id="price" class="form-control">
+                    <br>
+                </div>
+                <div style="margin-left: 130px;margin-top: 20px;">
+                ##                    <button type="button" id="promotionSubmitBtn" name="submit" class="btn btn-default" onclick="submitForm()">提交</button>
+                    <button type="button" id="topUpButton" name="topUpButton" onclick="sumbitForm()" class="btn btn-sm">提交</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function sumbitForm(){
+        $.ajax({
+            url: '$ctx/valuecard/topUp',
+            type: 'post',
+            data: $("#topUp").serialize(),
+            async: false,
+            dataType: 'json',
+            success: function (data) {
+                if(data['success'] == "success"){
+                    showInfo("充值成功,当前余额:"+data['card']['balance']);
+                }else{
+                    showError("充值失败,请重试")
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                result = XMLHttpRequest.responseText;
+            }
+        });
+        $.unionTab.removeTab();
+    }
+
+
+    function initValidate(){
+        //TODO:cj,添加字段验证
+        return true;
+    }
+    //    $(function(){
+    //        $("input[name='start_time']").datepicker();
+    //        $("input[name='end_time']").datepicker();
+    //        $("#promotionSubmitBtn").click(function(){
+    ////            验证
+    //            var id = $("input[name='id']").val();
+    //            var enough = $("input[name='enough']").val();
+    //            var discount = $("input[name='discount']").val();
+    //            var type = $("#type option:selected").val();
+    //            var store_id = $("input[name='store_id']").val();
+    //            var start_time = $("input[name='start_time']").val();
+    //            var end_time = $("input[name='end_time']").val();
+    //            var pay_type = $("#pay_type option:selected").val();
+    //            var valid = $("input[name='valid']").val();
+    //            console.log(id);
+    //            console.log(enough);
+    //            console.log(discount);
+    //            console.log(type);
+    //            console.log(store_id);
+    //            console.log(start_time);
+    //            console.log(end_time);
+    //            console.log(pay_type);
+    //            console.log(valid);
+    //
+    //            $("#promotionAdd").submit(function(){
+    ////提交后的函数
+    //            });
+    //        })
+    //
+    //
+    //
+    //    })
+</script>
