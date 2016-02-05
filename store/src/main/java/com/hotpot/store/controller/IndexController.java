@@ -173,6 +173,11 @@ public class IndexController extends BaseController{
 //       };
     }
 
+    @RequestMapping("turnToQueueUp")
+    public String turnToQueueUp(){
+        return "index/queue.up";
+    }
+
     private Integer getStoreId(){
         return Integer.parseInt(String.valueOf(getRequest().getSession().getAttribute("storeId")));
     }
