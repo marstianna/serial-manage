@@ -11,6 +11,7 @@ import com.hotpot.domain.VipInfo;
 import com.hotpot.searcher.ValueCardHistorySearcher;
 import com.hotpot.searcher.ValueCardSearcher;
 import com.hotpot.service.ValueCardService;
+import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -30,7 +31,7 @@ public class ValueCardServiceImpl implements ValueCardService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = Exception.class)
-    public ValueCard addNewCard(String cardId, Integer storeId, Integer money, Integer account, Integer vipId, String password){
+    public ValueCard addNewCard(String cardId, Integer storeId, Integer money, Integer account, Integer vipId, String password,String phone){
         ValueCard card = new ValueCard();
         card.setCardId(cardId);
         String cardUuid = UUID.nameUUIDFromBytes((cardId+DateTool.getDateTime()).getBytes()).toString()+"-"+new Random().nextInt(1000);
@@ -39,6 +40,7 @@ public class ValueCardServiceImpl implements ValueCardService {
         card.setVipId(vipId);
         card.setPassword(password);
         card.setCreateTime(DateTool.getDateTime());
+        card.setPhone(phone);
         valueCardMapper.insertSelective(card);
         recordHistory(cardId,storeId, Const.OPERATE_ADD,account,money);
         return card;
@@ -77,13 +79,13 @@ public class ValueCardServiceImpl implements ValueCardService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = Exception.class)
-    public ValueCard topUp(String cardId, String cardUuid, Integer storeId, Integer account, Integer money) {
-        Integer count = valueCardMapper.topUp(cardId,cardUuid,account);
+    public ValueCard topUp(String cardId, Integer storeId, Integer account, Integer money) {
+        Integer count = valueCardMapper.topUp(cardId,account);
         if(count == 0){
             throw new RuntimeException("充值失败,请稍后再试");
         }
         recordHistory(cardId,storeId, Const.OPERATE_ADD,account,money);
-        return getCardBalanceByCardUniqueKey(cardId,cardUuid);
+        return getCardBalanceByCardUniqueKey(cardId,null);
     }
 
     @Override
@@ -100,17 +102,13 @@ public class ValueCardServiceImpl implements ValueCardService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public ValueCard paymentWithPassword(String mobilePhone, String password, Integer storeId, Integer account, Integer price) {
-        List<ValueCard> valueCards = valueCardMapper.getValueCardByVipMobilePhone(mobilePhone);
-        ValueCard paymentCard = null;
-        for(ValueCard card : valueCards){
-            Integer count = valueCardMapper.payment(card.getCardId(),card.getCardUuid(),price);
-            if(count != 0){
-                paymentCard = getCardBalanceByCardUniqueKey(card.getCardId(),card.getCardUuid());
-                recordHistory(card.getCardId(),storeId, Const.OPERATE_MINUS,account,price);
-                break;
-            }
+        Integer count = valueCardMapper.paymentByPassword(mobilePhone, password, account);
+        if(count == 0){
+            throw new RuntimeException("余额不足,无法支付");
         }
-        return paymentCard;
+        ValueCard valueCard = valueCardMapper.getValueCardInfoByPhoneAndPassword(mobilePhone,password);
+        recordHistory(valueCard.getCardId(),storeId, Const.OPERATE_MINUS,account,price);
+        return valueCard;
     }
 
     @Override
@@ -124,8 +122,8 @@ public class ValueCardServiceImpl implements ValueCardService {
     }
 
     @Override
-    public Map<String,List<Integer>> settleOrdersForCom(List<Integer> ids){
-        Map<String,List<Integer>> result = new HashMap<>();
+    public Map<String,List<Pair<Integer,Integer>>> settleOrdersForCom(List<Integer> ids){
+        Map<String,List<Pair<Integer,Integer>>> result = new HashMap<>();
         String success = "success";
         String fail = "fail";
         result.put(success, Lists.newArrayList());
@@ -134,21 +132,22 @@ public class ValueCardServiceImpl implements ValueCardService {
             try {
                 Integer count = valueCardHistoryMapper.settle(id,Const.SETTLE_FROM_COMP,Const.OPERATE_MINUS);
                 if (count == 0){
-                    result.get(fail).add(id);
+                    result.get(fail).add(new Pair<>(id,0));
                 }else{
-                    result.get(success).add(id);
+                    ValueCardHistory history = valueCardHistoryMapper.selectByPrimaryKey(id);
+                    result.get(success).add(new Pair<>(id,history.getAccount()));
                 }
             }catch(Exception e){
                 //TODO log
-                result.get(fail).add(id);
+                result.get(fail).add(new Pair<>(id,0));
             }
         }
         return result;
     }
 
     @Override
-    public Map<String, List<Integer>> settleForStore(List<Integer> orderIds) {
-        Map<String,List<Integer>> result = new HashMap<>();
+    public Map<String,List<Pair<Integer,Integer>>> settleForStore(List<Integer> orderIds) {
+        Map<String,List<Pair<Integer,Integer>>> result = new HashMap<>();
         String success = "success";
         String fail = "fail";
         result.put(success, Lists.newArrayList());
@@ -157,13 +156,14 @@ public class ValueCardServiceImpl implements ValueCardService {
             try {
                 Integer count = valueCardHistoryMapper.settle(id,Const.SETTLE_FROM_STORE,Const.OPERATE_ADD);
                 if (count == 0){
-                    result.get(fail).add(id);
+                    result.get(fail).add(new Pair<>(id,0));
                 }else{
-                    result.get(success).add(id);
+                    ValueCardHistory history = valueCardHistoryMapper.selectByPrimaryKey(id);
+                    result.get(success).add(new Pair<>(id,history.getAccount()));
                 }
             }catch(Exception e){
                 //TODO log
-                result.get(fail).add(id);
+                result.get(fail).add(new Pair<>(id,0));
             }
         }
         return result;

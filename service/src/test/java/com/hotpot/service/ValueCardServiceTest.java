@@ -24,7 +24,7 @@ public class ValueCardServiceTest {
 
     @Test
     public void testAddNewCard() throws Exception {
-        valueCardService.addNewCard("No.000001",1,1000,1200,1,"testPassword");
+        valueCardService.addNewCard("No.000001",1,1000,1200,1,"testPassword","testephon");
     }
 
     @Test
@@ -63,7 +63,7 @@ public class ValueCardServiceTest {
 
     @Test
     public void testTopUp() throws Exception {
-        valueCardService.topUp("No.000001","887a85f2-45e4-3cbe-a2ac-5d1f1dfff588",1,1000,233);
+        valueCardService.topUp("No.000001",1,1000,233);
     }
 
     @Test

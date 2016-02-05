@@ -190,7 +190,7 @@
   </select>
 
   <update id="settle">
-    update value_card_history set settle = #{settle} where id = #{id} and operate = #{operate}
+    update value_card_history set settle = #{settle} where id = #{id} and operate = #{operate} and settle = 0
   </update>
 
   <select id="getCardHistoryBySearcher" parameterType="com.hotpot.searcher.ValueCardHistorySearcher" resultType="com.hotpot.domain.ValueCardHistory">

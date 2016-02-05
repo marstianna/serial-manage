@@ -65,8 +65,8 @@ public class IndexController extends BaseController{
 
     @RequestMapping("/queueUp")
     @ResponseBody
-    public Object queue(String phoneNubmer,Integer countOfPeople,String wechat){
-        return queueUpService.queueUp(phoneNubmer, countOfPeople, wechat);
+    public Object queue(String phoneNumber,Integer countOfPeople,String wechat){
+        return queueUpService.queueUp(phoneNumber, countOfPeople, wechat);
     }
 
     @RequestMapping("/nextOne")
@@ -96,11 +96,11 @@ public class IndexController extends BaseController{
         RuntimeTable runtimeTable = storeService.getRuntimeTable(Context.get().getId(),checkOutVo.getTableCode());
         ValueCard card = null;
 
-        if(checkOutVo.getPayType().intValue() == PayTypeEnum.VALUE_CARD.getKey()){
+        order.setQueueUp(runtimeTable.getIsQueueUp());
+        order.setStoreId(store.getId());
+        order.setCountOfPeople(runtimeTable.getPeopleCount());
 
-            order.setQueueUp(runtimeTable.getIsQueueUp());
-            order.setStoreId(store.getId());
-            order.setCountOfPeople(runtimeTable.getPeopleCount());
+        if(checkOutVo.getPayType().intValue() == PayTypeEnum.VALUE_CARD.getKey()){
 
             if(!StringUtils.isBlank(checkOutVo.getPhone()) && !StringUtils.isBlank(checkOutVo.getPassword())){
                 card = orderService.payByPhone(order, checkOutVo.getPhone(), checkOutVo.getPassword());
@@ -109,8 +109,10 @@ public class IndexController extends BaseController{
             }
         }else{
             orderService.pay(order);
+            if(checkOutVo.getPayType().intValue() == PayTypeEnum.CASH.getKey()){
+                order.setPayBack(order.getReceived() - order.getActualPrice());
+            }
         }
-
 //        orderService.pay(order);
         if(card != null) {
             return ImmutableMap.of("order", order, "card",card);

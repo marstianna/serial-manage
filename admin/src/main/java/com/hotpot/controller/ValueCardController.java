@@ -1,17 +1,24 @@
 package com.hotpot.controller;
 
+import com.google.common.collect.ImmutableMap;
+import com.hotpot.commons.DateTool;
 import com.hotpot.commons.framework.BaseController;
 import com.hotpot.commons.pagination.Page;
 import com.hotpot.commons.pagination.annotation.Pagination;
-import com.hotpot.domain.ValueCardHistory;
-import com.hotpot.searcher.ValueCardHistorySearcher;
+import com.hotpot.domain.Store;
 import com.hotpot.domain.ValueCard;
+import com.hotpot.domain.ValueCardHistory;
+import com.hotpot.domain.VipInfo;
+import com.hotpot.searcher.ValueCardHistorySearcher;
 import com.hotpot.searcher.ValueCardSearcher;
+import com.hotpot.service.Context;
 import com.hotpot.service.StoreService;
 import com.hotpot.service.ValueCardService;
 import com.hotpot.service.VipInfoService;
 import com.hotpot.view.CardHistoryView;
 import com.hotpot.view.CardView;
+import com.hotpot.vo.NewCardVo;
+import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,6 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -44,8 +52,8 @@ public class ValueCardController extends BaseController {
 
     @RequestMapping("topUp")
     @ResponseBody
-    public String topUp(String cardId,String cardUuid,Integer storeId,Integer account,Integer price){
-        ValueCard card = valueCardService.topUp(cardId,cardUuid,storeId,account,price);
+    public String topUp(String cardId,Integer storeId,Integer account,Integer price){
+        ValueCard card = valueCardService.topUp(cardId,storeId,account,price);
         return null;
     }
 
@@ -83,8 +91,16 @@ public class ValueCardController extends BaseController {
     @RequestMapping("settleForCom")
     @ResponseBody
     public Object settleForCom(@RequestParam String rids){
-        List<Integer> ids = Arrays.asList(rids.split(",")).stream().collect(Collectors.mapping(Integer::parseInt,Collectors.toList()));
-        return valueCardService.settleOrdersForCom(ids);
+        //见
+        List<Integer> ids = Arrays.asList(rids.split(",")).stream().collect(Collectors.mapping(Integer::parseInt, Collectors.toList()));
+
+        Map<String, List<Pair<Integer, Integer>>> stringListMap = valueCardService.settleOrdersForCom(ids);
+
+        int total = stringListMap.get("success").stream().mapToInt((pair)->pair.getValue()).sum();
+
+        return ImmutableMap.of("success", stringListMap.get("success").stream().collect(Collectors.mapping(Pair::getKey, Collectors.toList())),
+                "false", stringListMap.get("fail").stream().collect(Collectors.mapping(Pair::getKey, Collectors.toList())),
+                "needToPay", total);
     }
 
     @RequestMapping("turnToAddCard")
@@ -92,10 +108,20 @@ public class ValueCardController extends BaseController {
         return "valuecard/valuecard.add";
     }
 
+
     @RequestMapping("addCard")
     @ResponseBody
-    public Object addCard(@ModelAttribute ValueCard card,Integer money){
-        return valueCardService.addNewCard(card.getCardId(),0,money,card.getBalance(),null,card.getPassword());
+    public Object addCard(@ModelAttribute NewCardVo card){
+        Store store = Context.get();
+        VipInfo vipInfo = vipInfoService.getVipInfoByMobilephone(card.getPhone());
+        if(vipInfo == null){
+            vipInfo = new VipInfo();
+            vipInfo.setName(card.getName());
+            vipInfo.setStoreId(store.getId());
+            vipInfo.setCreateTime(DateTool.getDateTime());
+            vipInfo.setMobilephone(card.getPhone());
+            vipInfoService.addVip(vipInfo);
+        }
+        return valueCardService.addNewCard(card.getCardId(), store.getId(), card.getMoney(), card.getBalance(), vipInfo.getId(), card.getPassword(),card.getPhone());
     }
-
 }

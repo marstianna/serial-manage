@@ -61,9 +61,11 @@ public interface ValueCardMapper {
 
     List<ValueCard> getValueCardInfoByVip(VipInfo vipInfo);
 
-    Integer topUp(@Param("cardId")String cardId,@Param("cardUuid")String cardUuid,@Param("money")Integer money);
+    Integer topUp(@Param("cardId")String cardId,@Param("money")Integer money);
 
     Integer payment(@Param("cardId")String cardId,@Param("cardUuid")String cardUuid,@Param("money")Integer money);
+
+    Integer paymentByPassword(@Param("phone")String phone,@Param("password")String password,@Param("money")Integer money);
 
     List<ValueCard> getValueCardByVipMobilePhone(String mobilephone);
 
@@ -74,4 +76,5 @@ public interface ValueCardMapper {
     List<ValueCard> getAllCards();
 
     List<ValueCard> getCardHistoryBySearcher(ValueCardSearcher searcher);
+
 }

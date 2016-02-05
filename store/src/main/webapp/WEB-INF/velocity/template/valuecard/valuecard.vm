@@ -60,7 +60,7 @@
                         {
                             url: '$ctx/valuecard/getAllCards',
                             datatype: "local",
-                            colNames: ["id", "储值卡编号", "会员姓名(ID)", "创建时间", "最后修改时间", "余额", "查看流水"],
+                            colNames: ["id", "储值卡编号","电话","会员姓名(ID)", "创建时间", "最后修改时间", "余额", "操作"],
                             colModel: [
                                 {
                                     name: 'card.id',
@@ -71,6 +71,14 @@
                                 }, {
                                     name: 'card.cardId',
                                     index: 'cardId',
+                                    align: "center",
+                                    width: "50px",
+                                    minWidth: "45px",
+
+                                },
+                                {
+                                    name: 'card.phone',
+                                    index: 'phone',
                                     align: "center",
                                     width: "50px",
                                     minWidth: "45px",
@@ -112,9 +120,9 @@
                                     formatter : function(cellval, opts,
                                                          rowObject, action) {
                                         var cardId = rowObject['card']['cardId'];
-                                        return '<a href="javascript:getHistoryByCardId('
-                                        + cardId
-                                        + ')" class="row_btn">查看</a>';
+                                        return '<a href="javascript:topUpByCardId(\''
+                                                + cardId
+                                                + '\')" class="row_btn">充值</a>';
                                     }
                                 }
                             ],
@@ -216,6 +224,10 @@
     function downloadCardReader(filename){
         $("#downloadForm").attr('action', '$ctx/index/downloadCardReader').attr(
                 'method', 'post').submit();    }
+
+    function topUpByCardId(cardId) {
+        $.unionTab.addRootTab({url:'$ctx/valuecard/turnToTopUp?cardId='+cardId,title:'充值['+cardId+']'})
+    }
 </script>
 
 </body>

@@ -51,7 +51,7 @@
 <div class="table-jqgrid">
     <!--这里放jqgrid-->
     <div style="margin:20px 0;">
-        <button class="btn btn-sm" onclick="settleForCom()">结账</button>
+        <button class="btn btn-sm" onclick="settleForStore()">结账</button>
     </div>
     <table id="list" style="width: 95%;" form="search_form"></table>
     <div id="pager"></div>
@@ -225,7 +225,7 @@
         });
     });
 
-    function settleForCom() {
+    function settleForStore() {
         var selectedIds = $("#list").jqGrid("getGridParam", "selarrrow");
         if (!selectedIds || selectedIds.length == 0) {
             showError('当前没有选择！');
@@ -235,13 +235,13 @@
         if(confirm('确定对一下订单进行结账:'+selectedIds.join(","))) {
             var bar = ProgressBar();
             bar.show();
-            $.post("$ctx/valuecard/settleForCom", {
+            $.post("$ctx/valuecard/settleForStore", {
                 rids: selectedIds.join(",")
             }, function (res) {
                 bar.hide();
                 if (res.success) {
                     $("#list").trigger('reloadGrid');
-                    showInfo('批量发布成功:'+res.message);
+                    showInfo('批量发布成功:'+res['success']+",共需支付:"+res['needToPay']);
                 } else {
                     showError('数据发生异常:' + res.message);
                 }
