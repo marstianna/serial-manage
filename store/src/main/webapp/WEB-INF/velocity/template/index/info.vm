@@ -265,7 +265,7 @@
         +'<input type="text" id="cardUuid" name="cardUuid" hidden="hidden" readonly/>'
         +'</div>'
         +'<div class="PayByOtherWay" hidden="hidden">'
-        +'实收金额:<input type="text" id="received" class="form-control" name="received" />'
+        +'<label>实收金额:</label><input type="text" id="received" class="form-control" name="received" />'
         +'</div>'
         +'</div>'
         +'</form>';

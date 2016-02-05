@@ -6,3 +6,111 @@
 ##private String datetime;
 ##private String storeName;
 ##private String storePhone;
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="$ctx/static/js/jquery-2.1.1.js" type="text/javascript"></script>
+    <script src="$ctx/static/js/jquery-ui.custom.min.js" type="text/javascript"></script>
+    <script src="$ctx/static/js/jquery.PrintArea.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="$jsPath/jquery-ui-1.11.0.custom/jquery-ui.min.css"/>
+    <link type="text/css" rel="stylesheet" href="$ctx/static/css/PrintArea.css" />                <!-- Y : rel is stylesheet and media is in [all,print,empty,undefined] -->
+    <link type="text/css" rel="stylesheet" href="media_all.css"  media="all" />   <!-- Y : rel is stylesheet and media is in [all,print,empty,undefined] -->
+    <link type="text/css" rel=""           href="empty.css" />                    <!-- N : rel is not stylesheet -->
+    <link type="text/css" rel="noPrint"    href="noPrint.css" />                  <!-- N : rel is not stylesheet -->
+    <link type="text/css" rel="stylesheet" href="media_none.css" media="xyz" />   <!-- N : media not in [all,print,empty,undefined] -->
+    <link type="text/css"                  href="no_rel.css"     media="print" /> <!-- N : no rel attribute -->
+    <link type="text/css"                  href="no_rel_no_media.css"          /> <!-- N : no rel, no media attributes -->
+</head>
+<body>
+<div style="border: solid 2px #999fff; float: left; padding: 5px; margin-bottom: 5px;">
+    <div class="PrintArea area1 all" id="Retain">
+        <div class="content">
+            <label>lineCode</label><span>lineCode</span>
+            <br>
+            <label>frontCount</label><span>frontCount</span><br>
+            <label>datetime</label><span>datetime</span><br>
+            <label>storeName</label><span>storeName</span><br>
+            <label>storePhone</label><span>storePhone</span>
+        </div>
+    </div>
+
+</div>
+
+
+<div style="border: solid 2px #999fff; float: left; margin-left: 20px;" class="SettingsBox">
+    <div style="width: 400px; padding: 20px;">
+        <div class="buttonBar">
+            <div class="button b1">Print</div>
+            <!--<div class="toggleDialog">open dialog</div>-->
+        </div>
+
+        <table style="display: none;">
+            <tbody>
+            <tr>
+                <td>
+                    <div class="settingName">Print area:</div>
+                    <div class="settingVals">
+                        <input type="checkbox" class="selPA" value="area1" checked/> Area 1<br>
+                    </div>
+                </td>
+            </tr>
+            <tr style="display: none;">
+                <td>
+                    <div class="settingName">Retain Attributes:</div>
+                    <div class="settingVals">
+                        <input type="checkbox" checked name="retainCss" id="retainCss" class="chkAttr" value="class"/>
+                        <br>
+                        <input type="checkbox" checked name="retainId" id="retainId" class="chkAttr" value="id"/>
+                        <br>
+                        <input type="checkbox" checked name="retainStyle" id="retainId" class="chkAttr" value="style"/>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+
+//        var dialog = $("div.testDialog").dialog({position : { my : "left top", at : "left bottom+50", of : ".SettingsBox" }, width: "600", title: "Print Dialog Box Contents"});
+
+//        $(".toggleDialog").click(function(){
+//            dialog.dialog("open");
+//        });
+
+        $("div.b1").click(function(){
+
+            var mode = $("input[name='mode']:checked").val();
+            var close = mode == "popup" && $("input#closePop").is(":checked");
+            var extraCss = $("input[name='extraCss']").val();
+
+            var print = "";
+            $("input.selPA:checked").each(function(){
+                print += (print.length > 0 ? "," : "") + "div.PrintArea." + $(this).val();
+            });
+
+            var keepAttr = [];
+            $(".chkAttr").each(function(){
+                if ($(this).is(":checked") == false )
+                    return;
+
+                keepAttr.push( $(this).val() );
+            });
+
+            var headElements = $("input#addElements").is(":checked") ? '<meta charset="utf-8" />,<meta http-equiv="X-UA-Compatible" content="IE=edge"/>' : '';
+
+            var options = { mode : mode, popClose : close, extraCss : extraCss, retainAttr : keepAttr, extraHead : headElements };
+
+            $( print ).printArea( options );
+        });
+
+        $("input[name='mode']").click(function(){
+            if ( $(this).val() == "iframe" ) $("#closePop").attr( "checked", false );
+        });
+    });
+
+</script>
+</body>
+</html>
