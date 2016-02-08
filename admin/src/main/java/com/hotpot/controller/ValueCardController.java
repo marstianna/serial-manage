@@ -21,6 +21,7 @@ import com.hotpot.vo.NewCardVo;
 import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,9 +53,9 @@ public class ValueCardController extends BaseController {
 
     @RequestMapping("topUp")
     @ResponseBody
-    public String topUp(String cardId,Integer storeId,Integer account,Integer price){
-        ValueCard card = valueCardService.topUp(cardId,storeId,account,price);
-        return null;
+    public Object topUp(String cardId,Integer account,Integer price){
+        ValueCard card = valueCardService.topUp(cardId,0,account,price);
+        return ImmutableMap.of("success","success","card",card);
     }
 
     @Pagination
@@ -123,5 +124,11 @@ public class ValueCardController extends BaseController {
             vipInfoService.addVip(vipInfo);
         }
         return valueCardService.addNewCard(card.getCardId(), store.getId(), card.getMoney(), card.getBalance(), vipInfo.getId(), card.getPassword(),card.getPhone());
+    }
+
+    @RequestMapping("turnToTopUp")
+    public String turnToTopUpByCardId(String cardId,Model model){
+        model.addAttribute("card",valueCardService.getCardBalanceByCardUniqueKey(cardId,null));
+        return "valuecard/valuecard.topup";
     }
 }

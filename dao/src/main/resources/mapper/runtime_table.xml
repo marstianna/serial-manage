@@ -2,22 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hotpot.dao.RuntimeTableMapper" >
     <sql id="Base_Column_List">
-        r.id,r.store_id storeId,r.table_code tableCode,r.people_count peopleCount,FROM_UNIXTIME(r.create_time,'%Y-%m-%d %H:%i:%S') createTime ,queue_up queueUp
+        r.id,r.store_id storeId,r.table_code tableCode,r.people_count peopleCount,FROM_UNIXTIME(r.create_time,'%Y-%m-%d %H:%i:%S') createTime ,queue_up isQueueUp
     </sql>
     <sql id="fromTable">
       runtime_table r
     </sql>
 
     <insert id="haveASeat" useGeneratedKeys="true" keyProperty="id" parameterType="com.hotpot.domain.RuntimeTable">
-        insert into runtime_table(store_id,table_code,people_count,create_time,queue_up) VALUES (#{storeId},#{tableCode},#{peopleCount},UNIX_TIMESTAMP(#{createTime,jdbcType=VARCHAR}),#{queueUp})
+        insert into runtime_table(store_id,table_code,people_count,create_time,queue_up) VALUES (#{storeId},#{tableCode},#{peopleCount},UNIX_TIMESTAMP(#{createTime,jdbcType=VARCHAR}),#{isQueueUp})
     </insert>
 
     <select id="getRuntimeTablesByStoreId" resultType="com.hotpot.domain.RuntimeTable">
         SELECT
-        r.id,s.store_id storeId,s.table_code tableCode,r.people_count peopleCount,FROM_UNIXTIME(r.create_time,'%Y-%m-%d %H:%i:%S') createTime,r.queue_up queueUp
+        r.id,s.store_id storeId,s.table_code tableCode,r.people_count peopleCount,FROM_UNIXTIME(r.create_time,'%Y-%m-%d %H:%i:%S') createTime,r.queue_up isQueueUp
         from
         runtime_table r
-        right join store_table s on r.table_code = s.table_code and r.store_id = s.store_id and s.store_id =#{storeId};
+        right join store_table s on r.table_code = s.table_code and r.store_id = s.store_id where s.store_id =#{storeId};
     </select>
 
     <update id="updateOrderId">

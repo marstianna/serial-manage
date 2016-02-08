@@ -96,9 +96,14 @@ public class IndexController extends BaseController{
         RuntimeTable runtimeTable = storeService.getRuntimeTable(Context.get().getId(),checkOutVo.getTableCode());
         ValueCard card = null;
 
-        order.setQueueUp(runtimeTable.getIsQueueUp());
+        if(runtimeTable==null){
+//            throw new RuntimeException("当前桌没有顾客就餐");
+        }else{
+            order.setQueueUp(runtimeTable.getIsQueueUp());
+            order.setCountOfPeople(runtimeTable.getPeopleCount());
+        }
+
         order.setStoreId(store.getId());
-        order.setCountOfPeople(runtimeTable.getPeopleCount());
 
         if(checkOutVo.getPayType().intValue() == PayTypeEnum.VALUE_CARD.getKey()){
 
@@ -175,7 +180,13 @@ public class IndexController extends BaseController{
 
     @RequestMapping("turnToQueueUp")
     public String turnToQueueUp(){
-        return "index/queue.up";
+        return "index/que";
+    }
+
+    @RequestMapping("turnToTakeSeat")
+    public String turnToTakeSeat(){
+        setRequestAttribute("useLayout",false);
+        return "index/takeseat";
     }
 
     private Integer getStoreId(){

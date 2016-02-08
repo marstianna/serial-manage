@@ -19,7 +19,7 @@
                     <h1>登录信息设置</h1>
                     <label>管理系统登录用户名</label><input type="text" id="loginName" name="loginName" placeholder="login_name" class="form-control">
                     <br>
-                    <label>管理系统登录密码</label><input type="text" id="loginPassword" name="loginPassword" placeholder="login_password" class="form-control">
+                    <label>管理系统登录密码</label><input type="password" id="loginPassword" name="loginPassword" placeholder="login_password" class="form-control">
                     <br>
                     <hr>
                 ##    store
@@ -31,7 +31,7 @@
                     <label>联系电话</label><input type="text" id="phone" name="phone" placeholder="phone" class="form-control">
                     <br>
                     <div style="margin-left: 130px;margin-top: 20px;">
-                        <button type="submit" id="submit" name="submit" class="btn btn-circle">提交</button>
+                        <button type="button" id="submit" name="submit" onclick="sumbitAddStore()" class="btn btn-circle">提交</button>
                     </div>
                 </div>
                 </fieldset>
@@ -88,11 +88,11 @@
                 },
                 loginPassword: {
                     required: "Please provide a password",
-                    minlength: "Your password must be at least 5 characters long",
+                    minlength: "Your password must be at least 5 characters long"
 //                    equalTo: "Please enter the same password as above"
                 },
                 storeName: "Please enter a valid email address",
-                address: "Please accept our policy"
+                address: "Please accept our policy",
                 phone:"need phone"
             }
         });
@@ -119,4 +119,25 @@
         });
     });
 
+    function sumbitAddStore(){
+        $.ajax({
+            url: '$ctx/manage/addStore',
+            type: 'post',
+            data: $('#addForm').serialize(),
+            async: false,
+            dataType: 'json',
+            success: function (data) {
+                if(data['success'] == "success"){
+                    showInfo("添加店铺成功");
+                    $.unionTab.removeTab();
+                    $.unionTab.addRootTab({url:'$ctx/manage/index',title:'店铺列表'});
+                }else{
+                    showError("充值失败,请重试")
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                result = XMLHttpRequest.responseText;
+            }
+        });
+    }
 </script>

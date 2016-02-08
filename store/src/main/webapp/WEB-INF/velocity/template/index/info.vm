@@ -1,4 +1,88 @@
 #parse( "./include/variable.vm" )
+
+<div id="add" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">
+                    <i class="icon-pencil"></i>
+                    <span id="lblAddTitle" style="font-weight:bold">信息</span>
+                </h4>
+            </div>
+            <form class="form-horizontal form-bordered form-row-strippe" id="ffAdd" action="" data-toggle="validator" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div id="takeSeatForm" class="row" hidden="hidden">
+                        <label>入座人数:</label><input type="text" class="form-control" placeholder="入座人数" name="countOfPeople">
+                    </div>
+                    <div id="nextOneForm" class="row" hidden="hidden">
+                        <div class="nav-content">
+                            编号:<input id="linecode" name="linecode" type="text" readonly><br>
+                            就餐人数:<input id="countOfPeople" name="countOfPeople" type="text" readonly><br>
+                            电话:<input id="phone" name="phone" type="text" readonly>
+                            <input type="button" onclick="getQueueSync()" id="getLimitedIdentity" class="btn btn-success" value="下一位" style="padding: 4px 62px; margin-left: 5px;" />
+                        </div>
+                    </div>
+                    <div id="checkOutForm" class="row" hidden="hidden">
+                        <label>桌号</label><input type="text" name="tableCode" id="tableCode" value="+tableCode" class="form-control" readonly>
+                        <br>
+                        <label>菜品消费金额</label><input type="text" name="foodPrice" id="foodPrice" class="form-control">
+                        <br>
+                        <label>酒水消费金额</label><input type="text" name="drinkPrice" id="drinkPrice" class="form-control">
+                        <br>
+                        <label>其他消费金额</label><input type="text" name="otherPrice" id="otherPrice" class="form-control">
+                        <br>
+                        <label>支付类型</label>
+                        <input type="radio" id="payType" name="payType" value="0" checked="checked" onclick="payTypeDefail();"><span>储值卡</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" id="payType" name="payType" value="-1" onclick="payTypeDefail();"><span>密码支付</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" id="payType" name="payType" value="1" onclick="payTypeDefail();"><span>现金</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" id="payType" name="payType" value="2" onclick="payTypeDefail();"><span>支付宝</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" id="payType" name="payType" value="3" onclick="payTypeDefail();"><span>微信</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" id="payType" name="payType" value="4" onclick="payTypeDefail();"><span>团购优惠支付</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <br>
+                        <div class="PayByCard">
+                            <label></label><span style="line-height: 32px;">请将储值卡放在读卡器后,点击&nbsp;&nbsp;&nbsp;</span>
+                            <input style="margin-top: 0;" type="button" class="btn btn-sm" name="verifyCard" onclick="getCardInfoFromCard()" value="检测卡片"><br>
+                            <label>卡号</label><input type="text" id="cardId" name="cardId" readonly/>
+                            <input type="text" id="cardUuid" name="cardUuid" hidden="hidden" readonly/>
+                        </div>
+                        <div class="PayByOtherWay" hidden="hidden">
+                            实收金额:<input type="text" id="received" class="form-control" name="received" />
+                        </div>
+                        <div class="PayByPassword" hidden="hidden">
+                            电话号码:<input type="text" id="received" class="form-control" name="phone" />
+                            支付密码:<input type="password" id="received" class="form-control" name="password" />
+                        </div>
+                    </div>
+                    <input type="text" name="tableCode" hidden="hidden">
+                    <div id="myPrintArea" hidden="hidden">
+                        <div class="content">
+                            <label>卡号:</label><span><div id="printCardId"></div></span><br>
+                            <label>今日消费:</label><span><div id="actualPrice"></div></span><br>
+                            <label>余额:</label><span><div id="balance"></div></span><br>
+                            <label>消费时间</label><span><div id="createTime"></div></span><br>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer bg-info">
+                    <div id="takeSeatFormBtn"  hidden="hidden">
+                        <button type="button" class="btn blue" onclick="takeSeat(0)" data-dismiss="modal">确定</button>
+                        <button type="button" class="btn green" data-dismiss="modal">取消</button>
+                    </div>
+                    <div id="nextOneFormBtn"  hidden="hidden">
+                        <button type="button" class="btn blue" onclick="takeSeat(1)" data-dismiss="modal">确定</button>
+                        <button type="button" class="btn green" data-dismiss="modal">取消</button>
+                    </div>
+                    <div id="checkOutFormBtn"  hidden="hidden">
+                        <button type="button" class="btn blue" onclick="checkOut()" data-dismiss="modal">确定</button>
+                        <button type="button" class="btn green" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <div class="nav-top">
     <div class="">
         <div class="nav-content">
@@ -67,11 +151,11 @@
                             width: "60px",
                             formatter : function(cellval, optss,
                                                  rowObject, action) {
-                                var result = '<a href="javascript:checkOut(\''
+                                var result = '<a href="javascript:showCheckOut(\''
                                         + rowObject['tableCode']
                                         + '\')" class="row_btn">结账</a>';
                                 var count = rowObject['peopleCount']
-                                return (count <= 0) ? '<a href="javascript:takeSeat(\''
+                                return (count <= 0) ? '<a href="javascript:showTakeSeat(\''
                                         + rowObject['tableCode']
                                         + '\')" class="row_btn">就座</a><br>'
                                         + result : result
@@ -172,11 +256,6 @@
         $("#showOverdue").click(function () {
             $("#search_btn").click();
         });
-
-        if($('#payType:checked').val() == 0){
-            $(".PayByOtherWay").hide();
-            $(".PayByCard").show();
-        }
     });
 
 
@@ -199,147 +278,81 @@
 
     }
 
-    //就坐
-    function takeSeat(tableCode){
-        var message = '<form><label>入座人数:</label><input type="text" class="form-control" placeholder="入座人数" name="countOfPeople"></form>';
-        var title = " 入座"
-        BootstrapDialog.confirm(title,message, function(){
-            $.post("$ctx/index/takeSeat", {
-                tableCode: tableCode,
-                count: $("input[name='countOfPeople']").val(),
-                isQueueUp : 0
-            }, function (res) {
-                if(res['success'] == "success"){
-                    showInfo("成功");
-                    $("#list").trigger('reloadGrid');
-                    return
-                }
-            }, "json");
-        });
+    function showTakeSeat(tableCode){
+        $("input[name='tableCode']").val(tableCode);
+        openTakeSeat()
     }
 
-    //生成订单
-    function createOrder(tableCode){
-//        我不知道内容
-        var message = '<form id="createOrder"><label>菜品消费金额:</label><input type="text" class="form-control" name="foodPrice"><br><label>酒水消费金额:</label><input type="text" class="form-control" name="drinkPrice"></form>';
-        var title = " 生成订单"
-        BootstrapDialog.confirm(title,message, function(){
-            $.post("$ctx/index/createOrder", {
-                    tableCode: tableCode,
-                    foodPrice: $("input[name='foodPrice']").val(),
-                    drinkPrice: $("input[name='drinkPrice']").val()
-            }, function (res) {
-                    if(res['success'] == "success"){
-                        showInfo("生成订单成功");
-                        $("#list").trigger('reloadGrid');
-                        return
-                    }
-                }, "json");
+    //就坐
+    function takeSeat(isQueueUp){
+        $.post("$ctx/index/takeSeat", {
+            tableCode: $("input[name='tableCode']").val(),
+            count: $("input[name='countOfPeople']").val(),
+            isQueueUp : isQueueUp
+        }, function (res) {
+            if(res['success'] == "success"){
+                showInfo("成功");
+                $("#list").trigger('reloadGrid');
+                return
             }
-        );
+        }, "json");
     }
 
     //结账
-    function checkOut(tableCode){
-        var message = '<form id="checkOut" method="post">'
-                +'<div class="turnToAdd">'
-                +'<label>桌号</label><input type="text" name="tableCode" id="tableCode" value="'+tableCode+'" class="form-control" readonly>'
-                +'<br>'
-                +'<label>菜品消费金额</label><input type="text" name="foodPrice" id="foodPrice" class="form-control">'
-                +'<br>'
-                +'<label>酒水消费金额</label><input type="text" name="drinkPrice" id="drinkPrice" class="form-control">'
-                +'<br>'
-                +'<label>其他消费金额</label><input type="text" name="otherPrice" id="otherPrice" class="form-control">'
-                +'<br>'
-                +'<label>支付类型</label>'
-                +'<input type="radio" id="payType" name="payType" value="0" checked="checked" onclick="payTypeDefail();"><span>储值卡</span>&nbsp;&nbsp;&nbsp;&nbsp;'
-                +'<input type="radio" id="payType" name="payType" value="-1" onclick="payTypeDefail();"><span>密码支付</span>&nbsp;&nbsp;&nbsp;&nbsp;'
-                +'<input type="radio" id="payType" name="payType" value="1" onclick="payTypeDefail();"><span>现金</span>&nbsp;&nbsp;&nbsp;&nbsp;'
-                +'<input type="radio" id="payType" name="payType" value="2" onclick="payTypeDefail();"><span>支付宝</span>&nbsp;&nbsp;&nbsp;&nbsp;'
-                +'<input type="radio" id="payType" name="payType" value="3" onclick="payTypeDefail();"><span>微信</span>&nbsp;&nbsp;&nbsp;&nbsp;'
-                +'<input type="radio" id="payType" name="payType" value="4" onclick="payTypeDefail();"><span>团购优惠支付</span>&nbsp;&nbsp;&nbsp;&nbsp;'
-                +'<br>'
-                +'<div class="PayByCard">'
-                +'<label></label><span style="line-height: 32px;">请将储值卡放在读卡器后,点击&nbsp;&nbsp;&nbsp;</span>'
-                +'<input style="margin-top: 0;" type="button" class="btn btn-sm" name="verifyCard" onclick="getCardInfoFromCard()" value="检测卡片"><br>'
-                +'<label>卡号</label><input type="text" id="cardId" name="cardId" readonly/>'
-                +'<input type="text" id="cardUuid" name="cardUuid" hidden="hidden" readonly/>'
-                +'</div>'
-                +'<div class="PayByOtherWay" hidden="hidden">'
-                +'实收金额:<input type="text" id="received" class="form-control" name="received" />'
-                +'</div>'
-                +'<div class="PayByPassword" hidden="hidden">'
-                +'电话号码:<input type="text" id="received" class="form-control" name="phone" />'
-                +'支付密码:<input type="password" id="received" class="form-control" name="password" />'
-                +'</div>'
-                +'</div>'
-                +'</form>';
-        var title = "结账"
-        BootstrapDialog.confirm(title,message, function() {
-            $.ajax({
-                url: '$ctx/index/checkOut',
-                type: 'post',
-                data: {
-                    tableCode: $("input[name='tableCode']").val(),
-                    foodPrice: $("input[name='foodPrice']").val(),
-                    drinkPrice: $("input[name='drinkPrice']").val(),
-                    otherPrice: $("input[name='otherPrice']").val(),
-                    payType: $('#payType:checked').val() == -1 ? 0 : $('#payType:checked').val(),
-                    cardId: $("input[name='cardId']").val(),
-                    cardUuid: $("input[name='cardUuid']").val(),
-                    phone: $("input[name='phone']").val(),
-                    password: $("input[name='password']").val(),
-                    receive: $("input[name='received']").val()
-                },
-                dataType: 'json',
-                success: function (data) {
-                    var payType = $('#payType:checked').val();
-                    if(data['success'] == false){
-                        showError(data['message']);
-                    }else {
-                        var payType = data['order']['payType'];
-                        if(payType == 0 || payType == -1){
-                            showInfo("当次消费:"+data['order']['actualPrice']+",卡中余额为:"+data['card']['balance'])
-                            //打印返回的储值卡信息
-                        }else if(payType == 1){
-                            //需要找回的现金
-                            showInfo("订单生成成功,共消费"+data['order']['actualPrice']+",找回现金:"+data['order']['payBack'])
-                        }else{
-                            showInfo("订单生成成功,共消费"+data['order']['actualPrice']);
-                        }
-                        $("#list").trigger('reloadGrid');
-                    }
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    showError(XMLHttpRequest.responseText);
-                }
-            });
-        });
+    function showCheckOut(tableCode){
+        $("input[name='tableCode']").val(tableCode);
+        openCheckOut()
     }
 
-
-    function getQueueAjax(tableCode) {
+    function checkOut(){
         $.ajax({
-            url: '$ctx/index/nextOne',
+            url: '$ctx/index/checkOut',
             type: 'post',
             data: {
-                tableCode: tableCode
+                tableCode: $("input[name='tableCode']").val(),
+                foodPrice: $("input[name='foodPrice']").val(),
+                drinkPrice: $("input[name='drinkPrice']").val(),
+                otherPrice: $("input[name='otherPrice']").val(),
+                payType: $('#payType:checked').val() == -1 ? 0 : $('#payType:checked').val(),
+                cardId: $("input[name='cardId']").val(),
+                cardUuid: $("input[name='cardUuid']").val(),
+                phone: $("input[name='phone']").val(),
+                password: $("input[name='password']").val(),
+                receive: $("input[name='received']").val()
             },
             dataType: 'json',
             success: function (data) {
-                if(data['success'] == "false"){
-                    $("#priceresult7").html("当前没有排队的人!");
+                if(data['success'] == false){
+                    showError(data['message']);
                 }else {
-                    $("#priceresult7").html('编号:' + data['result']['lineCode'] + ",电话:" + data['result']['phone']);
+                    var payType = data['order']['payType'];
+                    if(payType == 0 || payType == -1){
+                        showInfo("当次消费:"+data['order']['actualPrice']+",卡中余额为:"+data['card']['balance'])
+                        $('#actualPrice').html(data['order']['actualPrice']);
+                        $('#balance').html(data['card']['balance']);
+                        $('#printCardId').html(data['card']['cardId']);
+                        $('#createTime').html(data['order']['createTime']);
+                        print();
+                    }else if(payType == 1){
+                        //需要找回的现金
+                        showInfo("订单生成成功,共消费"+data['order']['actualPrice']+",找回现金:"+data['order']['payBack'])
+                    }else{
+                        showInfo("订单生成成功,共消费"+data['order']['actualPrice']);
+                    }
+                    $("#list").trigger('reloadGrid');
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                $("#priceresult7").html(XMLHttpRequest.responseText);
+                showError(XMLHttpRequest.responseText);
             }
         });
     }
 
+
     function getQueueSync(tableCode){
+        if(tableCode == '' || tableCode == null){
+            tableCode = $("input[name='tableCode']").val();
+        }
         var result;
         $.ajax({
             url: '$ctx/index/nextOne',
@@ -356,57 +369,23 @@
                 result = XMLHttpRequest.responseText;
             }
         });
+        $("input[name='linecode']").attr('value',result['result']['lineCode']);
+        $("input[name='countOfPeople']").attr('value',result['result']['waitingNumber']);
+        $("input[name='phone']").attr('value',result['result']['phone']);
         return result;
     }
 
-    //下一位∂
+    //下一位
     function nextCustomerOne(tableCode){
         var res = getQueueSync(tableCode);
         if(res['success'] == "false"){
             showInfo("当前没有排队的人!");
             return
         }else{
-            var message = '<h1>获取被限购的身份证数据</h1>'
-                    +'<div class="nav-content">'
-                    +'<form id="form7" method="post">'
-                    +'<table cellpadding="0" cellspacing="0">'
-                    +'<tr>'
-                    +'<td>'
-                    +'<input type="text" name="tableCode" value="\''+tableCode+'\'">'
-                    +'</td>'
-                    +'<td>'
-                    +'<input type="button" onclick="getQueueAjax(\''+tableCode+'\')" id="getLimitedIdentity" class="btn btn-success" value="提交" style="padding: 4px 62px; margin-left: 5px;" />'
-                    +'</td>'
-                    +'</tr>'
-                    +'</tr>'
-                    +'</table>'
-                    +'</form>'
-                    +'</div>'
-                    +'<h1>返回结果</h1>'
-                    +'<div id="priceresult7" class="nav-content">'+'编号:' + res['result']['lineCode'] + ",电话:" + res['result']['phone']+'</div>';
-            var title = "下一位"
-            BootstrapDialog.confirm(title,message, function() {
-                $.post("$ctx/index/takeSeat", {
-                    tableCode: tableCode,
-                    count: res['result']['waitingNumber'],
-                    isQueueUp : 1
-                }, function (res) {
-                    if(res['success'] == "success"){
-                        showInfo("成功");
-                        $("#list").trigger('reloadGrid');
-                        return
-                    }
-                }, "json");
-            });
+            $("input[name='tableCode']").val(tableCode);
+            openNextOne();
         }
     }
-
-    $(function(){
-        if($('#payType:checked').val() == 0){
-            $(".PayByOtherWay").hide();
-            $(".PayByCard").show();
-        }
-    })
 
     function payTypeDefail(){
         if($('#payType:checked').val() == 0){
@@ -427,4 +406,43 @@
             $(".PayByPassword").hide();
         }
     }
+
+    function print(){
+        $("div#myPrintArea").printArea();
+    }
+
+    function openTakeSeat(){
+        $("#takeSeatForm").show();
+        $("#takeSeatFormBtn").show()
+        closeCheckOut();
+        closeNextOne();
+        $('#add').modal({ show: true, backdrop: 'static' });
+    }
+    function openCheckOut(){
+        $("#checkOutForm").show();
+        $("#checkOutFormBtn").show()
+        closeTakeSeat();
+        closeNextOne()
+        $('#add').modal({ show: true, backdrop: 'static' });
+    }
+    function openNextOne(){
+        $("#nextOneForm").show();
+        $("#nextOneFormBtn").show()
+        closeTakeSeat();
+        closeCheckOut();
+        $('#add').modal({ show: true, backdrop: 'static' });
+    }
+    function closeTakeSeat(){
+        $("#takeSeatForm").hide();
+        $("#takeSeatFormBtn").hide()
+    }
+    function closeCheckOut(){
+        $("#checkOutForm").hide();
+        $("#checkOutFormBtn").hide()
+    }
+    function closeNextOne(){
+        $("#nextOneForm").hide();
+        $("#nextOneFormBtn").hide()
+    }
+
 </script>

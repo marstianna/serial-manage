@@ -8,11 +8,7 @@
 ##                    查询内容,未知
                     <tr>
                         <td class="text-right" width="150">用户电话：</td>
-                        <td width="200"><input id="mobilephone" name="mobilephone" type="text" class="form-control"></td>
-                        <td class="text-right" width="150">卡号：</td>
-                        <td width="200"><input id="cardId" name="cardId" type="text" class="form-control"></td>
-                    </tr>
-                    <tr>
+                        <td width="200"><input id="phone" name="phone" type="text" class="form-control"></td>
                         <td class="text-right" width="150">创建店铺：</td>
                         <td width="200">
                             <select id="storeId" name="storeId" class="form-control">
@@ -37,9 +33,9 @@
                         <td width="150"></td>
                         <td class="searchtd">
                             <button type="button" id="search_btn" class="btn btn-sm"><i class="glyphicon glyphicon-search"></i>搜索</button>
-                            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-                                Launch demo modal
-                            </button>
+##                            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+##                                Launch demo modal
+##                            </button>
 
                         </td>
                     </tr>

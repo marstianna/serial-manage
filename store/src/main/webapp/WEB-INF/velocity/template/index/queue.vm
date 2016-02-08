@@ -1,16 +1,53 @@
 #parse( "./include/variable.vm" )
 
+<div id="add" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">
+                    <i class="icon-pencil"></i>
+                    <span id="lblAddTitle" style="font-weight:bold">添加信息</span>
+                </h4>
+            </div>
+            <form class="form-horizontal form-bordered form-row-strippe" id="ffAdd" data-toggle="validator" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="row">
+                        <div id="myPrintArea">
+                            <div class="content">
+                                <img src="$ctx/static/images/qrcode/1.pic_hd.jpg">
+                                <label>排队编号:</label><span><div id="lineCode"></div></span><br>
+                                <label>你前面排队的桌数:</label><span><div id="frontCount"></div></span><br>
+                                <label>到店时间:</label><span><div id="datetime"></div></span><br>
+                                <label>店铺名称:</label><span><div id="storeName"></div></span><br>
+                                <label>店铺电话:</label><span><div id="storePhone"></div></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer bg-info">
+                    <input type="hidden" id="ID" name="ID" />
+                    <button type="button" class="btn blue" data-dismiss="modal" onclick="print()">打印</button>
+                    <button type="button" class="btn green" data-dismiss="modal">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <div class="nav-top">
     <div class="">
         <div class="nav-content">
             <form id="queue_up">
-                <div class="queue_up">
+                <div id="queue_up_add" class="queue_up">
                     <label>电话:</label><input id="phoneNumber" name="phoneNumber" class="form-control" type="text">
                     <label>就餐人数:</label><input id="countOfPeople" name="countOfPeople" class="form-control" type="text">
                     <br>
                     <label></label><input type="button" class="btn btn-sm" id="queueUpBtn" onclick="queueUp()" value="添加">
                 </div>
             </form>
+            </div>
+            <div class="nav-content">
             <form id="search_form" method="post">
                 <div class="queue_up">
                     <label></label><select name="tableSize" class="form-control">
@@ -31,6 +68,13 @@
 </div>
 
 <script>
+    $(document).ready(function(){
+        $("input#priceButton").click(function(){
+
+            $("div#myPrintArea").printArea();
+
+        });
+    });
     $(function () {
         setTimeout(function () {
             var topWin = window.top.document;
@@ -59,9 +103,10 @@
                             align: "center",
                             width: "50px",
                             minWidth: "45px",
-                            formatter: "select",
-                            editoptions: {
-                                value: "4:小桌;8:大桌"
+                            formatter : function(cellval, optss,
+                                                 rowObject, action) {
+                                var tableSize = rowObject['waitingNumber'];
+                                return tableSize > 4 ? "大桌" : "小桌";
                             }
                         },
                         {
@@ -289,17 +334,28 @@
 
         if(count == ''){
             showError('请输入就餐人数');
+            return;
         }
 
         $.post("$ctx/index/queueUp", {
             countOfPeople: count,
             phoneNumber: phoneNumber
         }, function (res) {
-//               alert(res['datetime'])
-               //TODO,调用打印js
+            $('#lineCode').html(res['lineCode']);
+            $('#frontCount').html(res['frontCount']);
+            $('#datetime').html(res['datetime']);
+            $('#storeName').html(res['storeName']);
+            $('#storePhone').html(res['storePhone']);
+            //打印
+            $('#add').modal({ show: true, backdrop: 'static' });
             $("#list").trigger('reloadGrid');
-        }, "json");
+        });
     }
+
+    function print(){
+        $("div#myPrintArea").printArea();
+    }
+
 </script>
 
 </body>

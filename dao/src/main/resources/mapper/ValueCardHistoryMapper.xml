@@ -89,12 +89,15 @@
       <if test="createTime != null" >
         create_time,
       </if>
+      <if test="settle != null" >
+        settle,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="cardId != null" >
+      <if test="cardId != null and cardId != ''" >
         #{cardId,jdbcType=VARCHAR},
       </if>
       <if test="operate != null" >
@@ -114,6 +117,9 @@
       </if>
       <if test="createTime != null" >
         UNIX_TIMESTAMP(#{createTime,jdbcType=VARCHAR}),
+      </if>
+      <if test="settle != null" >
+        #{settle},
       </if>
     </trim>
   </insert>
@@ -201,10 +207,10 @@
       <if test="cardId != null and cardId != ''">
         AND card_id = #{cardId}
       </if>
-      <if test="operate != null">
+      <if test="operate != null and operate != -1">
         AND operate = #{operate}
       </if>
-      <if test="storeId != null">
+      <if test="storeId != null and storeId != -1">
         AND store_id = #{storeId}
       </if>
       <if test="startTime != null and startTime != ''">

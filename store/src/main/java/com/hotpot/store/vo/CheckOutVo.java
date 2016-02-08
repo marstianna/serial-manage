@@ -23,7 +23,7 @@ public class CheckOutVo {
     }
 
     public void setFoodPrice(Integer foodPrice) {
-        this.foodPrice = foodPrice;
+        this.foodPrice = foodPrice == null ? 0 : foodPrice;
     }
 
     public Integer getDrinkPrice() {
@@ -31,7 +31,7 @@ public class CheckOutVo {
     }
 
     public void setDrinkPrice(Integer drinkPrice) {
-        this.drinkPrice = drinkPrice;
+        this.drinkPrice = drinkPrice == null ? 0 : drinkPrice;
     }
 
     public Integer getOtherPrice() {
@@ -39,7 +39,7 @@ public class CheckOutVo {
     }
 
     public void setOtherPrice(Integer otherPrice) {
-        this.otherPrice = otherPrice;
+        this.otherPrice = otherPrice == null ? 0 : otherPrice;
     }
 
     public String getTableCode() {

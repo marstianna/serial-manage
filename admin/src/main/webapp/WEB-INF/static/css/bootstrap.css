@@ -6186,7 +6186,7 @@ button.close {
   margin-top: -10px;
 }
 .popover.right {
-  margin-left: 20px;
+  margin-left: 10px;
 }
 .popover.bottom {
   margin-top: 10px;
@@ -6240,7 +6240,7 @@ button.close {
   top: 50%;
   left: -11px;
   margin-top: -11px;
-  border-right-color: #cccccc;
+  border-right-color: #999;
   border-right-color: rgba(0, 0, 0, .25);
   border-left-width: 0;
 }

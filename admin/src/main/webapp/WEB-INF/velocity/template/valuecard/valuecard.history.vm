@@ -8,18 +8,22 @@
                     <tr>
                         <td class="text-right" width="150">储值卡号：</td>
                         <td width="200"><input type="text" id="cardId" name="cardId" class="form-control"></td>
-                        <td class="text-right" width="150">会员ID：</td>
-                        <td width="200"><input type="text" id="vipId" name="vipId" class="form-control"></td>
+##                        <td class="text-right" width="150">会员电话：</td>
+##                        <td width="200"><input type="text" id="phone" name="phone" class="form-control"></td>
                         </tr>
 
                     <tr>
                         <td class="text-right" width="150">操作类型：</td>
-                        <td width="80" style="padding-left: 10px"><input type="radio" name="operate" value="0">&nbsp;消费</td>
-                        <td width="80" style="padding-left: 10px"><input type="radio" name="operate" value="1">&nbsp;充值</td>
-                        <td width="60"></td>
+                        <td width="200">
+                            <select name="operate" class="form-control">
+                                <option value="-1" selected="selected">全部</option>
+                                <option value="0">消费</option>
+                                <option value="1">充值</option>
+                            </select>
+                        </td>
                         <td class="text-right" width="150">店铺ID：</td>
                         <td width="200">
-                            <select name="site" class="form-control">
+                            <select name="storeId" class="form-control">
                                 <option value="-1" selected="selected">全部</option>
                                 #foreach($param in ${storeList.keySet()})
                                     <option value="$param">${storeList.get($param)}</option>
@@ -135,7 +139,7 @@
                                     minWidth: "90px",
                                     formatter: "select",
                                     editoptions: {
-                                        value: "0:未结账;1:店铺已上交;2:公司已下传"
+                                        value: "0:未结账;1:店铺已上交;2:公司已下传;3:总公司充值"
                                     }
                                 }
                             ],

@@ -36,7 +36,11 @@ public class CardHistoryView {
     public static CardHistoryView transform(ValueCardHistory origin) {
         CardHistoryView view = new CardHistoryView(origin);
         view.setValueCardHistory(origin);
-        view.setStoreName(storeService.getStoreByStoreId(origin.getStoreId()).getStoreName());
+        if(origin.getStoreId() == 0){
+            view.setStoreName("总公司");
+        }else {
+            view.setStoreName(storeService.getStoreByStoreId(origin.getStoreId()).getStoreName());
+        }
         return view;
     }
 }
