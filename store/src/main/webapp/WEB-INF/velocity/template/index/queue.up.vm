@@ -7,7 +7,7 @@
 #parse( "./include/variable.vm" )
 
 
-<div style="border: solid 2px #999fff; float: left; padding: 5px; margin-bottom: 5px;">
+<div style="float: left; padding: 5px; margin-bottom: 5px;">
     <div class="PrintArea area1 all" id="Retain">
         <div class="content">
             <label>lineCode</label><span>lineCode</span>
@@ -22,11 +22,10 @@
 </div>
 
 
-<div style="border: solid 2px #999fff; float: left; margin-left: 20px;" class="SettingsBox">
+<div style="float: left; margin-left: 20px;" class="SettingsBox">
     <div style="width: 400px; padding: 20px;">
         <div class="buttonBar">
             <div class="button b1">Print</div>
-            <!--<div class="toggleDialog">open dialog</div>-->
         </div>
 
         <table style="display: none;">

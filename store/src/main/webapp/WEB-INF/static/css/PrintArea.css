@@ -29,11 +29,11 @@ span.test {
 }
 
 #Retain.PrintArea.area1 {
-    border: 1px solid #999;
+    /*border: 1px solid #999;*/
 }
 
 .PrintArea.area1 {
-    border: solid 1px #ffb40f;
+    /*border: solid 1px #ffb40f;*/
 }
 
 .PrintArea.area2 {
