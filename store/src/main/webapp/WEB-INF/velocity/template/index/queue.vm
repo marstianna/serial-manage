@@ -15,7 +15,7 @@
                     <div class="row">
                         <div id="myPrintArea">
                             <div class="content">
-                                <img src="$ctx/static/images/qrcode/1.pic_hd.jpg">
+                                <img src="$ctx/static/images/qrcode/qrcode.png" class="img-thumbnail"><br>
                                 <label>排队编号:</label><span><div id="lineCode"></div></span><br>
                                 <label>你前面排队的桌数:</label><span><div id="frontCount"></div></span><br>
                                 <label>到店时间:</label><span><div id="datetime"></div></span><br>

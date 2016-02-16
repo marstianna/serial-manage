@@ -30,7 +30,9 @@
                         <br>
                         <label>酒水消费金额</label><input type="text" name="drinkPrice" id="drinkPrice" class="form-control">
                         <br>
-                        <label>其他消费金额</label><input type="text" name="otherPrice" id="otherPrice" class="form-control">
+##                        <label>其他消费金额</label><input type="text" name="otherPrice" id="otherPrice" class="form-control">
+##                        <br>
+                        <label>总金额</label><input type="text" name="paperPrice" id="paperPrice" class="form-control">
                         <br>
                         <label>支付类型</label>
                         <input type="radio" id="payType" name="payType" value="0" checked="checked" onclick="payTypeDefail();"><span>储值卡</span>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -110,7 +112,7 @@
                 {
                     url: '$ctx/index/tableList',
                     datatype: "local",
-                    colNames: ["餐桌编号", "就餐人数","就餐时间", "点菜(功能暂未开放)", "结账", "下一位"],
+                    colNames: ["餐桌编号", "就餐人数","就餐时间", "点菜(功能暂未开放)", "结账", "下一位","删除"],
                     colModel: [
                         {
                             name: 'tableCode',
@@ -171,6 +173,17 @@
                                 var count = rowObject['peopleCount'];
                                 var tableCode = rowObject['tableCode'];
                                 return (count <= 0) ? '<button type="button" id="queueUpBtn" onclick="nextCustomerOne(\''+tableCode+'\')"><i class="icon-search align-top bigger-125"></i>下一位</button>' : '下一位';
+                            }
+                        },
+                        {
+                            name: 'delete',
+                            index: 'delete',
+                            align: "center",
+                            width: "60px",
+                            formatter : function(cellval, optss,
+                                                 rowObject, action) {
+                                var tableCode = rowObject['tableCode'];
+                                return '<button type="button" id="deleteTableBtn" onclick="deleteTable(\''+tableCode+'\')"><i class="icon-search align-top bigger-125"></i>删除</button>';
                             }
                         }
                     ],
@@ -364,14 +377,14 @@
             dataType: 'json',
             success: function (data) {
                 result = data;
+                $("input[name='linecode']").attr('value',result['result']['lineCode']);
+                $("input[name='countOfPeople']").attr('value',result['result']['waitingNumber']);
+                $("input[name='phone']").attr('value',result['result']['phone']);
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 result = XMLHttpRequest.responseText;
             }
         });
-        $("input[name='linecode']").attr('value',result['result']['lineCode']);
-        $("input[name='countOfPeople']").attr('value',result['result']['waitingNumber']);
-        $("input[name='phone']").attr('value',result['result']['phone']);
         return result;
     }
 
@@ -445,4 +458,17 @@
         $("#nextOneFormBtn").hide()
     }
 
+    function deleteTable(tableCode){
+        $.post("$ctx/store/deleteTable", {
+            tableCode: tableCode,
+        }, function (res) {
+            if(res['success'] == "success"){
+                showInfo("成功");
+                $("#list").trigger('reloadGrid');
+                return
+            }else{
+                showError(res['message']);
+            }
+        }, "json");
+    }
 </script>

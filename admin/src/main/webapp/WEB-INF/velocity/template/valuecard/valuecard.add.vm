@@ -8,7 +8,8 @@
 <div class="nav-top">
     <div class="">
         <div class="nav-content">
-            <form id="valueCardAdd">
+            <form id="valueCardAdd" novalidate="novalidate">
+                <fieldset>
                 <div class="turnToAdd">
                     <label>卡号</label><input type="text"  name="cardId" id="cardId" class="form-control">
                     <button type="button" name="getCard" id="getCard" onclick="getCardId()">检测卡片</button>
@@ -21,49 +22,43 @@
                     <br>
                     <label>电话</label><input type="text"  id="phone" name="phone" class="form-control">
                     <br>
-                    <label>设置密码:</label><input type="text" placeholder="password" id="password" name="password" class="form-control">
+                    <label>支付密码:</label><input type="text" placeholder="password" id="password" name="password" class="form-control">
                     <br>
                     <div style="margin-left: 130px;margin-top: 20px;">
                         <button type="button" id="submit" onclick="createNewCard()" class="btn btn-circle btn-sm">提交</button>
                     </div>
+                </div>
+                </fieldset>
             </form>
         </div>
     </div>
 </div>
 <script src="$jsPath/valuecard.js" type="text/javascript"></script>
 <script>
-    //    $("#valueCardAdd").validate({
-    //        rules: {
-    //            balance: {
-    //                required: true,
-    //                digits:true
-    //            },
-    //            password: {
-    //                required: true,
-    //                isPwd: true
-    //            },
-    //            confirm_password: {
-    //                required: true,
-    //                equalTo: "#password"
-    //            },
-    //        },
-    //        messages: {
-    //            balance: {
-    //                required: "请输入余额",
-    //                minlength: "请输入整数,例如:100"
-    //
-    //            },
-    //            password: {
-    //                required: "请输入密码",
-    //                isPwd: "以字母开头，长度在6-12之间，只能包含字符、数字和下划线。",
-    //
-    //            },
-    //            confirm_password: {
-    //                required: "请输入密码",
-    //                equalTo: "密码输入不一致"
-    //            },
-    //        }
-    //    });
+    $().ready(function() {
+        $("#valueCardAdd").validate({
+            rules: {
+                balance: {
+                    required: true,
+                    digits: true
+                },
+                password: {
+                    required: true,
+                    isPwd: true
+                }
+            },
+            messages: {
+                balance: {
+                    required: "请输入余额",
+                    minlength: "请输入整数,例如:100"
+                },
+                password: {
+                    required: "请输入密码",
+                    isPwd: "以字母开头，长度在6-12之间，只能包含字符、数字和下划线。"
+                }
+            }
+        })
+    });
 
     function createNewCard(){
         $.ajax({
@@ -73,12 +68,16 @@
             dataType : 'json',
             async: false,
             success : function(data){
-                writeUuidIntoCard(data['cardUuid'])
-                $('#balance').html(data['card']['balance']);
-                $('#cardId').html(data['card']['cardId']);
-                BootstrapDialog.confirm("充值结果","新建储值卡成功,卡中余额:"+data['card']['balance'],function(){
-                    $("div#myPrintArea").printArea();
-                });
+                if(data['success'] == false){
+                    showError("添加失败,请重试");
+                }else {
+                    writeUuidIntoCard(data['cardUuid'])
+                    $('#balance').html(data['card']['balance']);
+                    $('#cardId').html(data['card']['cardId']);
+                    BootstrapDialog.confirm("充值结果", "新建储值卡成功,卡中余额:" + data['card']['balance'], function () {
+                        $("div#myPrintArea").printArea();
+                    });
+                }
             },
             error : function(XMLHttpRequest, textStatus, errorThrown){
                 showError("添加储值卡失败,请重试");

@@ -10,6 +10,7 @@ public class CheckOutVo {
     private Integer foodPrice = 0;
     private Integer drinkPrice = 0;
     private Integer otherPrice = 0;
+    private Integer paperPrice = 0;
     private String tableCode;
     private Integer payType;
     private String cardId;
@@ -40,6 +41,14 @@ public class CheckOutVo {
 
     public void setOtherPrice(Integer otherPrice) {
         this.otherPrice = otherPrice == null ? 0 : otherPrice;
+    }
+
+    public Integer getPaperPrice() {
+        return paperPrice;
+    }
+
+    public void setPaperPrice(Integer paperPrice) {
+        this.paperPrice = paperPrice == null ? 0 : paperPrice;
     }
 
     public String getTableCode() {
@@ -102,7 +111,7 @@ public class CheckOutVo {
         Order order = new Order();
         order.setTableCode(tableCode);
         order.setCreateTime(DateTool.getDateTime());
-        order.setPaperPrice(foodPrice+drinkPrice+otherPrice);
+        order.setPaperPrice(paperPrice == 0 ? drinkPrice+foodPrice+otherPrice : paperPrice);
         order.setDrinkPrice(drinkPrice);
         order.setFoodPrice(foodPrice);
         order.setOtherPrice(otherPrice);

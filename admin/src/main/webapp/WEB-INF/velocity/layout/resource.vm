@@ -20,7 +20,7 @@
 
 <!--  <!-- jquery validation -->
 <script src="$jsPath/plugins/validate/jquery.validate.js" type="text/javascript"></script>
-<script src="$jsPath/plugins/validate/additional-methods.min.js" type="text/javascript"></script>
+<script src="$jsPath/plugins/validate/additional-methods.js" type="text/javascript"></script>
 <script src="$jsPath/plugins/validate/messages_zh.js" type="text/javascript"></script>
 
 ##<script src="$jsPath/util.js" type="text/javascript"></script>

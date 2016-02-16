@@ -20,9 +20,9 @@
         right join store_table s on r.table_code = s.table_code and r.store_id = s.store_id where s.store_id =#{storeId};
     </select>
 
-    <update id="updateOrderId">
-        update runtime_table set order_id = #{orderId} where table_code = #{tableCode} and store_id = #{storeId}
-    </update>
+    <select id="isExistRuntimeTable" resultType="java.lang.Integer">
+        select count(0) from runtime_table where table_code = #{tableCode} and store_id = #{storeId}
+    </select>
 
     <select id="getRuntimeTableInfo" resultType="com.hotpot.domain.RuntimeTable">
         select

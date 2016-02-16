@@ -95,12 +95,9 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
-    public void createOrderForRuntimeTable(String tableCode, Integer orderId) {
-        Integer storeId = Context.get().getId();
-        Integer count = runtimeTableMapper.updateOrderId(orderId,tableCode,storeId);
-        if(count == 0){
-            throw new RuntimeException("更新餐桌的订单号失败,有可能是当前餐桌已经结账");
-        }
+    public boolean isExistRuntimeTable(String tableCode,Integer storeId) {
+        Integer count = runtimeTableMapper.isExistRuntimeTable(tableCode, storeId);
+        return count > 0;
     }
 
     @Override
@@ -133,5 +130,13 @@ public class StoreServiceImpl implements StoreService {
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
     public Integer clearTable(Integer storeId, String tableCode){
         return runtimeTableMapper.delete(tableCode,storeId);
+    }
+
+    @Override
+    public Integer deleteTable(String tableCode,Integer storeId){
+        if(isExistRuntimeTable(tableCode,storeId)) {
+            throw new RuntimeException("当前桌子还存在客人就餐,暂时不能删除!");
+        }
+        return storeTableMapper.deleteTable(tableCode, storeId);
     }
 }
