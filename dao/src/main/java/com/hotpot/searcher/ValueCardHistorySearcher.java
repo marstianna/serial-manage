@@ -7,8 +7,9 @@ public class ValueCardHistorySearcher {
     private Integer operate;
     private String cardId;
     private Integer storeId;
-    private Integer startTime;
-    private Integer endTime;
+    private String startTime;
+    private String endTime;
+    private String phone;
 
     public Integer getOperate() {
         return operate;
@@ -37,21 +38,28 @@ public class ValueCardHistorySearcher {
         return this;
     }
 
-    public Integer getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public ValueCardHistorySearcher setStartTime(Integer startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
-        return this;
     }
 
-    public Integer getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public ValueCardHistorySearcher setEndTime(Integer endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public ValueCardHistorySearcher setPhone(String phone) {
+        this.phone = phone;
         return this;
     }
 }

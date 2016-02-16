@@ -217,6 +217,9 @@
       <if test="vipId != null and vipId != ''">
         AND vip_id = #{vipId}
       </if>
+      <if test="phone != null and phone != ''">
+        AND phone = #{phone}
+      </if>
       <if test="startTimeForCreate != null and startTimeForCreate != ''">
         AND <![CDATA[ create_time >= UNIX_TIMESTAMP(#{startTimeForCreate,jdbcType=VARCHAR}) ]]>
       </if>

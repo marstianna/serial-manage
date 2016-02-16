@@ -131,4 +131,8 @@
     <include refid="Base_Column_List" />
     from store_table where store_id = #{storeId}
   </select>
+
+  <delete id="deleteTable">
+    delete from store_table where store_id = #{storeId} and table_code = #{tableCode}
+  </delete>
 </mapper>

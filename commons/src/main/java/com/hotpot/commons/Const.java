@@ -27,5 +27,6 @@ public class Const {
     public static final int SETTLE_INIT = 0;
     public static final int SETTLE_FROM_STORE = 1;
     public static final int SETTLE_FROM_COMP = 2;
+    public static final int SETTLE = 3;
 
 }

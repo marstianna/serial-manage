@@ -34,6 +34,7 @@ public class PromotionController extends BaseController {
     public String index(){
         setRequestAttribute("promotionTypeList", PromotionTypeEnum.getMap());
         setRequestAttribute("storeList",storeService.getStoreMap());
+        setRequestAttribute("payTypList",PayTypeEnum.getMap());
         return "promotion/promotion.list";
     }
 

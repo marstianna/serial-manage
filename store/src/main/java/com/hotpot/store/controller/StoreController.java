@@ -1,6 +1,7 @@
 package com.hotpot.store.controller;
 
 import com.google.common.collect.ImmutableMap;
+import com.hotpot.commons.framework.BaseController;
 import com.hotpot.domain.Owner;
 import com.hotpot.domain.Store;
 import com.hotpot.service.AdminService;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @RequestMapping("/store/")
 @Controller
-public class StoreController {
+public class StoreController extends BaseController{
     @Autowired
     StoreService storeService;
     @Autowired
@@ -60,6 +61,14 @@ public class StoreController {
         }else{
             success = "false";
         }
+        return ImmutableMap.of("success",success);
+    }
+
+    @RequestMapping("deleteTable")
+    @ResponseBody
+    public Object deleteTable(String tableCode){
+        Integer count = storeService.deleteTable(tableCode,Context.get().getId());
+        String success = count == 0 ? "false" : "success";
         return ImmutableMap.of("success",success);
     }
 }

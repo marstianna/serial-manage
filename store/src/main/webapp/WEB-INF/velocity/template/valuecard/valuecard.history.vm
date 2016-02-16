@@ -14,16 +14,11 @@
 
                     <tr>
                         <td class="text-right" width="150">操作类型：</td>
-                        <td width="80" style="padding-left: 10px"><input type="radio" name="operate" value="0">&nbsp;消费</td>
-                        <td width="80" style="padding-left: 10px"><input type="radio" name="operate" value="1">&nbsp;充值</td>
-                        <td width="60"></td>
-                        <td class="text-right" width="150">店铺ID：</td>
                         <td width="200">
-                            <select name="site" class="form-control">
+                            <select name="operate" class="form-control">
                                 <option value="-1" selected="selected">全部</option>
-                                #foreach($param in ${storeList.keySet()})
-                                    <option value="$param">${storeList.get($param)}</option>
-                                #end
+                                <option value="0">消费</option>
+                                <option value="1">充值</option>
                             </select>
                         </td>
                     </tr>

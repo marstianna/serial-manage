@@ -49,7 +49,7 @@ public interface StoreService {
 
     void takeSeat(String tableCode, Integer storeId, Integer count,Integer isQueueUp);
 
-    void createOrderForRuntimeTable(String tableCode,Integer orderId);
+    boolean isExistRuntimeTable(String tableCode,Integer storeId);
 
     RuntimeTable getRuntimeTable(Integer storeId,String tableCode);
 
@@ -58,4 +58,6 @@ public interface StoreService {
     Integer changePassword(Integer ownerId,String oldPwd,String newPwd);
 
     Integer clearTable(Integer storeId, String tableCode);
+
+    Integer deleteTable(String tableCode, Integer storeId);
 }

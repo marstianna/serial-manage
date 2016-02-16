@@ -12,68 +12,86 @@ public class ValueCardSearcher {
     private Integer endTimeForModified;
     private String startTime;
     private String endTime;
+    private String phone;
 
     public String getCardId() {
         return cardId;
     }
 
-    public void setCardId(String cardId) {
+    public ValueCardSearcher setCardId(String cardId) {
         this.cardId = cardId;
+        return this;
     }
 
     public String getVipId() {
         return vipId;
     }
 
-    public void setVipId(String vipId) {
+    public ValueCardSearcher setVipId(String vipId) {
         this.vipId = vipId;
+        return this;
     }
 
     public Integer getStartTimeForCreate() {
         return startTimeForCreate;
     }
 
-    public void setStartTimeForCreate(Integer startTimeForCreate) {
+    public ValueCardSearcher setStartTimeForCreate(Integer startTimeForCreate) {
         this.startTimeForCreate = startTimeForCreate;
+        return this;
     }
 
     public Integer getStartTimeForModified() {
         return startTimeForModified;
     }
 
-    public void setStartTimeForModified(Integer startTimeForModified) {
+    public ValueCardSearcher setStartTimeForModified(Integer startTimeForModified) {
         this.startTimeForModified = startTimeForModified;
+        return this;
     }
 
     public Integer getEndTimeForCreate() {
         return endTimeForCreate;
     }
 
-    public void setEndTimeForCreate(Integer endTimeForCreate) {
+    public ValueCardSearcher setEndTimeForCreate(Integer endTimeForCreate) {
         this.endTimeForCreate = endTimeForCreate;
+        return this;
     }
 
     public Integer getEndTimeForModified() {
         return endTimeForModified;
     }
 
-    public void setEndTimeForModified(Integer endTimeForModified) {
+    public ValueCardSearcher setEndTimeForModified(Integer endTimeForModified) {
         this.endTimeForModified = endTimeForModified;
+        return this;
     }
 
     public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public ValueCardSearcher setStartTime(String startTime) {
         this.startTime = startTime;
+        return this;
     }
 
     public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public ValueCardSearcher setEndTime(String endTime) {
         this.endTime = endTime;
+        return this;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public ValueCardSearcher setPhone(String phone) {
+        this.phone = phone;
+        return this;
     }
 }

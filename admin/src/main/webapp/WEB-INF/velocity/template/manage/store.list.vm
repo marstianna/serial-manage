@@ -59,7 +59,7 @@
                         {
                             url: '$ctx/manage/getAllStores',  //?请求地址
                             datatype: "local",
-                            colNames: ["店铺ID", "店铺名", "店铺所有人", "所有人电话", "店铺座机", "创建时间","管理系统登录名","操作" ],
+                            colNames: ["店铺ID", "店铺名", "店铺所有人", "所有人电话", "店铺座机", "创建时间","管理系统登录名"],
                             colModel: [
                                 {
                                     name: 'store.id',
@@ -106,21 +106,21 @@
                                     align: "center",
                                     width: "140px",
                                     minWidth: "90px",
-                                },
-                                {
-                                    name: 'operate',
-                                    index: 'operate',
-                                    align: "center",
-                                    width: "140px",
-                                    minWidth: "90px",
-                                    formatter : function(cellval, optss,
-                                                         rowObject, action) {
-                                        var storeId = rowObject['store']['id'];
-                                        return '<a href="javascript:getStoreDetail('
-                                                + storeId
-                                                + ')" class="row_btn">查看</a>';
-                                    }
                                 }
+//                                {
+//                                    name: 'operate',
+//                                    index: 'operate',
+//                                    align: "center",
+//                                    width: "140px",
+//                                    minWidth: "90px",
+//                                    formatter : function(cellval, optss,
+//                                                         rowObject, action) {
+//                                        var storeId = rowObject['store']['id'];
+//                                        return '<a href="javascript:getStoreDetail('
+//                                                + storeId
+//                                                + ')" class="row_btn">查看</a>';
+//                                    }
+//                                }
                             ],
                             rowNum: 15,
                             rowList: [15, 30, 50],

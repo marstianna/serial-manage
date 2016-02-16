@@ -975,21 +975,22 @@
                 'callback': callback
             },
             buttons: [{
-                    label: '取消',
-                    action: function(dialog) {
-                        typeof dialog.getData('callback') === 'function' && dialog.getData('callback')(false);
-                        dialog.close();
-                    }
-                }, {
-                    label: '确认',
-                    cssClass: 'btn-primary',
-                    action: function(dialog) {
-                        typeof dialog.getData('callback') === 'function' && dialog.getData('callback')(true);
-                        dialog.close();
-                    }
-                }]
+                label: '取消',
+                action: function(dialog) {
+                    typeof dialog.getData('callback') === 'function' && dialog.getData('callback')(false);
+                    dialog.close();
+                }
+            }, {
+                label: '确认',
+                cssClass: 'btn-primary',
+                action: function(dialog) {
+                    typeof dialog.getData('callback') === 'function' && dialog.getData('callback')(true);
+                    dialog.close();
+                }
+            }]
         }).open();
     };
+
 
     /**
      * Warning window

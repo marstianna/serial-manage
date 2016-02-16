@@ -7,7 +7,6 @@ import com.hotpot.domain.VipInfo;
 import com.hotpot.searcher.VipSearcher;
 import com.hotpot.service.StoreService;
 import com.hotpot.service.VipInfoService;
-import com.hotpot.service.ValueCardService;
 import com.hotpot.view.VipInfoView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,12 +26,11 @@ public class VipController extends BaseController {
     @Autowired
     private VipInfoService vipInfoService;
     @Autowired
-    private ValueCardService valueCardService;
-    @Autowired
     private StoreService storeService;
 
     @RequestMapping({"","index"})
     public String index(){
+        setRequestAttribute("storeList",storeService.getStoreMap());
         return "vip/vip.list";
     }
 

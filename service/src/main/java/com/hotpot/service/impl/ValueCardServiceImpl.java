@@ -171,6 +171,12 @@ public class ValueCardServiceImpl implements ValueCardService {
 
     @Override
     public List<ValueCardHistory> getAllCardHistory(ValueCardHistorySearcher searcher) {
+        if(searcher.getPhone() != null && !searcher.getPhone().equals("")){
+            List<ValueCard> cards = valueCardMapper.getCardHistoryBySearcher(new ValueCardSearcher().setPhone(searcher.getPhone()));
+            if(!cards.isEmpty()){
+                searcher.setCardId(cards.get(0).getCardId());
+            }
+        }
         return valueCardHistoryMapper.getCardHistoryBySearcher(searcher);
     }
 
@@ -183,6 +189,7 @@ public class ValueCardServiceImpl implements ValueCardService {
         history.setAccount(account);
         history.setPrice(price);
         history.setCreateTime(DateTool.getDateTime());
+        history.setSettle(storeId == 0 ? Const.SETTLE : Const.SETTLE_INIT);
         valueCardHistoryMapper.insertSelective(history);
     }
 

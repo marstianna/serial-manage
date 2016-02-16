@@ -17,7 +17,7 @@ public interface RuntimeTableMapper {
 
     Integer delete(@Param("tableCode")String tableCode,@Param("storeId")Integer storeId);
 
-    Integer updateOrderId(@Param("orderId")Integer orderId,@Param("tableCode")String tableCode,@Param("storeId")Integer storeId);
+    Integer isExistRuntimeTable(@Param("tableCode")String tableCode,@Param("storeId")Integer storeId);
 
     RuntimeTable getRuntimeTableInfo(@Param("storeId")Integer storeId,@Param("tableCode")String tableCode);
 }

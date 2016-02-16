@@ -20,6 +20,45 @@
         </div>
     </div>
 </div>
+
+<div id="add" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">
+                    <i class="icon-pencil"></i>
+                    <span id="lblAddTitle" style="font-weight:bold">添加信息</span>
+                </h4>
+            </div>
+            <form class="form-horizontal form-bordered form-row-strippe" id="ffAdd" data-toggle="validator" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="row">
+                        <div id="myPrintArea">
+                            <div class="content">
+                                充值成功!
+                                <label>卡号:</label><span><div id="cardId"></div></span><br>
+                                <label>余额:</label><span><div id="balance"></div></span><br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer bg-info">
+                    <button type="button" class="btn blue" data-dismiss="modal" onclick="print()">打印</button>
+                    <button type="button" class="btn green" data-dismiss="modal">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="myPrintArea" hidden="hidden">
+    <div class="content">
+        <label>卡号:</label><span><div id="cardId"></div></span><br>
+        <label>余额:</label><span><div id="balance"></div></span><br>
+        <label>消费时间</label><span><div id="createTime"></div></span><br>
+    </div>
+</div>
 <script>
     function sumbitForm(){
         $.ajax({
@@ -30,7 +69,9 @@
             dataType: 'json',
             success: function (data) {
                 if(data['success'] == "success"){
-                    showInfo("充值成功,当前余额:"+data['card']['balance']);
+                    $('#balance').html(data['card']['balance']);
+                    $('#cardId').html(data['card']['cardId']);
+                    $('#add').modal({ show: true, backdrop: 'static' });
                 }else{
                     showError("充值失败,请重试")
                 }
@@ -42,6 +83,9 @@
         $.unionTab.removeTab();
     }
 
+    function print(){
+        $("div#myPrintArea").printArea();
+    }
 
     function initValidate(){
         //TODO:cj,添加字段验证

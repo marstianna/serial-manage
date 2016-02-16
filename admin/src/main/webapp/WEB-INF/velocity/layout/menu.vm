@@ -2,10 +2,10 @@
 <!--start left-->
 <script type="text/javascript">
     var menus = [
-        {id: 1, name: "订单", parent: -1, order: 1, path:"$ctx/order/index" , icon: "fa-laptop"},
-        {id: 11, name: "订单列表", parent: 1, order: 1, path: "$ctx/order/order", icon: ""},
+        {id: 1, name: "订单", parent: -1, order: 1, path:"" , icon: "fa-laptop"},
+        {id: 11, name: "订单列表", parent: 1, order: 1, path: "$ctx/order/index", icon: ""},
 
-        {id: 2, name: "会员", parent: -1, order: 2, path: "$ctx/vip/index", icon: ""},
+        {id: 2, name: "会员", parent: -1, order: 2, path: "", icon: ""},
         {id: 21, name: "会员列表", parent: 2, order: 1, path: "$ctx/vip/index", icon: ""},
 
         {id: 3, name: "储值卡", parent: -1, order: 3, path:"$ctx/valuecard/index" , icon: "fa-edit"},

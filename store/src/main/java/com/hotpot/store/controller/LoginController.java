@@ -31,6 +31,7 @@ public class LoginController extends BaseController {
             getRequest().getSession().setAttribute("loginInfo","success");
             List<Store> store = storeService.getStoreByLoginInfo(loginName, password);
             getRequest().getSession().setAttribute("storeId",store.get(0).getId());
+//            response = "index/info";
             response = "index/info";
         }else{
             response = "login/login";

@@ -5,13 +5,11 @@ import com.hotpot.commons.DateTool;
 import com.hotpot.commons.framework.BaseController;
 import com.hotpot.commons.pagination.Page;
 import com.hotpot.commons.pagination.annotation.Pagination;
-import com.hotpot.domain.Store;
 import com.hotpot.domain.ValueCard;
 import com.hotpot.domain.ValueCardHistory;
 import com.hotpot.domain.VipInfo;
 import com.hotpot.searcher.ValueCardHistorySearcher;
 import com.hotpot.searcher.ValueCardSearcher;
-import com.hotpot.service.Context;
 import com.hotpot.service.StoreService;
 import com.hotpot.service.ValueCardService;
 import com.hotpot.service.VipInfoService;
@@ -21,6 +19,7 @@ import com.hotpot.vo.NewCardVo;
 import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,9 +51,9 @@ public class ValueCardController extends BaseController {
 
     @RequestMapping("topUp")
     @ResponseBody
-    public String topUp(String cardId,Integer storeId,Integer account,Integer price){
-        ValueCard card = valueCardService.topUp(cardId,storeId,account,price);
-        return null;
+    public Object topUp(String cardId,Integer account,Integer price){
+        ValueCard card = valueCardService.topUp(cardId,0,account,price);
+        return ImmutableMap.of("success","success","card",card);
     }
 
     @Pagination
@@ -112,16 +111,21 @@ public class ValueCardController extends BaseController {
     @RequestMapping("addCard")
     @ResponseBody
     public Object addCard(@ModelAttribute NewCardVo card){
-        Store store = Context.get();
         VipInfo vipInfo = vipInfoService.getVipInfoByMobilephone(card.getPhone());
         if(vipInfo == null){
             vipInfo = new VipInfo();
             vipInfo.setName(card.getName());
-            vipInfo.setStoreId(store.getId());
+            vipInfo.setStoreId(0);
             vipInfo.setCreateTime(DateTool.getDateTime());
             vipInfo.setMobilephone(card.getPhone());
             vipInfoService.addVip(vipInfo);
         }
-        return valueCardService.addNewCard(card.getCardId(), store.getId(), card.getMoney(), card.getBalance(), vipInfo.getId(), card.getPassword(),card.getPhone());
+        return valueCardService.addNewCard(card.getCardId(), 0, card.getMoney(), card.getBalance(), vipInfo.getId(), card.getPassword(),card.getPhone());
+    }
+
+    @RequestMapping("turnToTopUp")
+    public String turnToTopUpByCardId(String cardId,Model model){
+        model.addAttribute("card",valueCardService.getCardBalanceByCardUniqueKey(cardId,null));
+        return "valuecard/valuecard.topup";
     }
 }

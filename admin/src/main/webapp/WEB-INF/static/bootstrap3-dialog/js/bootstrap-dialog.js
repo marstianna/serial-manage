@@ -966,30 +966,31 @@
      * @param {type} callback
      * @returns the created dialog instance
      */
-    BootstrapDialog.confirm = function(message, callback) {
+    BootstrapDialog.confirm = function(title,message, callback) {
         return new BootstrapDialog({
-            title: 'Confirmation',
+            title: title,
             message: message,
             closable: false,
             data: {
                 'callback': callback
             },
             buttons: [{
-                    label: '取消',
-                    action: function(dialog) {
-                        typeof dialog.getData('callback') === 'function' && dialog.getData('callback')(false);
-                        dialog.close();
-                    }
-                }, {
-                    label: '确认',
-                    cssClass: 'btn-primary',
-                    action: function(dialog) {
-                        typeof dialog.getData('callback') === 'function' && dialog.getData('callback')(true);
-                        dialog.close();
-                    }
-                }]
+                label: '取消',
+                action: function(dialog) {
+                    typeof dialog.getData('callback') === 'function' && dialog.getData('callback')(false);
+                    dialog.close();
+                }
+            }, {
+                label: '确认',
+                cssClass: 'btn-primary',
+                action: function(dialog) {
+                    typeof dialog.getData('callback') === 'function' && dialog.getData('callback')(true);
+                    dialog.close();
+                }
+            }]
         }).open();
     };
+
 
     /**
      * Warning window

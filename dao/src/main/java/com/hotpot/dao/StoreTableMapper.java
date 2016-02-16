@@ -61,4 +61,6 @@ public interface StoreTableMapper {
 
     List<StoreTable> getTablesByStoreId(Integer storeId);
 
+    Integer deleteTable(@Param("tableCode")String tableCode,@Param("storeId")Integer storeId);
+
 }

@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LoginController extends BaseController {
     @Autowired
     AdminService adminService;
+    @Autowired
+    OrderController orderController;
 
     @RequestMapping("/turnToLogin")
     public String turnToLogin(){
@@ -26,7 +28,7 @@ public class LoginController extends BaseController {
         String response;
         if(login){
             getRequest().getSession().setAttribute("loginInfo","success");
-            response = "order/order";
+            response = orderController.order(getRequest());
         }else{
             response = "login/login";
         }
